@@ -1,0 +1,147 @@
+.navBarBody{
+    background-color: aliceblue;
+    display: flex;
+    padding: 1vh;
+    height: 8vh;
+}
+
+.mainBarBody{
+    background-color: #283350;
+    flex: 4;
+    display: flex;
+    border-radius: 100px;
+    margin-left: .1%;
+    margin-right: .8%;
+    align-items: center;
+    justify-content: space-around;
+
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.mainBarBody:hover{
+    box-shadow: 2vh 2vh 2vh 2vh #242124;
+}
+
+.searchBarBody{
+    border-radius: 100px;
+    background-color: #283350;
+    display: flex;
+    flex: 1.5;
+    margin-right: .8%;
+    font-family: "Montserrat";
+    justify-content: space-around;
+    align-items: center;
+    margin: .01%;
+
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.searchBarBody:hover{
+    box-shadow: 2vh 2vh 2vh 2vh #242124;
+}
+
+.profilePlusBody{
+    background-color: #283350;
+    border-radius: 100px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    
+    font-family: "Montserrat";
+    justify-content: flex-start;
+    padding: 1%;
+
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.profilePlusBody:hover{
+    box-shadow: 2vh 2vh 2vh 2vh #242124;
+}
+
+.mainBarButton {
+    background-color: #283350;
+    border: none;
+    border-radius: 100px;
+    color: aliceblue;
+    font-family: "Montserrat";
+    font-size: 3vh;
+
+    text-shadow: 0.2vh 0.2vh 0.5vh black; /* Adjusted values */
+    
+    transition: text-shadow 0.5s linear; /* Simplified transition syntax */
+}
+
+.mainBarButton:hover {
+    color: white;
+    text-shadow: 1vh 1vh 1vh #242124; /* Adjusted values */
+    border: none;
+}
+
+.searchBarInput{
+    border-radius: 200px;
+    border-width: 1px;
+    display: flex;
+    border-color: black;
+    height: 5vh;
+    flex: 10;
+    margin-left: 1%;
+    font-family: "Montserrat";
+}
+
+.searchButton{
+    flex: 1;
+    border-radius: 5vh;
+    height: 5vh;
+    width: 5vh;
+    border: none;
+    
+    background-color: #283350;
+}
+
+.logoutButton{
+    flex: 1;
+    /* border-radius: 5vh; */
+    /* height: 5vh;
+    width: 5vh; */
+    border: none;
+    
+    background-color: #283350;
+}
+
+.userIconBody{
+    height: 5vh;
+    width: 5vh;
+    border-radius: 100px;
+    /* margin: 5%; */
+}
+
+.userButton{
+    background-color: #283350;
+    border: none;
+    border-radius: 100px;
+    color: aliceblue;
+    font-family: "Montserrat";
+    font-size: 2vh;
+
+    text-shadow: 0.2vh 0.2vh 0.5vh black; /* Adjusted values */
+    
+    transition: text-shadow 0.5s linear; /* Simplified transition syntax */
+}
+
+.userButton:hover{
+    color: white;
+    text-shadow: 1vh 1vh 1vh #242124; /* Adjusted values */
+    border: none;
+}

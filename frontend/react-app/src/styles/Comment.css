@@ -1,0 +1,47 @@
+.commentMainBody{
+    background-color:whitesmoke;
+}
+
+.commentBody{
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarUserButtonComment{
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 100px;
+    color: black;
+    font-family: "Montserrat";
+    font-size: 2vh;
+    margin-left: 3vh;
+}
+
+.profilePlusComment{
+    background-color: white;
+    
+    flex: 1;
+    display: flex;
+    align-items: center;
+    
+    font-family: "Montserrat";
+    justify-content: flex-start;
+    padding: 2%;
+}
+
+.userIconBodyComment{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 100px;
+    /* margin: 5%; */
+}
+
+.commentText{
+    font-family: "Montserrat";
+    background-color: white;
+}
+
+.commentInputBox{
+    display: flex;
+    
+}

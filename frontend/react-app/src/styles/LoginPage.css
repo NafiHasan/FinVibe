@@ -1,0 +1,112 @@
+.loginPageBody{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #283350;
+    height: 100vh;
+}
+
+.loginLeftHalfBody{
+    height: 100vh;
+    width: 50%;
+    background-color: #e7ecef; 
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.loginRightHalfBody{
+    height: 100vh;
+    width: 50%;
+    background-color: #283350;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.loginInfoCard{
+    height: 70vh;
+    width: 70%;
+    background-color: #283350;
+    border-radius: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-left: 5%;
+    padding-right: 5%;
+
+    box-shadow: 2vh 2vh 2vh 2vh grey;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.loginInfoCard:hover{
+    box-shadow: 3vh 3vh 3vh 3vh grey;
+}
+
+.loginCard{
+    height: 70vh;
+    width: 70%;
+    background-color: white;
+    border-radius: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding-left: 5%;
+    padding-right: 5%;
+
+    box-shadow: 2vh 2vh 2vh 2vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.loginCard:hover{
+    box-shadow: 3vh 3vh 3vh 3vh #242124;
+}
+
+.loginInput{
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 90%;
+    padding-top: 20vh;
+}
+
+.loginInputBox{
+    border-radius: 200px;
+    border-width: 1px;
+    border-color: black;
+    height: 5vh;
+}
+
+.loginInputButton{
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    padding: 1%;
+}
+
+.loginButton{
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    margin-left: 2%;
+    height: 5vh;
+    width: 20%;
+    font-family: "Montserrat";
+}
+
+.wrongCredText{
+    font-family: "Montserrat";
+    color: red;
+}

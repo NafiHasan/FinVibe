@@ -1,0 +1,29 @@
+.expandedPostMainBody{
+    background-color: aliceblue;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.expandedPostBody{
+    display: flex;
+}
+
+.leftBody{
+    background-color: aliceblue;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.rightBody{
+    background-color: aliceblue;
+    flex: 2;
+    margin-top: 2%;
+    height: fit-content;
+}
+

@@ -1,0 +1,25 @@
+.stocksMainBody{
+    background-color: aliceblue;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.stocksBody{
+    display: flex;
+    margin-top: 2%;
+}
+
+
+.stocksLeftColumn{
+    display: flex;
+    flex: 2;
+    background-color: aliceblue;
+}
+
+.stocksRightColumn{
+    display: flex;
+    flex: 4;
+    background-color: aliceblue;
+    flex-wrap: wrap;
+}

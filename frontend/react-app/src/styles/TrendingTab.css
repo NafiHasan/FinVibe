@@ -1,0 +1,67 @@
+.trendingTabMainBody{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 2%;
+    height: fit-content;
+
+    box-shadow: 1.5vh 1.5vh 1.5vh 1.5vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+
+    margin: 7%;
+}
+
+.trendingTabMainBody:hover{
+    box-shadow: 2.5vh 2.5vh 2.5vh 2.5vh #242124;
+}
+
+.trendingTabHeader{
+    background-color: #283350;
+    font-family: "Montserrat";
+    color: white;
+    height: 4vh;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+}
+
+.trendingTabBody{
+    background-color: white;
+}
+
+.trendingItem{
+    background-color: white;
+    
+    flex: 1;
+    display: flex;
+    align-items: center;
+    
+    font-family: "Montserrat";
+    justify-content: space-around;
+    padding: 2%;
+
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+
+    margin-bottom: .5vh;
+}
+
+.trendingItem:hover{
+    box-shadow: 2vh 2vh 2vh 2vh #242124;
+}
+
+.trendingTabUserButton{
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 100px;
+    color: black;
+    font-family: "Montserrat";
+    font-size: 2vh;
+    margin-left: 3vh;
+}

@@ -1,0 +1,44 @@
+.profileBody{
+    display: flex;
+}
+
+
+.profileLeftHalf{
+    background-color:white;
+    flex:2;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2%;
+}
+
+.profileRightHalf{
+    background-color:aqua;
+    flex:3;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+    padding: 2%;
+}
+
+.profilePic{
+    height: 40vh;
+    width: 40vh;
+    border-radius: 800px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.profileUsername{
+    color: black;
+    font-family: "Montserrat";
+    font-size: 30px;
+}
+
+.profileScore{
+    color: black;
+    font-family: "Montserrat";
+    font-size: 20px;
+}

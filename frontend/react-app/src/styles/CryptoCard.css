@@ -1,0 +1,82 @@
+.cryptoCardMainBody{
+    background-color: #283350;
+    width: 45%;
+    height: 35vh;
+    display: flex;
+    margin: 2%;
+    flex-direction: column;
+
+    box-shadow: 2vh 2vh 2vh 2vh grey;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.cryptoCardMainBody:hover{
+    box-shadow: 3vh 3vh 3vh 3vh grey;
+}
+
+.cryptoCardBody{
+    display: flex;
+    flex: 4;
+}
+
+.cryptoCardLeft{
+    display: flex;
+    flex: 3;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 30px;
+    color: white;
+    /* background-image: url("../images/stockcard1.jpg"); */
+}
+
+.cryptoCardRight{
+    display: flex;
+    flex: 3;
+    background-color: #283350;
+    flex-direction: column;
+}
+
+.cryptoCardButtons{
+    display: flex;
+    flex: 1;
+    background-color: #283350;
+    justify-content: space-around;
+}
+
+.cryptoNameCard{
+    font-family: "Montserrat";
+}
+
+.cryptoPriceText{
+    font-family: "Montserrat";
+    font-size: 20px;
+    color: white;
+    margin: 2%;
+}
+
+.cryptoPriceValue{
+    font-family: "Montserrat";
+    font-size: 15px;
+    color: white;
+    margin: 2%;
+}
+
+.cryptoButton{
+    border-radius: 100px;
+    width: 30%;
+}
+
+.cryptoCardGraphBody{
+    background-color: aqua;
+    display: flex;
+    flex: 4;
+}
+
+.graphBody{
+    background-color: #283350;
+    flex: 1;
+}
+

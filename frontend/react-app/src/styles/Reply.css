@@ -1,0 +1,48 @@
+.replyMainBody{
+    background-color:whitesmoke;
+    margin-left: 10%;
+}
+
+.replyBody{
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarUserButtonreply{
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 100px;
+    color: black;
+    font-family: "Montserrat";
+    font-size: 2vh;
+    margin-left: 3vh;
+}
+
+.profilePlusreply{
+    background-color: white;
+    
+    flex: 1;
+    display: flex;
+    align-items: center;
+    
+    font-family: "Montserrat";
+    justify-content: flex-start;
+    padding: 2%;
+}
+
+.userIconBodyreply{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 100px;
+    /* margin: 5%; */
+}
+
+.replyText{
+    font-family: "Montserrat";
+    background-color: white;
+}
+
+.replyInputBox{
+    display: flex;
+    
+}
