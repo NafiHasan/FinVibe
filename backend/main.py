@@ -48,11 +48,11 @@ async def login_user(user: LoginRequest):
     # user.password = generate_password_hash(user.password)
 
     # print(user.password , " ")
-    # print("Received data:", user.model_dump(), " f")
+    print("Received data:", user.model_dump(), " f")
 
     verified = await verify_user(user)
     # print("ver", verified)
     if verified:
-        return {"message": "Login successful"}
+        return {"message": "Login successful", "username": user.username}
     else:
         raise HTTPException(status_code=401, detail="Incorrect username or password")

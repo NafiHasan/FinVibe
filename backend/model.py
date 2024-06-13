@@ -13,7 +13,7 @@ class Data(BaseModel):
 
 class User(BaseModel):
     username: str
-    email: str
+    # email: str
     password: str
 
 
