@@ -41,6 +41,7 @@ async def register_user(user: User):
     return {"message": "User registered successfully"}
 
 
+# For login
 @app.post("/login")
 async def login_user(user: LoginRequest):
     print(user.password , " ")
