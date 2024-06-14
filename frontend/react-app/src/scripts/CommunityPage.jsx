@@ -3,6 +3,7 @@ import NavigationBar from './NavigationBar'
 import Post from './Post'
 import TopContributorSidebar from './TopContributorSidebar'
 import {useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TrendingTab from './TrendingTab';
 
 function CommunityPage(){
@@ -46,9 +47,19 @@ function MainColumn(props){
 }
 
 function RightColumn(props){
+    const navigate = useNavigate()
+
+    function makePost(){
+        navigate("/makepost", { state: { username: props.username } });
+    }
+
     return(
         <div className='communityRightColumn'>
             <TrendingTab/>
+
+            <div>
+                <button className='makePostButton' onClick={makePost}>Make Post</button>
+            </div>
         </div>
     )
 }

@@ -25,5 +25,12 @@
 .communityRightColumn{
     background-color: white;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     flex: 1;
+}
+
+.makePostButton{
+    background-color: black;
+    color: white;
 }
