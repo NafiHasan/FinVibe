@@ -70,17 +70,13 @@ function ProfilePlus(props) {
   const navigate = useNavigate();
 
   return (
-    <div className="profilePlusBody">
+    <div
+      className="profilePlusBody"
+      onClick={() =>
+        navigate("/profile", { state: { username: props.username } })
+      }
+    >
       <img src={usericon} className="userIconBody" />
-
-      <button className="logoutButton">
-        <IconContext.Provider
-          value={{ color: "white", className: "global-class-name", size: 25 }}
-        >
-          <IoIosLogOut />
-        </IconContext.Provider>
-        ;
-      </button>
 
       <button
         className="userButton"
@@ -89,6 +85,17 @@ function ProfilePlus(props) {
         }
       >
         {props.username}
+      </button>
+
+      <button
+        className="logoutButton"
+        onClick={() => navigate("/", { state: { username: "" } })}
+      >
+        <IconContext.Provider
+          value={{ color: "white", className: "global-class-name", size: 25 }}
+        >
+          <IoIosLogOut />
+        </IconContext.Provider>
       </button>
     </div>
   );
