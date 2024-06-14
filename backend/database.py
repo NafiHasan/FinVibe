@@ -11,6 +11,9 @@ database = client.FinVibe
 
 # Get the tables/collections
 collection = database.User
+posts_collection = database.Posts
+
+
 
 # Database functions to read and write data
 async def DatabaseFunction(inputData):
@@ -37,3 +40,17 @@ async def verify_user(user_data):
         return True
     else:
         return False
+    
+
+# Get all posts
+async def get_all_posts():
+    all = []
+    async for document in posts_collection.find({}):
+        all.append(UserPost(**document))
+    return all
+
+
+# Save post
+async def save_post(post_data):
+    result = await posts_collection.insert_one(post_data)
+    return result.inserted_id

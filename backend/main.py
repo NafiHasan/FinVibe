@@ -2,6 +2,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
+from typing import List
+
 from model import *
 from database import *
 
@@ -56,3 +59,20 @@ async def login_user(user: LoginRequest):
         return {"message": "Login successful", "username": user.username}
     else:
         raise HTTPException(status_code=401, detail="Incorrect username or password")
+    
+
+
+# To handle post
+@app.post("/create_post")
+async def create_post(post: UserPost):
+    print("Received post data:", post.model_dump())
+    post_data = post.model_dump()
+    result = await save_post(post_data)
+    return {"message": "Post created successfully"}
+
+
+# To get all posts
+@app.get("/posts", response_model=List[UserPost])
+async def get_posts():
+    posts = await get_all_posts()
+    return posts

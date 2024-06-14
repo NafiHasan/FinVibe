@@ -69,28 +69,23 @@ function SearchBar(props) {
 function ProfilePlus(props) {
   const navigate = useNavigate();
 
-  return (
-    <div
-      className="profilePlusBody"
-      onClick={() =>
-        navigate("/profile", { state: { username: props.username } })
-      }
-    >
-      <img src={usericon} className="userIconBody" />
+  const handleProfileClick = () => {
+    navigate("/profile", { state: { username: props.username } });
+  };
 
-      <button
-        className="userButton"
-        onClick={() =>
-          navigate("/profile", { state: { username: props.username } })
-        }
-      >
+  const handleLogout = () => {
+    navigate("/", { state: { username: "" } });
+  };
+
+  return (
+    <div className="profilePlusBody">
+      <img src={usericon} className="userIconBody" alt="User Icon" />
+
+      <button className="userButton" onClick={handleProfileClick}>
         {props.username}
       </button>
 
-      <button
-        className="logoutButton"
-        onClick={() => navigate("/", { state: { username: "" } })}
-      >
+      <button className="logoutButton" onClick={handleLogout}>
         <IconContext.Provider
           value={{ color: "white", className: "global-class-name", size: 25 }}
         >
