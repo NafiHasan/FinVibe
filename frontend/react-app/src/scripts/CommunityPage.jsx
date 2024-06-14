@@ -14,22 +14,28 @@ function CommunityPage() {
   let username = location.state.username;
 
   // Show posts
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await axios.get("http://localhost:8000/posts");
-        setPosts(response.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/posts");
+      setPosts(response.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
     }
+  };
+
+  // Fetch posts when component mounts
+  useEffect(() => {
     fetchPosts();
   }, []);
 
   return (
     <div>
       <NavigationBar username={username} />
-      <CommunityBody username={username} posts={posts} />
+      <CommunityBody
+        username={username}
+        posts={posts}
+        fetchPosts={fetchPosts}
+      />
     </div>
   );
 }
@@ -52,11 +58,11 @@ function LeftColumn(props) {
   );
 }
 
-function MainColumn({ username, posts }) {
+function MainColumn({ username, posts, fetchPosts }) {
   return (
     <div className="communityMainColumn">
       {posts.map((post) => (
-        <Post key={post._id} {...post} />
+        <Post key={post._id} {...post} fetchPosts={fetchPosts} />
       ))}
     </div>
   );

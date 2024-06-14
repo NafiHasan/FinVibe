@@ -25,6 +25,7 @@ function MakePostBody({ username, navigate }) {
   const tag = tags;
   async function createPost() {
     const post = {
+      post_id: 0,
       username,
       content,
       tag,

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from bson import ObjectId
 
 
 # Define Database models
@@ -25,6 +26,7 @@ class LoginRequest(BaseModel):
 
 # Post model
 class UserPost(BaseModel):
+    post_id: int
     username: str
     image: Optional[str] = None
     comment_count: int = 0

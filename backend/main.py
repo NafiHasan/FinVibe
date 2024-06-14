@@ -76,3 +76,9 @@ async def create_post(post: UserPost):
 async def get_posts():
     posts = await get_all_posts()
     return posts
+
+# To delete post
+@app.delete("/delete_post/{post_id}")
+async def delete_post_route(post_id: str):
+    print("Here ", post_id)
+    return await delete_post(post_id)

@@ -1,100 +1,106 @@
-.postMainBody{
-    width:90%;
-    height: fit-content;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    display: flex;
-    flex-direction: column;
+.postMainBody {
+  width: 90%;
+  height: fit-content;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  display: flex;
+  flex-direction: column;
 
-    box-shadow: 1.5vh 1.5vh 1.5vh 1.5vh #242124;
+  box-shadow: 1.5vh 1.5vh 1.5vh 1.5vh #242124;
 
-    transition: box-shadow;
-    transition-duration: .5s;
-    transition-timing-function: linear;
+  transition: box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
 }
 
-.postMainBody:hover{
-    box-shadow: 2vh 2vh 2vh 2vh #242124;
+.postMainBody:hover {
+  box-shadow: 2vh 2vh 2vh 2vh #242124;
 }
 
-.postHeader{
-    display: flex;
-    align-items: center;
-    height: 9vh;
-    background-color: #283350;
-    border-radius: 1px;
+.postHeader {
+  display: flex;
+  align-items: center;
+  height: 9vh;
+  background-color: #283350;
+  border-radius: 1px;
 }
 
-.postUserIcon{
-    height: 5vh;
-    width: 5vh;
-    border-radius: 100px;
-    margin: 1%;
+.postUserIcon {
+  height: 5vh;
+  width: 5vh;
+  border-radius: 100px;
+  margin: 1%;
 }
 
-.postUsernameButton{
-    background-color: inherit;
-    border: none;
-    border-radius: 100px;
-    color: aliceblue;
-    font-family: "Montserrat";
-    font-size: 2vh;
+.postUsernameButton {
+  background-color: inherit;
+  border: none;
+  border-radius: 100px;
+  color: aliceblue;
+  font-family: "Montserrat";
+  font-size: 2vh;
 
-    text-shadow: 0.2vh 0.2vh 0.5vh black; /* Adjusted values */
-    
-    transition: text-shadow 0.5s linear; /* Simplified transition syntax */
+  text-shadow: 0.2vh 0.2vh 0.5vh black; /* Adjusted values */
+
+  transition: text-shadow 0.5s linear; /* Simplified transition syntax */
 }
 
-.postUsernameButton:hover{
-    color: white;
-    text-shadow: 1vh 1vh 1vh #242124; /* Adjusted values */
-    border: none;
+.postUsernameButton:hover {
+  color: white;
+  text-shadow: 1vh 1vh 1vh #242124; /* Adjusted values */
+  border: none;
 }
 
-.postBody{
-    height: fit-content;
-    background-color: aliceblue;
-    border-radius: 1px;
+.postBody {
+  height: fit-content;
+  background-color: aliceblue;
+  border-radius: 1px;
 }
 
-.postFooter{
-    height: 8vh;
-    background-color: aliceblue;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-radius: 1px;
+.postFooter {
+  height: 8vh;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 1px;
 }
 
-.postOptionsButton{
-    background-color: inherit;
-    border: none;
-    margin-left: auto; 
+.postOptionsButton {
+  background-color: inherit;
+  border: none;
+  margin-left: auto;
 }
 
-.postCommentButton{
-    height: 6vh;
-    width: 6vh;
-    border-radius: 100px;
-    background-color: #283350;
-    border: none;
+.postOptions {
+  background-color: inherit;
+  border: none;
+  margin-left: auto;
 }
 
-.postImage{
-    width: 100%;
+.postCommentButton {
+  height: 6vh;
+  width: 6vh;
+  border-radius: 100px;
+  background-color: #283350;
+  border: none;
 }
 
-.postText{
-    padding-left: 2%;
-    padding-right: 2%;
-    font-family: "Montserrat";
-    font-size: 14px;
+.postImage {
+  width: 100%;
 }
 
-.postTag{
-    background-color: #283350;
-    border-radius: 100px;
-    color: white;
-    font-family: "Montserrat";
-    margin: 1%;
+.postText {
+  padding-left: 2%;
+  padding-right: 2%;
+  font-family: "Montserrat";
+  font-size: 14px;
+}
+
+.postTag {
+  background-color: #283350;
+  border-radius: 100px;
+  color: white;
+  font-family: "Montserrat";
+  margin: 1%;
 }
