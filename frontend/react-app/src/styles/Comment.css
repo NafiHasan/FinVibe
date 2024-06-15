@@ -1,5 +1,5 @@
 .commentMainBody{
-    background-color:whitesmoke;
+    background-color:aliceblue;
 }
 
 .commentBody{
@@ -8,7 +8,7 @@
 }
 
 .sidebarUserButtonComment{
-    background-color: whitesmoke;
+    background-color: aliceblue;
     border: none;
     border-radius: 100px;
     color: black;
@@ -18,7 +18,7 @@
 }
 
 .profilePlusComment{
-    background-color: white;
+    background-color: aliceblue;
     
     flex: 1;
     display: flex;
@@ -38,10 +38,34 @@
 
 .commentText{
     font-family: "Montserrat";
-    background-color: white;
+    background-color: aliceblue;
 }
 
 .commentInputBox{
     display: flex;
-    
 }
+
+.replyButton{
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 400vh;
+    margin-left: 5%;
+    
+
+    width: 10vh;
+    height: 5vh;
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.replyButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+}
+
+
+  

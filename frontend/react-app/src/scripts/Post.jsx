@@ -4,6 +4,8 @@ import { IconContext } from "react-icons";
 import { BiSolidUpvote, BiSolidDownvote } from "react-icons/bi";
 import { FaComment, FaBookmark } from "react-icons/fa";
 import stockimage from "../images/stockimage.jpg";
+import stockcard1 from "../images/stockcard1.jpg"
+import usericon from "../images/usericon.png"
 import { useNavigate } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
@@ -113,9 +115,32 @@ function PostBody(props) {
 }
 
 function PostImage(props) {
+  const images = [
+    { src: stockimage, alt: "Stock Image" },
+    { src: stockcard1, alt: "Stock Card 1" },
+    { src: usericon, alt: "User Icon" }
+  ];
+
+  const [imgIndex, setImgIndex] = useState(0)
+
+  const handleLeftClick = () => {
+    if(imgIndex > 0){
+      setImgIndex(imgIndex-1)
+    }
+  };
+
+  const handleRightClick = () => {
+    if(imgIndex < images.length - 1){
+      setImgIndex(imgIndex+1)
+    }
+  };
+
   return (
     <div>
-      <img src={props.image || stockimage} className="postImage" alt="Post" />
+      {/* <img src={props.image || stockimage} className="postImage" alt="Post" /> */}
+      <img src={images[imgIndex].src} className="postImage" alt="Post" />
+      <button onClick={handleLeftClick}>Left</button>
+      <button onClick={handleRightClick}>Right</button>
     </div>
   );
 }

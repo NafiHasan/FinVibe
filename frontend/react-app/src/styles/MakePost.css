@@ -62,6 +62,7 @@
     border: none;
     border-radius: 400vh;
     margin-left: 5%;
+    
 
     width: 10vh;
     height: 5vh;
@@ -80,4 +81,105 @@
 
 .tagInputBox:focus{
     border: grey;
+}
+
+.imagediv {
+    display: flex;
+    flex-direction: column; /* Ensure elements inside .imagediv are stacked vertically */
+    align-items: center; /* Center items inside the .imagediv */
+    padding: 10px; /* Add some padding for better spacing */
+}
+
+.delete-btn {
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 50px; /* Use a more reasonable value for border-radius */
+    margin-top: 10px; /* Adjust margin as needed */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.5s linear;
+    align-self: flex-start;
+}
+
+.delete-btn:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensure the image covers the specified area */
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap; /* This allows the images to wrap to the next line if there's not enough space */
+    gap: 10px; /* Adjust the gap between images as needed */
+}
+
+.tagTextButton{
+    background-color: #f0f0f0;
+    border-radius: 100px;
+
+    padding: 5px 10px;
+    margin-right: 5px;
+
+    width: fit-content;
+    height: 5vh;
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.tagTextButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+}
+
+  .removeTagButton {
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tag {
+    margin: 5px 0;
+  }
+  
+  .tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .addImageButton{
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 400vh;
+    margin-left: 50%;
+    
+
+    width: 10vh;
+    height: 5vh;
+    margin-top: 10vh;
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.addImageButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
 }

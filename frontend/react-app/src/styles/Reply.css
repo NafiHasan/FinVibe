@@ -1,6 +1,8 @@
 .replyMainBody{
-    background-color:whitesmoke;
+    background-color:aliceblue;
     margin-left: 10%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .replyBody{
@@ -8,8 +10,13 @@
     flex-direction: column;
 }
 
+.replyButtonBody{
+    display: flex;
+    flex-direction: row;
+}
+
 .sidebarUserButtonreply{
-    background-color: whitesmoke;
+    background-color: aliceblue;
     border: none;
     border-radius: 100px;
     color: black;
@@ -19,7 +26,7 @@
 }
 
 .profilePlusreply{
-    background-color: white;
+    background-color: aliceblue;
     
     flex: 1;
     display: flex;
@@ -39,10 +46,8 @@
 
 .replyText{
     font-family: "Montserrat";
-    background-color: white;
+    background-color: aliceblue;
 }
-
 .replyInputBox{
     display: flex;
-    
 }
