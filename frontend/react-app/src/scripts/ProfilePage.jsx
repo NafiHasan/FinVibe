@@ -41,6 +41,11 @@ function LeftHalf(props){
 
                 <p className='profileUsername'>{props.username}</p>
 
+                {/* profile buttons */}
+                <div style={{display: "flex", flexDirection: "row", width: "80%", alignItems: "center", justifyContent: "center"}}>
+                    <button className='editProfileButton'>Edit Profile</button>
+                </div>
+
                 {/* score */}
 
                 <p className='profileScore'>Contributor Score: 1000</p>

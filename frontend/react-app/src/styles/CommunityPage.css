@@ -19,7 +19,7 @@
     flex-direction: column;
     flex: 2;
     height: fit-content;
-    align-items: center;
+    
 }
 
 .communityRightColumn{
@@ -31,6 +31,22 @@
 }
 
 .makePostButton{
-    background-color: black;
+    background-color: #283350;
     color: white;
+    border: none;
+    border-radius: 400vh;
+
+    width: 20vh;
+    height: 10vh;
+    margin-top: 10vh;
+
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.makePostButton:hover{
+    box-shadow: 2vh 2vh 2vh 2vh #242124;
 }

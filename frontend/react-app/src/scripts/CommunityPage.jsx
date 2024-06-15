@@ -64,6 +64,10 @@ function MainColumn({ username, posts, fetchPosts }) {
       {posts.map((post) => (
         <Post key={post._id} {...post} fetchPosts={fetchPosts} />
       ))}
+
+      {/* debuggng below */}
+
+      <Post username = {username}/> 
     </div>
   );
 }

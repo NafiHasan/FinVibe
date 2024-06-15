@@ -22,6 +22,10 @@ function MakePostBody({ username, navigate }) {
   const [tags, setTags] = useState("");
   const [image, setImage] = useState("");
 
+  function addTag(){
+    
+  }
+
   const tag = tags;
   async function createPost() {
     const post = {
@@ -46,31 +50,22 @@ function MakePostBody({ username, navigate }) {
   return (
     <div className="makePostBody">
       <div className="left">
-        <input
+        <textarea
           type="text"
           placeholder="Post content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className="postTextBox"
         />
-        <input
-          type="text"
-          placeholder="Tags (comma separated)"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          className="postTextBox"
-        />
-        <input
-          type="text"
-          placeholder="Image URL (optional)"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          className="postTextBox"
-        />
       </div>
 
       <div className="right">
-        <button onClick={createPost}>Post</button>
+        <div>
+          <input type = "text" placeholder="Enter Tag Name" className="tagInputBox"/>
+          <button className="addTagButton" onClick={addTag}>Add</button>
+        </div>
+
+        <button onClick={createPost} className="makePostButton">Post</button>
       </div>
     </div>
   );

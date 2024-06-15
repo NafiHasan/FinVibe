@@ -1,10 +1,11 @@
 .postMainBody {
-  width: 90%;
+  width: 85%;
   height: fit-content;
   margin-top: 2vh;
   margin-bottom: 2vh;
   display: flex;
   flex-direction: column;
+  margin-left: 2%;
 
   box-shadow: 1.5vh 1.5vh 1.5vh 1.5vh #242124;
 
@@ -103,4 +104,26 @@
   color: white;
   font-family: "Montserrat";
   margin: 1%;
+}
+
+.postOptionItem{
+  background-color: white;
+    
+    flex: 1;
+    display: flex;
+    
+    
+    font-family: "Montserrat";
+    justify-content: space-between;
+    padding: 1%;
+
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+
+    margin-bottom: .5vh;
+
+    font-size: 2vh;
 }
