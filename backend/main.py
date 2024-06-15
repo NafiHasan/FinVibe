@@ -82,3 +82,12 @@ async def get_posts():
 async def delete_post_route(post_id: str):
     print("Here ", post_id)
     return await delete_post(post_id)
+
+
+
+
+# To handle upvote
+@app.post("/upvote/{post_id}")
+async def upvote(post_id: str):
+    print("Received post id:", post_id)
+    return await upvote_post(post_id)

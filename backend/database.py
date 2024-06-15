@@ -99,3 +99,18 @@ async def delete_post(post_id):
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail=f"Post with id {post_id} not found")
     return {"message": f"Post with id {post_id} deleted successfully"}
+
+
+
+# Upvote post
+async def upvote_post(post_id):
+    result = await posts_collection.update_one({"post_id": int(post_id)}, {"$inc": {"upvote_count": 1}})
+    print("Updated ", result.modified_count)
+
+    # Print the info of the post after updating
+    post = await posts_collection.find_one({"post_id": int(post_id)})
+    print("Post after update", post)
+
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return result.modified_count

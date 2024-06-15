@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from bson import ObjectId
+from typing import List
 
 
 # Define Database models
@@ -34,3 +34,5 @@ class UserPost(BaseModel):
     downvote_count: int = 0
     content: str
     tag: str
+    upvoted_by: List[str] = []
+    downvoted_by: List[str] = []
