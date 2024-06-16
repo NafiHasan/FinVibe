@@ -43,23 +43,23 @@ function MakePostBody({ username, navigate }) {
     URL.revokeObjectURL(image);
   }
 
+  function addTagI() {}
 
-  function addTagI(){
-    
-  }
-
-  
   async function createPost() {
     const post = {
       post_id: 0,
       username,
       content,
-      tag,
+      tags: tags,
       image: image || null,
       comment_count: 0,
       upvote_count: 0,
       downvote_count: 0,
+      upvoted_by: [],
+      downvoted_by: [],
     };
+    // Print post info
+    console.log("Post info:", post);
 
     try {
       await axios.post("http://localhost:8000/create_post", post);
@@ -69,40 +69,29 @@ function MakePostBody({ username, navigate }) {
     }
   }
 
-  const inputRef = useRef()
+  const inputRef = useRef();
 
-  function handleImageCLick(){
-    inputRef.current.click()
+  function handleImageCLick() {
+    inputRef.current.click();
   }
 
-  const [tagName, setTagName] = useState('');
+  const [tagName, setTagName] = useState("");
   const [tags, setTags] = useState([]);
   const tag = tags;
 
-  const [graphName, setGraphName] = useState('');
+  const [graphName, setGraphName] = useState("");
   const [graphs, setGraphs] = useState([]);
   const graph = graphs;
 
   const addTag = () => {
-    if (tagName.trim() !== '') {
+    if (tagName.trim() !== "") {
       setTags([...tags, tagName]);
-      setTagName('');
+      setTagName("");
     }
   };
 
   const removeTag = (tagToRemove) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
-  };
-
-  const addGraph = () => {
-    if (graphName.trim() !== '') {
-      setGraphs([...graphs, graphName]);
-      setGraphName('');
-    }
-  };
-
-  const removeGraph = (graphToRemove) => {
-    setGraphs(graphs.filter(graph => graph !== graphToRemove));
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   return (
@@ -118,92 +107,97 @@ function MakePostBody({ username, navigate }) {
       </div>
 
       <div className="right">
-
         <div>
-            {/* <input type="file" multiple /> */}
-                {selectedImages.length > 0 &&
-              (selectedImages.length > 5 ? (
-                <p className="error">
-                  Limit is 5 images
-                </p>
-              ) : (
-                <div/>
-              ))}
+          {/* <input type="file" multiple /> */}
+          {selectedImages.length > 0 &&
+            (selectedImages.length > 5 ? (
+              <p className="error">Limit is 5 images</p>
+            ) : (
+              <div />
+            ))}
 
-              <div className="images">
-                      {selectedImages &&
-                        selectedImages.map((image, index) => {
-                          return (
-                            <div key={image} className="imagediv">
-                              <div style={{display: "flex", flexDirection: "row"}}>
-                                    <button onClick={() => deleteHandler(image)} className="delete-btn">
-                                      X
-                                    </button>
+          <div className="images">
+            {selectedImages &&
+              selectedImages.map((image, index) => {
+                return (
+                  <div key={image} className="imagediv">
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      <button
+                        onClick={() => deleteHandler(image)}
+                        className="delete-btn"
+                      >
+                        X
+                      </button>
 
-                                    <img src={image} height="200" alt="upload" className="image"/> 
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
-            
-                    <div>
-                      <button onClick={handleImageCLick}  className="addImageButton">Add Image</button>
-                      <input
-                        type="file"
-                        name="images"
-                        onChange={onSelectFile}
-                        multiple
-                        accept="image/png , image/jpeg, image/webp"
-                        ref={inputRef}
-                        hidden
+                      <img
+                        src={image}
+                        height="200"
+                        alt="upload"
+                        className="image"
                       />
                     </div>
-        </div>
-
-        <div>
-        <div>
-      <div>
-        <input
-          type="text"
-          placeholder="Enter Tag Name"
-          className="tagInputBox"
-          value={tagName}
-          onChange={(e) => setTagName(e.target.value)}
-        />
-        <button className="addTagButton" onClick={addTag}>Add</button>
-      </div>
-      <div className="tagsContainer">
-            {tags.map((tag, index) => (
-              <div key={index} className="tag" style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                <button className="tagTextButton">{tag}</button>
-                <button className="removeTagButton" onClick={() => removeTag(tag)}>x</button>
-              </div>
-            ))}
+                  </div>
+                );
+              })}
           </div>
-        
+
           <div>
-        <input
-          type="text"
-          placeholder="Enter a stock/cryptocurrency name that you want to see a graph of"
-          className="tagInputBox"
-          value={graphName}
-          onChange={(e) => setGraphName(e.target.value)}
-        />
-        <button className="addTagButton" onClick={addGraph}>Add</button>
-      </div>
-      <div className="tagsContainer">
-            {graphs.map((graph, index) => (
-              <div key={index} className="tag" style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                <button className="tagTextButton">{graph}</button>
-                <button className="removeTagButton" onClick={() => removeGraph(graph)}>x</button>
-              </div>
-            ))}
+            <button onClick={handleImageCLick} className="addImageButton">
+              Add Image
+            </button>
+            <input
+              type="file"
+              name="images"
+              onChange={onSelectFile}
+              multiple
+              accept="image/png , image/jpeg, image/webp"
+              ref={inputRef}
+              hidden
+            />
           </div>
-    </div>
         </div>
 
-        <button onClick={createPost} className="makePostButton">Post</button>
+        <div>
+          <div>
+            <div>
+              <input
+                type="text"
+                placeholder="Enter Tag Name"
+                className="tagInputBox"
+                value={tagName}
+                onChange={(e) => setTagName(e.target.value)}
+              />
+              <button className="addTagButton" onClick={addTag}>
+                Add
+              </button>
+            </div>
+            <div className="tagsContainer">
+              {tags.map((tag, index) => (
+                <div
+                  key={index}
+                  className="tag"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <button className="tagTextButton">{tag}</button>
+                  <button
+                    className="removeTagButton"
+                    onClick={() => removeTag(tag)}
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <button onClick={createPost} className="makePostButton">
+          Post
+        </button>
       </div>
     </div>
   );

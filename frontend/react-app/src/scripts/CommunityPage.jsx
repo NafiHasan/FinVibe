@@ -62,12 +62,18 @@ function MainColumn({ username, posts, fetchPosts }) {
   return (
     <div className="communityMainColumn">
       {posts.map((post) => (
-        <Post key={post._id} {...post} fetchPosts={fetchPosts} />
+        // send posts and current username to Post component
+        <Post
+          key={post._id}
+          {...post}
+          fetchPosts={fetchPosts}
+          current_user={username}
+        />
       ))}
 
       {/* debuggng below */}
 
-      <Post username = {username}/> 
+      {/* <Post current_user={username} /> */}
     </div>
   );
 }

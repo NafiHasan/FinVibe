@@ -6,7 +6,7 @@ from fastapi import HTTPException
 
 
 # Connect to MongoDB
-client = motor.motor_asyncio.AsyncIOMotorClient('localhost:27017')
+client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://admin:admin@cluster0.ohcalzk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 
 # Get the database
 database = client.FinVibe
@@ -78,6 +78,20 @@ async def save_post(post_data):
 
     result = await posts_collection.insert_one(post_data)
     return result
+
+
+# Update post info by post_id
+async def update_post(post_id, post_data):
+    result = await posts_collection.update_one({"post_id": int(post_id)}, {"$set": post_data})
+    print("Updated ", result.modified_count)
+
+    # Print the info of the post after updating
+    # post = await posts_collection.find_one({"post_id": int(post_id)})
+    # print("Post after update", post)
+
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return result.modified_count
 
 
 # Delete post

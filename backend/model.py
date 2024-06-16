@@ -14,7 +14,7 @@ class Data(BaseModel):
 
 
 class User(BaseModel):
-    username: str
+    username: str  # will be unique
     # email: str
     password: str
 
@@ -33,6 +33,6 @@ class UserPost(BaseModel):
     upvote_count: int = 0
     downvote_count: int = 0
     content: str
-    tag: str
+    tags: List[str] = []
     upvoted_by: List[str] = []
     downvoted_by: List[str] = []

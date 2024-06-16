@@ -80,9 +80,72 @@ async def delete_post_route(post_id: str):
 
 
 
+# To upvote post
+@app.post("/upvote/{post_id}/{username}")
+async def upvote_post(post_id: int, username: str):
+    posts = await get_all_posts()
+    # print("Posts ", posts)
 
-# To handle upvote
-@app.post("/upvote/{post_id}")
-async def upvote(post_id: str):
-    print("Received post id:", post_id)
-    return await upvote_post(post_id)
+    print("username", username)
+    # Get the post with the given post_id
+    post = next((p for p in posts if p["post_id"] == post_id), None)
+    print("before", post)
+    
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    
+    if username in post["upvoted_by"]:
+        post["upvoted_by"].remove(username)
+        post["upvote_count"] -= 1
+    else:
+        if username in post["downvoted_by"]:
+            post["downvoted_by"].remove(username)
+            post["downvote_count"] -= 1
+       
+        post["upvoted_by"].append(username)
+        post["upvote_count"] += 1
+
+    # Save update post info in the database
+    await update_post(post_id, post)
+
+    # Remove post[_id] key from the post object
+    post.pop("_id")
+    print("after", post)
+
+    return post
+
+
+# To downvote post
+@app.post("/downvote/{post_id}/{username}")
+async def downvote_post(post_id: int, username: str):
+    posts = await get_all_posts()
+    # print("Posts ", posts)
+    print(username)
+
+    
+    # Get the post with the given post_id
+    post = next((p for p in posts if p["post_id"] == post_id), None)
+    print("before", post)
+    
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    
+    if username in post["downvoted_by"]:
+        post["downvoted_by"].remove(username)
+        post["downvote_count"] -= 1
+    else:
+        if username in post["upvoted_by"]:
+            post["upvoted_by"].remove(username)
+            post["upvote_count"] -= 1
+       
+        post["downvoted_by"].append(username)
+        post["downvote_count"] += 1
+
+    # Save update post info in the database
+    await update_post(post_id, post)
+
+    # Remove post[_id] key from the post object
+    post.pop("_id")
+    print("after", post)
+
+    return post
