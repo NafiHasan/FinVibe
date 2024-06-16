@@ -149,7 +149,7 @@ function ProfilePlus(){
                 ) : (
                     <div style={{backgroundColor: "red", height: "5vh", marginTop: "2vh"}}>
                         <div className="postOptionItem">
-                            Hide Hide
+                            Hide Reply
                         </div>
                         <div className="postOptionItem">
                             Follow User

@@ -6,6 +6,8 @@ import usericon from "../images/usericon.png";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
+import { FaRocketchat } from "react-icons/fa";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 
 function NavigationBar(props) {
   return (
@@ -90,6 +92,14 @@ function ProfilePlus(props) {
           value={{ color: "white", className: "global-class-name", size: 25 }}
         >
           <IoIosLogOut />
+        </IconContext.Provider>
+      </button>
+
+      <button className="logoutButton" onClick={handleLogout}>
+        <IconContext.Provider
+          value={{ color: "white", className: "global-class-name", size: 25 }}
+        >
+          <IoChatbubbleEllipsesOutline />
         </IconContext.Provider>
       </button>
     </div>
