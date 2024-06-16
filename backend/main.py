@@ -33,7 +33,7 @@ def read_root():
 @app.post("/register")
 async def register_user(user: User):
     user.password = generate_password_hash(user.password)
-    print("Received user data:", user.model_dump())
+    # print("Received user data:", user.model_dump())
 
     result = await save_user(user.model_dump())
     return {"message": "User registered successfully"}
@@ -42,11 +42,11 @@ async def register_user(user: User):
 # For login
 @app.post("/login")
 async def login_user(user: LoginRequest):
-    print(user.password , " ")
+    # print(user.password , " ")
     # user.password = generate_password_hash(user.password)
 
     # print(user.password , " ")
-    print("Received data:", user.model_dump(), " f")
+    # print("Received data:", user.model_dump(), " f")
 
     verified = await verify_user(user)
     # print("ver", verified)
@@ -60,7 +60,7 @@ async def login_user(user: LoginRequest):
 # To handle post
 @app.post("/create_post")
 async def create_post(post: UserPost):
-    print("Received post data:", post.model_dump())
+    # print("Received post data:", post.model_dump())
     post_data = post.model_dump()
     result = await save_post(post_data)
     return {"message": "Post created successfully"}
@@ -75,7 +75,7 @@ async def get_posts():
 # To delete post
 @app.delete("/delete_post/{post_id}")
 async def delete_post_route(post_id: str):
-    print("Here ", post_id)
+    # print("Here ", post_id)
     return await delete_post(post_id)
 
 
@@ -86,10 +86,10 @@ async def upvote_post(post_id: int, username: str):
     posts = await get_all_posts()
     # print("Posts ", posts)
 
-    print("username", username)
+    # print("username", username)
     # Get the post with the given post_id
     post = next((p for p in posts if p["post_id"] == post_id), None)
-    print("before", post)
+    # print("before", post)
     
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
@@ -110,7 +110,7 @@ async def upvote_post(post_id: int, username: str):
 
     # Remove post[_id] key from the post object
     post.pop("_id")
-    print("after", post)
+    # print("after", post)
 
     return post
 
@@ -120,12 +120,12 @@ async def upvote_post(post_id: int, username: str):
 async def downvote_post(post_id: int, username: str):
     posts = await get_all_posts()
     # print("Posts ", posts)
-    print(username)
+    # print(username)
 
     
     # Get the post with the given post_id
     post = next((p for p in posts if p["post_id"] == post_id), None)
-    print("before", post)
+    # print("before", post)
     
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
@@ -146,7 +146,7 @@ async def downvote_post(post_id: int, username: str):
 
     # Remove post[_id] key from the post object
     post.pop("_id")
-    print("after", post)
+    # print("after", post)
 
     return post
 
@@ -175,7 +175,7 @@ async def upvote_comment(comment_id: int, username: str):
 
     # Remove post[_id] key from the post object
     comment.pop("_id")
-    print("after", comment)
+    # print("after", comment)
 
     return comment
 
@@ -204,7 +204,7 @@ async def downvote_comment(comment_id: int, username: str):
 
     # Remove post[_id] key from the post object
     comment.pop("_id")
-    print("after", comment)
+    # print("after", comment)
 
     return comment
 
@@ -221,7 +221,14 @@ async def create_comment(post_id: int, comment: Comment):
 # Get all comments for a post
 @app.get("/comments/{post_id}", response_model=List[Comment])
 async def get_comments(post_id: int):
-    print("Post id for comments:", post_id)
+    # print("Post id for comments:", post_id)
 
     comments = await get_all_comments(post_id)
     return comments
+
+
+# Delete comment
+@app.delete("/delete_comment/{comment_id}")
+async def delete_comment(comment_id: str):
+    # print("delete comment ", comment_id)
+    return await delete_comment_from_db(comment_id)

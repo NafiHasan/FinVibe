@@ -133,6 +133,16 @@ async def get_comment(comment_id):
     return comment
 
 
+# Delete comment
+async def delete_comment_from_db(comment_id):
+    result = await comments_collection.delete_one({'comment_id': int(comment_id)})
+    print(result.deleted_count)
+
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail=f"Comment with id {comment_id} not found")
+    return {"message": f"Comment with id {comment_id} deleted successfully"}
+
+
 # Get all comments by post_id
 async def get_all_comments(post_id):
     print("Post id", post_id)

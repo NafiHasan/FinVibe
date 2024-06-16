@@ -16,9 +16,18 @@ function Comment(props) {
 }
 
 function CommentBody(props) {
-  const { comment_id, upvoted_by, downvoted_by, upvote_count, downvote_count } =
-    props.data;
-  const username = props.current_user;
+  // console.log("comment body props", props);
+
+  const comment_id = props.data.comment_id;
+  const upvoted_by = props.data.upvoted_by || [];
+  const downvoted_by = props.data.downvoted_by || [];
+  const username = props.data.current_user;
+  const upvote_count = props.data.upvote_count || 0;
+  const downvote_count = props.data.downvote_count || 0;
+  // console.log("id", comment_id);
+  // const { comment_id, upvoted_by, downvoted_by, upvote_count, downvote_count } =
+  // props.data;
+  // const username = props.current_user;
 
   const [isUpvotePressed, setIsUpvotePressed] = useState(
     upvoted_by.includes(username)
@@ -35,7 +44,7 @@ function CommentBody(props) {
   }, [upvote_count, downvote_count, upvoted_by, downvoted_by, username]);
 
   const doUpvote = async () => {
-    // console.log("upvote", props);
+    // console.log("upvote", comment_id, username);
     try {
       const response = await axios.post(
         `http://localhost:8000/upvote_comment/${comment_id}/${username}`
@@ -71,17 +80,17 @@ function CommentBody(props) {
 
       <div className="commentText">{props.data.content}</div>
 
-      <div className="commentInputBox">
+      {/* <div className="commentInputBox">
         <textarea
           type="text"
           placeholder="Reply"
           style={{ width: "60%" }}
         ></textarea>
-      </div>
+      </div> */}
 
       <div>
         <text style={{ marginLeft: "1%", marginRight: "1%" }}>{score}</text>
-        <button className="replyButton">Reply</button>
+        {/* <button className="replyButton">Reply</button> */}
 
         <button className="commentReplyButton" onClick={doUpvote}>
           <IconContext.Provider
@@ -114,13 +123,24 @@ function CommentBody(props) {
 
 function ProfilePlus(props) {
   const [showOptions, setShowOptions] = useState(false);
-  const [thisUserComment, setThisUserComment] = useState(true);
+  // const [thisUserComment, setThisUserComment] = useState(true);
 
   function doesCommentBelongToCurrentUser() {
     setShowOptions(!showOptions);
   }
 
-  function handleDeleteComment() {}
+  const handleDeleteComment = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:8000/delete_comment/${props.data.comment_id}`
+      );
+      props.getComments(); // Fetch updated comments after deletion
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
+  const thisUserComment = props.current_user === props.data.username;
 
   return (
     <div className="profilePlusComment">
