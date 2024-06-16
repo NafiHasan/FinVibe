@@ -10,11 +10,6 @@ from database import *
 
 app = FastAPI()
 
-# from database import(
-#     # Import functions from database
-#     DatabaseFunction
-# )
-
 
 # To connect frontend with backend
 origins = ['https://localhost:3000', 'http://localhost:3000']
