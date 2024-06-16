@@ -6,6 +6,9 @@ import usericon from "../images/usericon.png";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
+import { FaRocketchat } from "react-icons/fa";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { useState } from "react";
 
 function NavigationBar(props) {
   return (
@@ -51,10 +54,13 @@ function MainBar(props) {
 }
 
 function SearchBar(props) {
+  const navigate = useNavigate()
+  const [keyword, setKeyword] = useState("")
+
   return (
     <div className="searchBarBody">
-      <input className="searchBarInput" placeholder="Enter a Keyword"></input>
-      <button className="searchButton">
+      <input className="searchBarInput" placeholder="Enter a Keyword" onChange={(e) => setKeyword(e.target.value)}></input>
+      <button className="searchButton" onClick={() => navigate("/search", { state: { username: props.username, keyword : keyword } })}>
         <IconContext.Provider
           value={{ color: "white", className: "global-class-name" }}
         >
@@ -90,6 +96,14 @@ function ProfilePlus(props) {
           value={{ color: "white", className: "global-class-name", size: 25 }}
         >
           <IoIosLogOut />
+        </IconContext.Provider>
+      </button>
+
+      <button className="logoutButton" onClick={handleLogout}>
+        <IconContext.Provider
+          value={{ color: "white", className: "global-class-name", size: 25 }}
+        >
+          <IoChatbubbleEllipsesOutline />
         </IconContext.Provider>
       </button>
     </div>

@@ -13,6 +13,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePage from './scripts/ProfilePage';
 import MakePost from './scripts/MakePost'
+import SearchPage from './scripts/SearchPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/expandedpost" element={<ExpandedPost/>}/>
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/makepost" element={<MakePost/>}/>
+        <Route path="/search" element={<SearchPage/>}/>
       </Routes>
     </BrowserRouter>
   );
