@@ -81,7 +81,7 @@ function LeftHalf(props){
 
                 {(props.isEditing && props.isCurrentUser) ? (
                     <div>
-                        <input type = "text" placeholder='Full Name' onChange={(e) => setFullname(e.target.value)}/>
+                        <input type = "text" placeholder='Enter Your Full Name' value={"Full Name"} onChange={(e) => setFullname(e.target.value)}/>
                     </div>
                 ) : (
                     <p className='profileUsername'>Full Name</p>
@@ -116,7 +116,7 @@ function LeftHalf(props){
                 {!props.isCurrentUser && <p style={{ color: "black", fontFamily: "Montserrat", fontSize: "15px" }}>{props.bioText}</p>}
                 {(props.isEditing && props.isCurrentUser) ? (
                     <div>
-                        <textarea placeholder= {bioText} onChange={(e) => setChangedBio(e.target.value)}/>
+                        <textarea placeholder="Enter your bio" value= {bioText} onChange={(e) => setChangedBio(e.target.value)}/>
 
                         <button className='editProfileButton' onClick={handleEditSubmit}>Submit</button>
                     </div>
