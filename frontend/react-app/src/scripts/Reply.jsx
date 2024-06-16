@@ -3,6 +3,7 @@ import usericon from '../images/usericon.png'
 import { BiSolidUpvote, BiSolidDownvote } from "react-icons/bi";
 import { useState } from 'react';
 import { IconContext } from "react-icons";
+import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 
 function Reply(){
     return(
@@ -62,8 +63,10 @@ function ReplyBody(){
                 <div className='replyText'>
                     This is the reply text
                 </div>
+            </div>
 
-                <text style={{marginLeft: "1%", marginRight: "1%"}}>{score}</text>
+            <div>
+                    <text style={{marginLeft: "1%", marginRight: "1%"}}>{score}</text>
                     
 
                     
@@ -98,11 +101,62 @@ function ReplyBody(){
 }
 
 function ProfilePlus(){
+    const [showOptions, setShowOptions] = useState(false);
+    const [thisUserReply,setThisUserReply] = useState(true)
+
+    function doesReplyBelongToCurrentUser(){
+        setShowOptions(!showOptions)
+    }
+
+    function handleDeleteReply(){
+
+    }
     return(
         <div className='profilePlusreply'>
             <img src={usericon} className='userIconBodyreply'/>
 
             <button className='sidebarUserButtonreply'>David Outunga</button>
+
+            <div className="replyOptions">
+                    
+
+                    <button
+                    className="replyOptionsButton"
+                    onClick={doesReplyBelongToCurrentUser}
+                    >
+                    <IconContext.Provider
+                        value={{
+                        color: "black",
+                        className: "global-class-name",
+                        size: "4vh",
+                        }}
+                    >
+                        <HiOutlineDotsCircleHorizontal />
+                    </IconContext.Provider>
+                    </button>
+                </div>
+
+                            { showOptions && (
+                thisUserReply ? (
+                    <div style={{backgroundColor: "red", height: "5vh", marginTop: "2vh"}}>
+                        <div className="postOptionItem">
+                            Edit Reply
+                        </div>
+                        <div className="postOptionItem" onClick={handleDeleteReply}>
+                            Delete Reply
+                        </div>
+                    </div>
+                ) : (
+                    <div style={{backgroundColor: "red", height: "5vh", marginTop: "2vh"}}>
+                        <div className="postOptionItem">
+                            Hide Hide
+                        </div>
+                        <div className="postOptionItem">
+                            Follow User
+                        </div>
+                    </div>
+                )
+            )}
         </div>
     )
 }

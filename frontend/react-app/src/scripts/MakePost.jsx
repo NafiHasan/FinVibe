@@ -79,6 +79,10 @@ function MakePostBody({ username, navigate }) {
   const [tags, setTags] = useState([]);
   const tag = tags;
 
+  const [graphName, setGraphName] = useState('');
+  const [graphs, setGraphs] = useState([]);
+  const graph = graphs;
+
   const addTag = () => {
     if (tagName.trim() !== '') {
       setTags([...tags, tagName]);
@@ -88,6 +92,17 @@ function MakePostBody({ username, navigate }) {
 
   const removeTag = (tagToRemove) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
+  };
+
+  const addGraph = () => {
+    if (graphName.trim() !== '') {
+      setGraphs([...graphs, graphName]);
+      setGraphName('');
+    }
+  };
+
+  const removeGraph = (graphToRemove) => {
+    setGraphs(graphs.filter(graph => graph !== graphToRemove));
   };
 
   return (
@@ -163,6 +178,25 @@ function MakePostBody({ username, navigate }) {
               <div key={index} className="tag" style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                 <button className="tagTextButton">{tag}</button>
                 <button className="removeTagButton" onClick={() => removeTag(tag)}>x</button>
+              </div>
+            ))}
+          </div>
+        
+          <div>
+        <input
+          type="text"
+          placeholder="Enter a stock/cryptocurrency name that you want to see a graph of"
+          className="tagInputBox"
+          value={graphName}
+          onChange={(e) => setGraphName(e.target.value)}
+        />
+        <button className="addTagButton" onClick={addGraph}>Add</button>
+      </div>
+      <div className="tagsContainer">
+            {graphs.map((graph, index) => (
+              <div key={index} className="tag" style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                <button className="tagTextButton">{graph}</button>
+                <button className="removeTagButton" onClick={() => removeGraph(graph)}>x</button>
               </div>
             ))}
           </div>

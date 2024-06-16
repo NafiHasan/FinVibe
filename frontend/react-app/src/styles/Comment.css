@@ -67,5 +67,24 @@
     box-shadow: .5vh .5vh .5vh .5vh #242124;
 }
 
+.commentReplyButton {
+    height: 6vh;
+    width: 6vh;
+    border-radius: 100px;
+    background-color: #283350;
+    border: none;
+  }
+  
+  .commentOptions {
+    background-color: inherit;
+    border: none;
+    margin-left: auto;
+  }
+
+  .commentOptionsButton {
+    background-color: inherit;
+    border: none;
+    margin-left: 0%;
+  }
 
   

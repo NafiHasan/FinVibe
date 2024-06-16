@@ -51,3 +51,15 @@
 .replyInputBox{
     display: flex;
 }
+
+.replyOptions {
+    background-color: inherit;
+    border: none;
+    margin-left: auto;
+  }
+
+  .replyOptionsButton {
+    background-color: inherit;
+    border: none;
+    margin-left: 0%;
+  }
