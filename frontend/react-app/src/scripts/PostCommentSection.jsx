@@ -1,15 +1,55 @@
 import "../styles/PostCommentSection.css";
 import Comment from "./Comment";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function PostCommentSection(props) {
   const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    getComments();
+  }, []);
 
   function handleCommentChange(event) {
     setNewComment(event.target.value);
   }
 
-  function handleAddComment() {}
+  async function handleAddComment() {
+    if (!newComment.trim()) return;
+    // console.log("new comment", newComment);
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/comments/${props.post_id}`,
+        {
+          comment_id: Date.now(), // Generate a unique ID for the new comment
+          post_id: props.post_id,
+          username: props.current_user,
+          content: newComment,
+          upvote_count: 0,
+          downvote_count: 0,
+          upvoted_by: [],
+          downvoted_by: [],
+        }
+      );
+      setComments([...comments, response.data]);
+      setNewComment("");
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  }
+
+  function getComments() {
+    axios
+      .get(`http://localhost:8000/comments/${props.post_id}`)
+      .then((response) => {
+        // console.log("comments", response.data);
+        setComments(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
+      });
+  }
 
   return (
     <div className="postCommentSectionMainBody">
@@ -24,51 +64,24 @@ function PostCommentSection(props) {
       </div>
       <div>
         Comments
-        <PostCommentsBody {...props.post} current_user={props.current_user} />
+        <PostCommentsBody
+          comments={comments}
+          current_user={props.current_user}
+        />
       </div>
     </div>
   );
 }
-//   return (
-//     <div className="postCommentSectionMainBody">
-//       Comments
-//       <PostCommentsBody {...props.post} current_user={props.current_user} />
-//     </div>
-//   );
-// }
 
-function PostCommentsBody(props) {
-  // Get all the comments from the database by the post id
-  // For each comment, create a Comment component
-  // Pass the comment data as props to the Comment component
-  // Pass the current_user data as props to the Comment component
-
-  const [comments, setComments] = useState([]);
-
-  // get comments for the post from backend
-  useEffect(() => {
-    getComments();
-  }, []);
-
-  function getComments() {
-    fetch(`/api/comments/${props.post_id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setComments(data);
-      })
-      .catch((error) => {
-        // handle the error
-      });
-  }
-  console.log("comments", comments);
-
+function PostCommentsBody({ comments, current_user }) {
   return (
     <div>
       {comments.map((comment) => (
         <Comment
-          post_id={props.post.post_id}
+          key={comment.id}
+          post_id={comment.post_id}
           data={comment}
-          current_user={props.current_user}
+          current_user={current_user}
         />
       ))}
     </div>

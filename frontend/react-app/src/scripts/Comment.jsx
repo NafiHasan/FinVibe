@@ -7,16 +7,17 @@ import { IconContext } from "react-icons";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 
 function Comment(props) {
-  console.log("comment props", props);
+  // console.log("comment props", props);
   return (
     <div className="commentMainBody">
-      <CommentBody />
-      <Reply />
+      <CommentBody {...props} />
+      {/* <Reply {...props} /> */}
     </div>
   );
 }
 
-function CommentBody() {
+function CommentBody(props) {
+  // console.log("comment body props", props.data.content);
   const [isUpvotePressed, setIsUpvotePressed] = useState(false);
   const [isDownvotePressed, setIsDownvotePressed] = useState(false);
   const [score, setScore] = useState(0);
@@ -51,9 +52,9 @@ function CommentBody() {
 
   return (
     <div className="commentBody">
-      <ProfilePlus />
+      <ProfilePlus {...props} />
 
-      <div className="commentText">This is the comment text</div>
+      <div className="commentText">{props.data.content}</div>
 
       <div className="commentInputBox">
         <textarea
@@ -96,7 +97,8 @@ function CommentBody() {
   );
 }
 
-function ProfilePlus() {
+function ProfilePlus(props) {
+  // console.log("profile plus props", props);
   const [showOptions, setShowOptions] = useState(false);
   const [thisUserComment, setThisUserComment] = useState(true);
 
@@ -110,7 +112,9 @@ function ProfilePlus() {
     <div className="profilePlusComment">
       <img src={usericon} className="userIconBodyComment" />
 
-      <button className="sidebarUserButtonComment">David Outunga</button>
+      <button className="sidebarUserButtonComment">
+        {props.data.username}
+      </button>
 
       <div className="commentOptions">
         <button

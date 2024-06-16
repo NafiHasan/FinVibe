@@ -131,8 +131,9 @@ async def save_comment(comment_data):
 # Get all comments by post_id
 async def get_all_comments(post_id):
     all = []
-
     async for document in comments_collection.find({"post_id": int(post_id)}):
         all.append(document)
+
+    print("All comments", all)
 
     return all

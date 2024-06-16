@@ -187,8 +187,7 @@ function PostText(props) {
     return str.length > 500;
   }
 
-  let posttxt =
-    "Bitcoin, introduced in 2009 by an anonymous entity known as Satoshi Nakamoto, is a decentralized digital currency that operates on a peer-to-peer network, independent of central authorities or banks. Utilizing blockchain technology, Bitcoin ensures secure, transparent, and immutable transactions through a distributed ledger maintained by a network of nodes. Its finite supply, capped at 21 million coins, imbues it with a deflationary nature, distinguishing it from traditional fiat currencies. Over the years, Bitcoin has garnered attention as both a revolutionary financial innovation and a speculative investment asset, experiencing significant price volatility. Advocates laud its potential to democratize finance, offering a hedge against inflation and enabling financial inclusion for unbanked populations. Critics, however, raise concerns about its environmental impact due to the energy-intensive mining process, regulatory challenges, and its association with illicit activities. Despite these controversies, Bitcoin's influence continues to grow, inspiring a myriad of cryptocurrencies and blockchain applications, while prompting ongoing debates about the future of money and the global financial system. As it evolves, Bitcoin remains a focal point in discussions about the intersection of technology, economics, and societal change.";
+  let posttxt = "no text";
 
   if (props.username == "abcd") {
     if (hasMoreThan500Chars(posttxt)) {

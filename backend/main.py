@@ -152,9 +152,9 @@ async def downvote_post(post_id: int, username: str):
 
 
 # Create comment for a post by a user
-@app.post("/comment")
-async def create_comment(comment: Comment):
-    print("Received comment data:", comment.model_dump())
+@app.post("/comments/{post_id}")
+async def create_comment(post_id: int, comment: Comment):
+    # print("Received comment data:", comment.model_dump())
     comment_data = comment.model_dump()
     result = await save_comment(comment_data)
     return {"message": "Comment created successfully"}
@@ -163,5 +163,7 @@ async def create_comment(comment: Comment):
 # Get all comments for a post
 @app.get("/comments/{post_id}", response_model=List[Comment])
 async def get_comments(post_id: int):
+    print("Post id for comments:", post_id)
+
     comments = await get_all_comments(post_id)
     return comments
