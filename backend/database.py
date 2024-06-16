@@ -127,9 +127,15 @@ async def save_comment(comment_data):
     return result
 
 
+# get comment by comment_id
+async def get_comment(comment_id):
+    comment = await comments_collection.find_one({"comment_id": int(comment_id)})
+    return comment
+
 
 # Get all comments by post_id
 async def get_all_comments(post_id):
+    print("Post id", post_id)
     all = []
     async for document in comments_collection.find({"post_id": int(post_id)}):
         all.append(document)
@@ -137,3 +143,17 @@ async def get_all_comments(post_id):
     print("All comments", all)
 
     return all
+
+
+# Update comment info by comment_id
+async def update_comment(comment_id, comment_data):
+    result = await comments_collection.update_one({"comment_id": int(comment_id)}, {"$set": comment_data})
+    print("Updated ", result.modified_count)
+
+    # Print the info of the comment after updating
+    # comment = await comments_collection.find_one({"comment_id": int(comment_id)})
+    # print("Comment after update", comment)
+
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    return result.modified_count

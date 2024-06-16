@@ -151,6 +151,64 @@ async def downvote_post(post_id: int, username: str):
     return post
 
 
+# To upvote comment
+@app.post("/upvote_comment/{comment_id}/{username}")
+async def upvote_comment(comment_id: int, username: str):
+    comment = await get_comment(comment_id)
+    
+    if not comment:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    
+    if username in comment["upvoted_by"]:
+        comment["upvoted_by"].remove(username)
+        comment["upvote_count"] -= 1
+    else:
+        if username in comment["downvoted_by"]:
+            comment["downvoted_by"].remove(username)
+            comment["downvote_count"] -= 1
+       
+        comment["upvoted_by"].append(username)
+        comment["upvote_count"] += 1
+
+    # Save update post info in the database
+    await update_comment(comment_id, comment)
+
+    # Remove post[_id] key from the post object
+    comment.pop("_id")
+    print("after", comment)
+
+    return comment
+
+
+# To downvote comment
+@app.post("/downvote_comment/{comment_id}/{username}")
+async def downvote_comment(comment_id: int, username: str):
+    comment = await get_comment(comment_id)
+    
+    if not comment:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    
+    if username in comment["downvoted_by"]:
+        comment["downvoted_by"].remove(username)
+        comment["downvote_count"] -= 1
+    else:
+        if username in comment["upvoted_by"]:
+            comment["upvoted_by"].remove(username)
+            comment["upvote_count"] -= 1
+       
+        comment["downvoted_by"].append(username)
+        comment["downvote_count"] += 1
+
+    # Save update post info in the database
+    await update_comment(comment_id, comment)
+
+    # Remove post[_id] key from the post object
+    comment.pop("_id")
+    print("after", comment)
+
+    return comment
+
+
 # Create comment for a post by a user
 @app.post("/comments/{post_id}")
 async def create_comment(post_id: int, comment: Comment):

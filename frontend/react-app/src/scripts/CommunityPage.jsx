@@ -62,9 +62,9 @@ function LeftColumn() {
 function MainColumn({ username, posts, fetchPosts }) {
   return (
     <div className="communityMainColumn">
-      {posts.map((post) => (
+      {posts.map((post, index) => (
         <Post
-          key={post._id}
+          key={index}
           {...post}
           fetchPosts={fetchPosts}
           current_user={username}

@@ -2,53 +2,68 @@ import "../styles/Comment.css";
 import Reply from "./Reply";
 import usericon from "../images/usericon.png";
 import { BiSolidUpvote, BiSolidDownvote } from "react-icons/bi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IconContext } from "react-icons";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
+import axios from "axios";
 
 function Comment(props) {
-  // console.log("comment props", props);
   return (
     <div className="commentMainBody">
       <CommentBody {...props} />
-      {/* <Reply {...props} /> */}
     </div>
   );
 }
 
 function CommentBody(props) {
-  // console.log("comment body props", props.data.content);
-  const [isUpvotePressed, setIsUpvotePressed] = useState(false);
-  const [isDownvotePressed, setIsDownvotePressed] = useState(false);
-  const [score, setScore] = useState(0);
+  const { comment_id, upvoted_by, downvoted_by, upvote_count, downvote_count } =
+    props.data;
+  const username = props.current_user;
 
-  function doUpvote() {
-    if (isUpvotePressed) {
-      setIsUpvotePressed(false);
-      setScore(score - 1);
-    } else if (isDownvotePressed) {
-      setIsDownvotePressed(false);
-      setScore(score + 2);
-      setIsUpvotePressed(true);
-    } else {
-      setIsUpvotePressed(true);
-      setScore(score + 1);
-    }
-  }
+  const [isUpvotePressed, setIsUpvotePressed] = useState(
+    upvoted_by.includes(username)
+  );
+  const [isDownvotePressed, setIsDownvotePressed] = useState(
+    downvoted_by.includes(username)
+  );
+  const [score, setScore] = useState(upvote_count - downvote_count);
 
-  function doDownvote() {
-    if (isDownvotePressed) {
+  useEffect(() => {
+    setScore(upvote_count - downvote_count);
+    setIsUpvotePressed(upvoted_by.includes(username));
+    setIsDownvotePressed(downvoted_by.includes(username));
+  }, [upvote_count, downvote_count, upvoted_by, downvoted_by, username]);
+
+  const doUpvote = async () => {
+    // console.log("upvote", props);
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/upvote_comment/${comment_id}/${username}`
+      );
+      const updatedComment = response.data;
+      setScore(updatedComment.upvote_count - updatedComment.downvote_count);
+      setIsUpvotePressed(!isUpvotePressed);
       setIsDownvotePressed(false);
-      setScore(score + 1);
-    } else if (isUpvotePressed) {
-      setIsUpvotePressed(false);
-      setScore(score - 2);
-      setIsDownvotePressed(true);
-    } else {
-      setIsDownvotePressed(true);
-      setScore(score - 1);
+      props.getComments(); // Fetch updated comments
+    } catch (error) {
+      console.error("Error upvoting comment:", error);
     }
-  }
+  };
+
+  const doDownvote = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/downvote_comment/${comment_id}/${username}`
+      );
+      const updatedComment = response.data;
+      setScore(updatedComment.upvote_count - updatedComment.downvote_count);
+      setIsUpvotePressed(false);
+      setIsDownvotePressed(!isDownvotePressed);
+      props.getComments(); // Fetch updated comments
+    } catch (error) {
+      console.error("Error downvoting comment:", error);
+    }
+  };
 
   return (
     <div className="commentBody">
@@ -98,7 +113,6 @@ function CommentBody(props) {
 }
 
 function ProfilePlus(props) {
-  // console.log("profile plus props", props);
   const [showOptions, setShowOptions] = useState(false);
   const [thisUserComment, setThisUserComment] = useState(true);
 

@@ -67,13 +67,14 @@ function PostCommentSection(props) {
         <PostCommentsBody
           comments={comments}
           current_user={props.current_user}
+          getComments={getComments}
         />
       </div>
     </div>
   );
 }
 
-function PostCommentsBody({ comments, current_user }) {
+function PostCommentsBody({ comments, current_user, getComments }) {
   return (
     <div>
       {comments.map((comment) => (
@@ -82,6 +83,7 @@ function PostCommentsBody({ comments, current_user }) {
           post_id={comment.post_id}
           data={comment}
           current_user={current_user}
+          getComments={getComments}
         />
       ))}
     </div>
