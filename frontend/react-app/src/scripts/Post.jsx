@@ -151,17 +151,21 @@ function PostImage(props) {
 function PostTag(props) {
   const tags = props.tags || [];
   // console.log("tags in post", tags);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  function handleTagClick(tag){
-    navigate("/search", { state: { username: props.username, keyword : tag } })
+  function handleTagClick(tag) {
+    navigate("/search", { state: { username: props.username, keyword: tag } });
   }
 
   return (
     <div>
       {Array.isArray(tags) &&
         tags.map((tag, index) => (
-          <button key={index} className="postTag" onClick={handleTagClick(tag)}>
+          <button
+            key={index}
+            className="postTag"
+            onClick={() => handleTagClick(tag)}
+          >
             {tag}
           </button>
         ))}

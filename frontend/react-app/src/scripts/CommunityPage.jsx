@@ -2,18 +2,19 @@ import "../styles/CommunityPage.css";
 import NavigationBar from "./NavigationBar";
 import Post from "./Post";
 import TopContributorSidebar from "./TopContributorSidebar";
+import TrendingTab from "./TrendingTab";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import TrendingTab from "./TrendingTab";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 function CommunityPage() {
   const location = useLocation();
   const [posts, setPosts] = useState([]);
-  let username = location.state.username;
+  const username = location.state.username;
+  const navigate = useNavigate();
 
-  // Show posts
+  // Fetch posts from backend
   const fetchPosts = async () => {
     try {
       const response = await axios.get("http://localhost:8000/posts");
@@ -40,17 +41,17 @@ function CommunityPage() {
   );
 }
 
-function CommunityBody(props) {
+function CommunityBody({ username, posts, fetchPosts }) {
   return (
     <div className="communityBody">
-      <LeftColumn {...props} />
-      <MainColumn {...props} />
-      <RightColumn {...props} />
+      <LeftColumn />
+      <MainColumn username={username} posts={posts} fetchPosts={fetchPosts} />
+      <RightColumn username={username} />
     </div>
   );
 }
 
-function LeftColumn(props) {
+function LeftColumn() {
   return (
     <div className="communityLeftColumn">
       <TopContributorSidebar />
@@ -62,7 +63,6 @@ function MainColumn({ username, posts, fetchPosts }) {
   return (
     <div className="communityMainColumn">
       {posts.map((post) => (
-        // send posts and current username to Post component
         <Post
           key={post._id}
           {...post}
@@ -70,25 +70,20 @@ function MainColumn({ username, posts, fetchPosts }) {
           current_user={username}
         />
       ))}
-
-      {/* debuggng below */}
-
-      {/* <Post current_user={username} /> */}
     </div>
   );
 }
 
-function RightColumn(props) {
+function RightColumn({ username }) {
   const navigate = useNavigate();
 
-  function makePost() {
-    navigate("/makepost", { state: { username: props.username } });
-  }
+  const makePost = () => {
+    navigate("/makepost", { state: { username } });
+  };
 
   return (
     <div className="communityRightColumn">
       <TrendingTab />
-
       <div>
         <button className="makePostButton" onClick={makePost}>
           Make Post
