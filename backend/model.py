@@ -36,3 +36,28 @@ class UserPost(BaseModel):
     tags: List[str] = []
     upvoted_by: List[str] = []
     downvoted_by: List[str] = []
+
+# Reply model
+# class Reply(BaseModel):
+#     reply_id: int
+#     comment_id: int
+#     username: str
+#     content: str
+#     upvote_count: int = 0
+#     downvote_count: int = 0
+#     upvoted_by: List[str] = []
+#     downvoted_by: List[str] = []
+
+# Comment model
+class Comment(BaseModel):
+    comment_id: int
+    post_id: int
+    username: str
+    content: str
+    upvote_count: int = 0
+    downvote_count: int = 0
+    upvoted_by: List[str] = []
+    downvoted_by: List[str] = []
+    # replies: List[Reply] = []
+
+

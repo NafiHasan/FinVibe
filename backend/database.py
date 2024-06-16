@@ -15,14 +15,14 @@ database = client.FinVibe
 # Get the tables/collections
 collection = database.User
 posts_collection = database.Posts
-
+comments_collection = database.Comments
 
 
 # Database functions to read and write data
-async def DatabaseFunction(inputData):
-    dataDict = inputData.dict()
-    result = await collection.insert_one(dataDict)
-    return result
+# async def DatabaseFunction(inputData):
+#     dataDict = inputData.dict()
+#     result = await collection.insert_one(dataDict)
+#     return result
 
 
 async def save_user(user_data):
@@ -95,15 +95,6 @@ async def update_post(post_id, post_data):
 
 
 # Delete post
-# async def delete_post(post_id):
-#     result = await posts_collection.delete_one({"post_id": int(post_id)})
-#     print("Deleted ", result.deleted_count)
-
-#     # Through exception if not deleted
-#     if result.deleted_count == 0:
-#         raise HTTPException(status_code=404, detail="Post not found")
-#     return result.deleted_count
-
 async def delete_post(post_id):
     print(type(post_id))
     print("Deleting post with id", post_id)
@@ -117,14 +108,31 @@ async def delete_post(post_id):
 
 
 # Upvote post
-async def upvote_post(post_id):
-    result = await posts_collection.update_one({"post_id": int(post_id)}, {"$inc": {"upvote_count": 1}})
-    print("Updated ", result.modified_count)
+# async def upvote_post(post_id):
+#     result = await posts_collection.update_one({"post_id": int(post_id)}, {"$inc": {"upvote_count": 1}})
+#     print("Updated ", result.modified_count)
 
-    # Print the info of the post after updating
-    post = await posts_collection.find_one({"post_id": int(post_id)})
-    print("Post after update", post)
+#     # Print the info of the post after updating
+#     post = await posts_collection.find_one({"post_id": int(post_id)})
+#     print("Post after update", post)
 
-    if result.modified_count == 0:
-        raise HTTPException(status_code=404, detail="Post not found")
-    return result.modified_count
+#     if result.modified_count == 0:
+#         raise HTTPException(status_code=404, detail="Post not found")
+#     return result.modified_count
+
+
+# save comment
+async def save_comment(comment_data):
+    result = await comments_collection.insert_one(comment_data)
+    return result
+
+
+
+# Get all comments by post_id
+async def get_all_comments(post_id):
+    all = []
+
+    async for document in comments_collection.find({"post_id": int(post_id)}):
+        all.append(document)
+
+    return all

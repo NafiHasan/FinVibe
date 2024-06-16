@@ -71,7 +71,7 @@ function Post(props) {
 }
 
 function PostHeader(props) {
-  console.log("props in header", props);
+  // console.log("props in header", props);
 
   function doesPostBelongToCurrentUser() {
     if (props.username == props.current_user) {
@@ -296,7 +296,22 @@ function PostFooter(props) {
       <button
         className="postCommentButton"
         onClick={() =>
-          navigate("/expandedpost", { state: { username: props.username } })
+          navigate("/expandedpost", {
+            state: {
+              post: {
+                post_id: props.post_id,
+                username: props.username,
+                image: props.image,
+                tags: props.tags,
+                content: props.content,
+                upvoted_by: props.upvoted_by,
+                downvoted_by: props.downvoted_by,
+                upvote_count: props.upvote_count,
+                downvote_count: props.downvote_count,
+              },
+              current_user: props.current_user,
+            },
+          })
         }
       >
         <IconContext.Provider
