@@ -88,6 +88,14 @@
     height: 5vh;
 }
 
+.loginInputBox::placeholder{
+    font-family: "Montserrat";
+}
+
+.loginInputBox:focus{
+    outline: none;
+}
+
 .loginInputButton{
     display: flex;
     justify-content: flex-end;
@@ -104,9 +112,23 @@
     height: 5vh;
     width: 20%;
     font-family: "Montserrat";
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.loginButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
 }
 
 .wrongCredText{
     font-family: "Montserrat";
     color: red;
+}
+
+input{
+    font-family: "Montserrat";    
 }

@@ -7,12 +7,16 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { TfiWrite } from "react-icons/tfi";
+import { IconContext } from "react-icons";
+import { CiFilter } from "react-icons/ci";
 
 function CommunityPage() {
   const location = useLocation();
   const [posts, setPosts] = useState([]);
   const username = location.state.username;
   const navigate = useNavigate();
+  const [isFilterButtonPressed, setFilterButtonPressed] = useState(false)
 
   // Fetch posts from backend
   const fetchPosts = async () => {
@@ -36,16 +40,18 @@ function CommunityPage() {
         username={username}
         posts={posts}
         fetchPosts={fetchPosts}
+        isFilterButtonPressed = {isFilterButtonPressed}
+        setFilterButtonPressed = {setFilterButtonPressed}
       />
     </div>
   );
 }
 
-function CommunityBody({ username, posts, fetchPosts }) {
+function CommunityBody({ username, posts, fetchPosts, isFilterButtonPressed, setFilterButtonPressed }) {
   return (
     <div className="communityBody">
       <LeftColumn />
-      <MainColumn username={username} posts={posts} fetchPosts={fetchPosts} />
+      <MainColumn username={username} posts={posts} fetchPosts={fetchPosts} isFilterButtonPressed = {isFilterButtonPressed} setFilterButtonPressed = {setFilterButtonPressed}/>
       <RightColumn username={username} />
     </div>
   );
@@ -59,17 +65,39 @@ function LeftColumn() {
   );
 }
 
-function MainColumn({ username, posts, fetchPosts }) {
+function MainColumn({ username, posts, fetchPosts, isFilterButtonPressed, setFilterButtonPressed }) {
   return (
     <div className="communityMainColumn">
-      {posts.map((post, index) => (
-        <Post
-          key={index}
-          {...post}
-          fetchPosts={fetchPosts}
-          current_user={username}
-        />
-      ))}
+      <div style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", width: "82%"}}>
+          <button className="filterButton" onClick={() => setFilterButtonPressed(!isFilterButtonPressed)}> <CiFilter /> Filter</button>
+
+          {/* <div style={{display: "flex", flexDirection: "column"}}>
+              <button>Newest First</button>
+              <button>Highest Score First</button>
+              <button>Recommended</button>
+          </div> */}
+      </div>
+
+      <div style={{display: "flex", flexDirection: "row"}}>
+          {posts.map((post, index) => (
+            <Post
+              key={index}
+              {...post}
+              fetchPosts={fetchPosts}
+              current_user={username}
+            />
+          ))}
+
+          {/* debugging */}
+          {(username = "abcd") && <div><Post username = {username}/><Post username = {username}/><Post username = {username}/> </div>
+            }
+
+          {isFilterButtonPressed && <div style={{display: "flex", flexDirection: "column"}}>
+              <button className="filterItem">Newest First</button>
+              <button className="filterItem">Highest Score First</button>
+              <button className="filterItem">Recommended</button>
+          </div>}
+      </div>
     </div>
   );
 }
@@ -85,8 +113,16 @@ function RightColumn({ username }) {
     <div className="communityRightColumn">
       <TrendingTab />
       <div>
-        <button className="makePostButton" onClick={makePost}>
-          Make Post
+        <button className="mpbutton" onClick={makePost}>
+          <IconContext.Provider
+            value={{
+              color: "white",
+              className: "global-class-name",
+              size: "3vh",
+            }}
+          >
+            <TfiWrite />
+          </IconContext.Provider>
         </button>
       </div>
     </div>

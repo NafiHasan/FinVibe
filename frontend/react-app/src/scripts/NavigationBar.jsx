@@ -9,6 +9,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { FaRocketchat } from "react-icons/fa";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { useState } from "react";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 function NavigationBar(props) {
   return (
@@ -85,27 +86,39 @@ function ProfilePlus(props) {
 
   return (
     <div className="profilePlusBody">
-      <img src={usericon} className="userIconBody" alt="User Icon" />
+      <div style={{display: "flex", flexDirection: "row"}}>
+        <img src={usericon} className="userIconBody" alt="User Icon" />
 
-      <button className="userButton" onClick={handleProfileClick}>
-        {props.username}
-      </button>
+        <button className="userButton" onClick={handleProfileClick}>
+          {props.username}
+        </button>
+      </div>
 
-      <button className="logoutButton" onClick={handleLogout}>
-        <IconContext.Provider
-          value={{ color: "white", className: "global-class-name", size: 25 }}
-        >
-          <IoIosLogOut />
-        </IconContext.Provider>
-      </button>
+      <div style={{display: "flex", flexDirection: "row"}}>
+        <button className="logoutButton" onClick={handleLogout}>
+          <IconContext.Provider
+            value={{ color: "white", className: "global-class-name", size: 25 }}
+          >
+            <IoIosNotificationsOutline />
+          </IconContext.Provider>
+        </button>
 
-      <button className="logoutButton" onClick={handleLogout}>
-        <IconContext.Provider
-          value={{ color: "white", className: "global-class-name", size: 25 }}
-        >
-          <IoChatbubbleEllipsesOutline />
-        </IconContext.Provider>
-      </button>
+        <button className="logoutButton" onClick={handleLogout}>
+          <IconContext.Provider
+            value={{ color: "white", className: "global-class-name", size: 25 }}
+          >
+            <IoChatbubbleEllipsesOutline />
+          </IconContext.Provider>
+        </button>
+
+        <button className="logoutButton" onClick={handleLogout}>
+          <IconContext.Provider
+            value={{ color: "white", className: "global-class-name", size: 25 }}
+          >
+            <IoIosLogOut />
+          </IconContext.Provider>
+        </button>
+      </div>
     </div>
   );
 }

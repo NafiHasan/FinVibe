@@ -2,21 +2,21 @@
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin: 2%;
+    
     height: fit-content;
 
-    box-shadow: 1.5vh 1.5vh 1.5vh 1.5vh #242124;
+    box-shadow: .1vh .1vh .1vh .1vh #242124;
 
     transition: box-shadow;
     transition-duration: .5s;
     transition-timing-function: linear;
 
-    margin: 7%;
+    margin-left: 5%;
 }
 
-.trendingTabMainBody:hover{
+/* .trendingTabMainBody:hover{
     box-shadow: 2.5vh 2.5vh 2.5vh 2.5vh #242124;
-}
+} */
 
 .trendingTabHeader{
     background-color: #283350;
@@ -40,28 +40,43 @@
     align-items: center;
     
     font-family: "Montserrat";
-    justify-content: space-around;
-    padding: 2%;
+    justify-content: center;
+    padding: 5%;
+    
 
-    box-shadow: 1vh 1vh 1vh 1vh #242124;
+    box-shadow: .1vh 0vh .1vh .1vh #242124; 
 
-    transition: box-shadow;
-    transition-duration: .5s;
-    transition-timing-function: linear;
+    
+    transition: background-color .5s linear, box-shadow .2s linear;;
 
-    margin-bottom: .5vh;
+    margin-top: .1vh;
+    margin-bottom: .2vh;
 }
 
 .trendingItem:hover{
-    box-shadow: 2vh 2vh 2vh 2vh #242124;
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+    background-color: #283350;
+}
+
+.trendingItem:hover .trendingTabUserButton{
+    background-color: #283350;
+    color: white;
+    background: none;
 }
 
 .trendingTabUserButton{
-    background-color: whitesmoke;
+    background-color: white;
     border: none;
     border-radius: 100px;
     color: black;
     font-family: "Montserrat";
     font-size: 2vh;
     margin-left: 3vh;
+    background: none;
+}
+
+.trendingTabUserButton:hover{
+    font-weight: bold;
+    background-color: #283350;
+    color: white
 }

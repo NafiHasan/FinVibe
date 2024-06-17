@@ -1,13 +1,12 @@
 .postMainBody {
-  width: 85%;
+  width: 85vh;
   height: fit-content;
-  margin-top: 2vh;
   margin-bottom: 2vh;
   display: flex;
   flex-direction: column;
   margin-left: 2%;
 
-  box-shadow: 1.5vh 1.5vh 1.5vh 1.5vh #242124;
+  box-shadow: .75vh .75vh .75vh .75vh #242124;
 
   transition: box-shadow;
   transition-duration: 0.5s;
@@ -15,7 +14,7 @@
 }
 
 .postMainBody:hover {
-  box-shadow: 2vh 2vh 2vh 2vh #242124;
+  box-shadow: 1vh 1vh 1vh 1vh #242124;
 }
 
 .postHeader {
@@ -25,6 +24,7 @@
   background-color: #283350;
   border-radius: 1px;
 }
+
 
 .postUserIcon {
   height: 5vh;
@@ -37,18 +37,14 @@
   background-color: inherit;
   border: none;
   border-radius: 100px;
-  color: aliceblue;
+  color: white;
   font-family: "Montserrat";
   font-size: 2vh;
-
-  text-shadow: 0.2vh 0.2vh 0.5vh black; /* Adjusted values */
-
-  transition: text-shadow 0.5s linear; /* Simplified transition syntax */
 }
 
 .postUsernameButton:hover {
   color: white;
-  text-shadow: 1vh 1vh 1vh #242124; /* Adjusted values */
+  font-weight: bold;
   border: none;
 }
 
@@ -83,12 +79,13 @@
   height: 6vh;
   width: 6vh;
   border-radius: 100px;
-  background-color: #283350;
+  background-color: white;
   border: none;
 }
 
 .postImage {
   width: 100%;
+  height: 60vh;
 }
 
 .postText {
@@ -112,18 +109,57 @@
     flex: 1;
     display: flex;
     
+    border-radius: 200px;
+    border-width: 1px;
     
     font-family: "Montserrat";
-    justify-content: space-between;
+    justify-content: center;
     padding: 1%;
 
-    box-shadow: 1vh 1vh 1vh 1vh #242124;
+    width: 12vh;
 
-    transition: box-shadow;
+    box-shadow: .1vh .1vh .1vh .1vh #242124;
+
+    transition: background-color;
     transition-duration: .5s;
     transition-timing-function: linear;
 
-    margin-bottom: .5vh;
+    margin-bottom: 1vh;
 
     font-size: 2vh;
+}
+
+.postOptionItem:hover{
+  background-color: #283350;
+  color: white;
+}
+
+.postOptionsBody{
+  height: 5vh;
+  margin-left: 2.8vh;
+  margin-top: 1vh;
+  background-color: white;
+}
+
+.imageButton{
+  border-radius: 200px;
+  width: 5vh;
+  height: 5vh;
+  background-color: white;
+  border-width: 1px;
+  margin: 2%;
+
+  transition: background-color .2s linear;
+}
+
+.imageButton:hover{
+  background-color: #283350;
+  color: white;
+}
+
+.score{
+  border: 1px solid #283350;
+  border-radius: 200px;
+  padding: 10px 20px;
+  display: inline-block;
 }

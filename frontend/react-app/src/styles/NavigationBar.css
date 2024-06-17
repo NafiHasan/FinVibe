@@ -1,5 +1,5 @@
 .navBarBody{
-    background-color: aliceblue;
+    background-color: white;
     display: flex;
     padding: 1vh;
     height: 8vh;
@@ -7,15 +7,14 @@
 
 .mainBarBody{
     background-color: #283350;
-    flex: 4;
+    flex: 1.5;
     display: flex;
     border-radius: 100px;
-    margin-left: .1%;
-    margin-right: .8%;
+    margin-right: .5%;
     align-items: center;
     justify-content: space-around;
 
-    box-shadow: 1vh 1vh 1vh 1vh #242124;
+    box-shadow: 0.5vh 0.5vh 0.5vh 0.5vh #242124;
 
     transition: box-shadow;
     transition-duration: .5s;
@@ -23,21 +22,22 @@
 }
 
 .mainBarBody:hover{
-    box-shadow: 2vh 2vh 2vh 2vh #242124;
+    box-shadow: 0.75vh 0.75vh 0.75vh 0.75vh #242124;
 }
 
 .searchBarBody{
     border-radius: 100px;
     background-color: #283350;
     display: flex;
-    flex: 1.5;
-    margin-right: .8%;
+    flex: .6;
+    margin-right: .5%;
     font-family: "Montserrat";
-    justify-content: space-around;
+    padding-left: .5%;
     align-items: center;
-    margin: .01%;
+    margin-left: .5%;
+    
 
-    box-shadow: 1vh 1vh 1vh 1vh #242124;
+    box-shadow: 0.5vh 0.5vh 0.5vh 0.5vh #242124;
 
     transition: box-shadow;
     transition-duration: .5s;
@@ -45,21 +45,22 @@
 }
 
 .searchBarBody:hover{
-    box-shadow: 2vh 2vh 2vh 2vh #242124;
+    box-shadow: 0.75vh 0.75vh 0.75vh 0.75vh #242124;
 }
 
 .profilePlusBody{
     background-color: #283350;
     border-radius: 100px;
-    flex: 1;
+    /* flex: .5; */
     display: flex;
     align-items: center;
-    
+    margin-left: .5%;
+    width: fit-content;
     font-family: "Montserrat";
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 1%;
 
-    box-shadow: 1vh 1vh 1vh 1vh #242124;
+    box-shadow: 0.5vh 0.5vh 0.5vh 0.5vh #242124;
 
     transition: box-shadow;
     transition-duration: .5s;
@@ -67,7 +68,7 @@
 }
 
 .profilePlusBody:hover{
-    box-shadow: 2vh 2vh 2vh 2vh #242124;
+    box-shadow: 0.75vh 0.75vh 0.75vh 0.75vh #242124;
 }
 
 .mainBarButton {
@@ -94,10 +95,18 @@
     border-width: 1px;
     display: flex;
     border-color: black;
-    height: 5vh;
-    flex: 10;
-    margin-left: 1%;
+    height: 4vh;
+    flex: 9;
+    
     font-family: "Montserrat";
+}
+
+.searchBarInput::placeholder{
+    font-family: "Montserrat";
+}
+
+.searchBarInput:focus{
+    outline: none;
 }
 
 .searchButton{
@@ -106,7 +115,7 @@
     height: 5vh;
     width: 5vh;
     border: none;
-    
+    margin-top: 1%;
     background-color: #283350;
 }
 
@@ -144,4 +153,10 @@
     color: white;
     text-shadow: 1vh 1vh 1vh #242124; /* Adjusted values */
     border: none;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+input{
+    font-family: "Montserrat";    
 }

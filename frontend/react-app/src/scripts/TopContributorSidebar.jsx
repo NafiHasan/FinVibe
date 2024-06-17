@@ -16,7 +16,7 @@ function TopContributorSidebar(){
 function SidebarHeader(){
     return(
         <div className='sidebarHeader'>
-            Top Contributor
+            Top Contributors
         </div>
     )
 }

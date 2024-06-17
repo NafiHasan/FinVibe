@@ -77,6 +77,10 @@ function RegisterCard() {
   const [emptyCred, setEmptyCred] = useState(false);
   const [nullCred, setNullCred] = useState(false);
   const [noSpecial, setNoSpecial] = useState(false);
+  const [email, setEmail] = useState("")
+  const [noEmail, setNoEmail] = useState(false)
+  const [fullname, setFullname] = useState("")
+  const [noFullname, setNoFullname] = useState(false)
 
   async function registerUser() {
     if (username == "" || password == "") {
@@ -84,6 +88,8 @@ function RegisterCard() {
       setNullCred(false);
       setEmptyCred(true);
       setNonUniqueCred(false);
+      setNoEmail(false)
+      setNoFullname(false)
     } else {
       if (hasNoWhiteSpace(username) && hasNoWhiteSpace(password)) {
         if (hasSpecialCharacter(password)) {
@@ -126,6 +132,7 @@ function RegisterCard() {
             flexDirection: "column",
             justifyContent: "space-between",
             height: "12vh",
+            marginBottom: "5%"
           }}
         >
           <text
@@ -133,13 +140,15 @@ function RegisterCard() {
               fontSize: "3vh",
               fontFamily: "Montserrat",
               fontWeight: "bold",
+              marginBottom: "2%"
             }}
           >
-            Pick A Unique Username
+            Username
           </text>
           <input
             type="text"
             className="inputBox"
+            placeholder="Enter A Unique Username"
             onChange={(e) => setUsername(e.target.value)}
           ></input>
         </div>
@@ -150,6 +159,7 @@ function RegisterCard() {
             flexDirection: "column",
             justifyContent: "space-between",
             height: "12vh",
+            marginBottom: "5%"
           }}
         >
           <text
@@ -157,24 +167,82 @@ function RegisterCard() {
               fontSize: "3vh",
               fontFamily: "Montserrat",
               fontWeight: "bold",
+              marginBottom: "2%"
             }}
           >
-            Pick A Password
+            Full Name
+          </text>
+          <input
+            type="text"
+            className="inputBox"
+            placeholder="Enter Your Full Name"
+            onChange={(e) => setFullname(e.target.value)}
+          ></input>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "12vh",
+            marginBottom: "5%"
+          }}
+        >
+          <text
+            style={{
+              fontSize: "3vh",
+              fontFamily: "Montserrat",
+              fontWeight: "bold",
+              marginBottom: "2%"
+            }}
+          >
+            Password
           </text>
           <input
             type="password"
             className="inputBox"
+            placeholder="Enter A Strong Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>
-      </div>
 
-      {/* register buttons */}
-      <div className="inputButton">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "12vh",
+            marginBottom: "5%"
+          }}
+        >
+          <text
+            style={{
+              fontSize: "3vh",
+              fontFamily: "Montserrat",
+              fontWeight: "bold",
+              marginBottom: "2%"
+            }}
+          >
+            E-mail
+          </text>
+          <input
+            type="email"
+            className="inputBox"
+            placeholder="Enter Your E-mail"
+            onChange={(e) => setEmail(e.target.value)}
+          ></input>
+        </div>
+
+        <div className="inputButton">
         <button className="registerButton" onClick={registerUser}>
           Register
         </button>
       </div>
+      </div>
+
+      {/* register buttons */}
+      
 
       <div className="wrongCredTextBody">
         {nonUniqueCred ? (
@@ -208,6 +276,26 @@ function RegisterCard() {
         {noSpecial ? (
           <text className="wrongCredText">
             The passcode must have 4 characters
+          </text>
+        ) : (
+          <div />
+        )}
+      </div>
+
+      <div className="wrongCredTextBody">
+        {noEmail ? (
+          <text className="wrongCredText">
+            The E-mail field must have a valid, non-empty e-mail
+          </text>
+        ) : (
+          <div />
+        )}
+      </div>
+
+      <div className="wrongCredTextBody">
+        {noFullname ? (
+          <text className="wrongCredText">
+            The full name field can not be empty
           </text>
         ) : (
           <div />
