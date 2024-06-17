@@ -3,6 +3,7 @@ from model import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
 from fastapi import HTTPException
+import datetime
 
 
 # Connect to MongoDB
@@ -11,6 +12,8 @@ client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://admin:admin@clust
 # Get the database
 database = client.FinVibe
 
+# Counter for post_id
+cur_post_id = 0
 
 # Get the tables/collections
 collection = database.User
@@ -59,21 +62,14 @@ async def get_all_posts():
 
 # Save post
 async def save_post(post_data):
+    # Give unique post_id to each post
+    # Generate a random post_id based on current time and date
+    current_time = datetime.datetime.now()
+    post_id = int(current_time.timestamp())
+    print("Post id", post_id)
 
-    # Get the current highest post_id from the database
-    last_post = await posts_collection.find_one(sort=[("post_id", -1)])
-    last_post_id = last_post.get("post_id") if last_post else 0
-
-    if last_post_id is None:
-        last_post_id = 0
-
-    # Increment to generate a new unique post_id
-    new_post_id = last_post_id + 1
-
-    print("data ", post_data)
-
-    # Assign the new post_id to the post object
-    post_data['post_id'] = new_post_id
+    # Assign the new post_id to the post objectt
+    post_data['post_id'] = post_id
 
 
     result = await posts_collection.insert_one(post_data)
@@ -167,3 +163,55 @@ async def update_comment(comment_id, comment_data):
     if result.modified_count == 0:
         raise HTTPException(status_code=404, detail="Comment not found")
     return result.modified_count
+
+
+
+# Get user info by username
+async def get_user_by_username(username):
+    user = await collection.find_one({"username": username})
+    return user
+
+
+# Update user info by username
+async def update_user_info(username, user_data):
+    # Set user_score to 0 if it is not present in the user_data
+    if "user_score" not in user_data:
+        user_data["user_score"] = 0
+    # Update the user info of only provided fields
+    user_data["username"] = username
+    result = await collection.update_one({"username": username}, {"$set": user_data})
+    print("Updated ", result.modified_count)
+
+    # Print the info of the user after updating
+    user = await collection.find_one({"username": username})
+    print("User after update", user)
+
+    # if result.modified_count == 0:
+    #     raise HTTPException(status_code=404, detail="User not found")
+    return result.modified_count
+
+
+
+# Update user score by username
+async def update_user_score(username, user_score):
+    result = await collection.update_one({"username": username}, {"$inc": {"user_score": user_score}})
+    print("Updated ", result.modified_count)
+
+    # Print the info of the user after updating
+    # user = await collection.find_one({"username": username})
+    # print("User after update", user)
+
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return result.modified_count
+
+
+# Get top 10 users based on user_score
+async def get_top_users():
+    all = []
+    async for document in collection.find({}).sort("user_score", -1).limit(10):
+        # exclude id and password from the response
+        document.pop("_id")
+        document.pop("password")
+        all.append(document)
+    return all

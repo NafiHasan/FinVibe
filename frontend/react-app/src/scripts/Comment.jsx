@@ -21,10 +21,10 @@ function CommentBody(props) {
   const comment_id = props.data.comment_id;
   const upvoted_by = props.data.upvoted_by || [];
   const downvoted_by = props.data.downvoted_by || [];
-  const username = props.data.current_user;
+  const username = props.current_user;
   const upvote_count = props.data.upvote_count || 0;
   const downvote_count = props.data.downvote_count || 0;
-  // console.log("id", comment_id);
+  // console.log("username ", username);
   // const { comment_id, upvoted_by, downvoted_by, upvote_count, downvote_count } =
   // props.data;
   // const username = props.current_user;

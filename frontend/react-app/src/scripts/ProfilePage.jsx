@@ -1,303 +1,437 @@
-import '../styles/ProfilePage.css'
-import { useLocation } from 'react-router-dom'
-import NavigationBar from './NavigationBar';
-import "@fontsource/montserrat"
-import usericon from '../images/usericon.png'
-import { useState } from 'react';
-import { LineChart } from '@mui/x-charts/LineChart';
-import { useRef } from 'react';
+import "../styles/ProfilePage.css";
+import { useLocation } from "react-router-dom";
+import NavigationBar from "./NavigationBar";
+import "@fontsource/montserrat";
+import usericon from "../images/usericon.png";
+import { useState, useEffect, useRef } from "react";
+import { LineChart } from "@mui/x-charts/LineChart";
 
-function ProfilePage(){
-    const location = useLocation();
-    const [isRestricted, setIsRestricted] = useState(false);
-    const [isCurrentUser, setIsCurrentUser] = useState(true)
-    const [isEditing, setIsEditing] = useState(false)
+function ProfilePage() {
+  const location = useLocation();
+  const [isRestricted, setIsRestricted] = useState(false);
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
-    let username = location.state.username
+  let username = location.state.username;
 
-    return(
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const response = await fetch(`http://localhost:8000/user/${username}`);
+        const data = await response.json();
+        // console.log(data);
+        setUserInfo(data);
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    }
+
+    fetchUserInfo();
+  }, [username]);
+
+  if (!userInfo) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <NavigationBar username={username} />
+      <ProfileBody
+        username={username}
+        isCurrentUser={isCurrentUser}
+        setIsCurrentUser={setIsCurrentUser}
+        isRestricted={isRestricted}
+        setIsRestricted={setIsRestricted}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+      />
+    </div>
+  );
+}
+
+function ProfileBody(props) {
+  // console.log("profile body", props);
+  const username = props.userInfo.username;
+  const bio = props.userInfo.bio;
+  const fullname = props.userInfo.fullname;
+  const image = props.userInfo.image;
+  const posts = props.userInfo.posts;
+  const bookmarks = props.userInfo.bookmarks;
+  const stocks = props.userInfo.stocks;
+  const cryptos = props.userInfo.cryptos;
+  const score = props.userInfo.user_score;
+  // console.log("profile body", fullname);
+
+  return (
+    <div className="profileBody">
+      <LeftHalf
+        {...props}
+        username={username}
+        bio={bio}
+        fullname={fullname}
+        image={image}
+        score={score}
+      />
+      <RightHalf
+        {...props}
+        posts={posts}
+        bookmarks={bookmarks}
+        stocks={stocks}
+        cryptos={cryptos}
+      />
+    </div>
+  );
+}
+
+function LeftHalf(props) {
+  // console.log("left half", props);
+  const inputRef = useRef();
+  const [image, setImage] = useState(props.image);
+  const [fullname, setFullname] = useState(props.fullname);
+  const [bio, setBio] = useState(props.bio);
+
+  // console.log("left half", fullname, bio);
+
+  function handleImageClick() {
+    inputRef.current.click();
+  }
+
+  function handleImageChange(event) {
+    const file = event.target.files[0];
+    setImage(file);
+  }
+
+  function handleEditSubmit() {
+    async function updateUser() {
+      try {
+        // console.log("fullname ", fullname);
+        // console.log("bio ", bio);
+        const formData = new FormData();
+        formData.append("fullname", fullname);
+        formData.append("bio", bio);
+        if (image) {
+          formData.append("image", image);
+        }
+        // console.log(props.username);
+        // Print the form data
+        for (var pair of formData.entries()) {
+          console.log(pair[0] + ", " + pair[1]);
+        }
+        const response = await fetch(
+          `http://localhost:8000/user/${props.username}`,
+          {
+            method: "PUT",
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to update user information");
+        }
+
+        const data = await response.json();
+        console.log("data", data);
+        props.setUserInfo((prevUserInfo) => ({
+          ...prevUserInfo,
+          fullname: data.fullname,
+          bio: data.bio,
+          image: data.image,
+        }));
+      } catch (error) {
+        console.error("Error updating user information:", error);
+      }
+    }
+
+    updateUser();
+    props.setIsEditing(false);
+  }
+
+  return (
+    <div className="profileLeftHalf">
+      <div
+        style={{
+          margin: "2%",
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "space-around",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {props.isEditing && props.isCurrentUser ? (
+          <div onClick={handleImageClick}>
+            {image ? (
+              <img src={URL.createObjectURL(image)} className="profilePic" />
+            ) : (
+              <img src={usericon} className="profilePic" />
+            )}
+            <input
+              type="file"
+              ref={inputRef}
+              onChange={handleImageChange}
+              hidden
+            />
+          </div>
+        ) : (
+          <img src={image || usericon} className="profilePic" />
+        )}
+
+        {props.isEditing && props.isCurrentUser ? (
+          <div>
+            <input
+              type="text"
+              placeholder="Enter Your Full Name"
+              value={fullname}
+              onChange={(e) => setFullname(e.target.value)}
+            />
+          </div>
+        ) : (
+          <p className="profileUsername">{fullname}</p>
+        )}
+
+        {props.isCurrentUser && !props.isEditing && (
+          <button
+            className="editProfileButton"
+            onClick={() => props.setIsEditing(true)}
+          >
+            Edit Profile
+          </button>
+        )}
+
+        {props.isEditing && props.isCurrentUser ? (
+          <div>
+            <textarea
+              placeholder="Enter your bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
+
+            <button className="editProfileButton" onClick={handleEditSubmit}>
+              Submit
+            </button>
+          </div>
+        ) : (
+          <p
+            style={{
+              color: "black",
+              fontFamily: "Montserrat",
+              fontSize: "15px",
+            }}
+          >
+            {props.bio}
+          </p>
+        )}
+
+        <p className="profileScore">Contributor Score: {props.score}</p>
+      </div>
+    </div>
+  );
+}
+
+function RightHalf(props) {
+  const [profileNavValue, setProfileNavValue] = useState("Post");
+
+  function handlePrivacyToggle() {
+    props.setIsRestricted(!props.isRestricted);
+  }
+
+  return (
+    <div className="profileRightHalf">
+      {props.isCurrentUser && (
         <div>
-            <NavigationBar username = {username}/>
-            <ProfileBody username = {username} isCurrentUser = {isCurrentUser} setIsCurrentUser = {setIsCurrentUser} isRestricted = {isRestricted} setIsRestricted = {setIsRestricted} isEditing = {isEditing} setIsEditing = {setIsEditing}/>
+          Do you want to keep your profile restricted?{" "}
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={props.isRestricted}
+              onChange={handlePrivacyToggle}
+            />
+            <span className="slider round"></span>
+          </label>
         </div>
-    )
+      )}
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          margin: "2%",
+          height: "20vh",
+          width: "50vh",
+        }}
+      >
+        <button
+          className="profileNavButton"
+          onClick={() => setProfileNavValue("Post")}
+        >
+          Posts
+        </button>
+        <button
+          className="profileNavButton"
+          onClick={() => setProfileNavValue("Bookmarks")}
+        >
+          Bookmarks
+        </button>
+        <button
+          className="profileNavButton"
+          onClick={() => setProfileNavValue("Stocks")}
+        >
+          Stocks
+        </button>
+        <button
+          className="profileNavButton"
+          onClick={() => setProfileNavValue("Crypto")}
+        >
+          CryptoCurrency
+        </button>
+      </div>
+
+      {props.isCurrentUser && (
+        <div>
+          {profileNavValue === "Post" && <Posts posts={props.posts} />}
+          {profileNavValue === "Bookmarks" && (
+            <Bookmarks bookmarks={props.bookmarks} />
+          )}
+          {profileNavValue === "Stocks" && <Stock stocks={props.stocks} />}
+          {profileNavValue === "Crypto" && <Crypto cryptos={props.cryptos} />}
+        </div>
+      )}
+
+      {!props.isCurrentUser && !props.isRestricted && (
+        <div>
+          {profileNavValue === "Post" && <Posts posts={props.posts} />}
+          {profileNavValue === "Bookmarks" && (
+            <Bookmarks bookmarks={props.bookmarks} />
+          )}
+          {profileNavValue === "Stocks" && <Stock stocks={props.stocks} />}
+          {profileNavValue === "Crypto" && <Crypto cryptos={props.cryptos} />}
+        </div>
+      )}
+
+      {!props.isCurrentUser && props.isRestricted && (
+        <div>
+          This user has chosen to hide their contributions from everyone.
+        </div>
+      )}
+    </div>
+  );
 }
 
-function ProfileBody(props){
-    return(
-        <div className='profileBody'>
-            <LeftHalf {...props}/>
-            <RightHalf {...props}/>
-        </div>
-    )
+function Posts({ posts }) {
+  return (
+    <div>
+      {posts
+        ? posts.map((post) => <div key={post.id}>{post.content}</div>)
+        : "No posts"}
+    </div>
+  );
 }
 
-function LeftHalf(props){
-    const bioText = "Welcome to the ring of trading, where every move counts and every decision packs a punch. I'm CM Punk, stepping into the world of stocks and crypto with the same intensity I bring to the squared circle. Armed with determination and a keen eye for opportunity, I'm ready to grapple with market fluctuations and come out on top. In this arena, strategy is my best ally, and I'm here to show that discipline and resilience aren't just for the ring—they're the keys to success in any arena. So let's lace up our boots and make some profitable trades"
-    const inputref = useRef()
-    const [image, setimage] = useState("")
-    const [fullname, setFullname] = useState("Full name")
-    const [changedBio, setChangedBio] = useState(bioText)
-
-    function handleImageClick(){
-        inputref.current.click()
-    }
-
-    function handleImageChange(event){
-        const files = event.target.files[0]
-        setimage(event.target.files[0])
-    }
-
-    function handleEditSubmit(){
-        props.setIsEditing(false)
-    }
-
-    return(
-        <div className='profileLeftHalf'>
-           <div style={{ margin: "2%", backgroundColor: "white", alignItems: "center", justifyContent: "space-around", display: "flex", flexDirection: "column" }}>
-                {/* image */}
-                {(props.isEditing && props.isCurrentUser) ? (
-                    <div onClick={handleImageClick}>
-                         {image ?  <img src={URL.createObjectURL(image)} className='profilePic' />:  <img src={usericon} className='profilePic' />}
-                         <input type = "file" ref = {inputref} onChange={handleImageChange} hidden/>
-                         
-                    </div>
-                ) : (
-                    <img src={usericon} className='profilePic' />
-                )}
-
-                {/* Display image if not current user */}
-                {!props.isCurrentUser && <img src={usericon} className='profilePic' />}
-
-                {/* username */}
-                {(props.isEditing && props.isCurrentUser) ? (
-                    <div></div>
-                ) : (
-                    <p className='profileUsername'>{props.username}</p>
-                )}
-
-                {/* Display username if not current user */}
-                {!props.isCurrentUser && <p className='profileUsername'>{props.username}</p>}
-
-                {(props.isEditing && props.isCurrentUser) ? (
-                    <div>
-                        <input type = "text" placeholder='Enter Your Full Name' value={"Full Name"} onChange={(e) => setFullname(e.target.value)}/>
-                    </div>
-                ) : (
-                    <p className='profileUsername'>Full Name</p>
-                )}
-
-                {/* Display full name if not current user */}
-                {!props.isCurrentUser && <p className='profileUsername'>Full Name</p>}
-
-                {/* profile buttons */}
-                {props.isCurrentUser && (
-                    <div style={{ display: "flex", flexDirection: "row", width: "80%", alignItems: "center", justifyContent: "center" }}>
-                        {!props.isEditing && <button className='editProfileButton' onClick={() => props.setIsEditing(true)}>Edit Profile</button>}
-                    </div>
-                )}
-
-                {!props.isCurrentUser && !props.isRestricted && (
-                    <div style={{ display: "flex", flexDirection: "row", width: "80%", alignItems: "center", justifyContent: "center" }}>
-                        <button className='editProfileButton'>Follow User</button>
-                        <button className='editProfileButton'>Send A Text</button>
-                    </div>
-                )}
-
-                {/* score */}
-                {!props.isCurrentUser && <p className='profileScore'>Contributor Score: 1000</p>}
-                {(props.isEditing && props.isCurrentUser) ? (
-                    <div></div>
-                ) : (
-                    <p className='profileScore'>Contributor Score: 1000</p>
-                )}
-
-                {/* bio */}
-                {!props.isCurrentUser && <p style={{ color: "black", fontFamily: "Montserrat", fontSize: "15px" }}>{props.bioText}</p>}
-                {(props.isEditing && props.isCurrentUser) ? (
-                    <div>
-                        <textarea placeholder="Enter your bio" value= {bioText} onChange={(e) => setChangedBio(e.target.value)}/>
-
-                        <button className='editProfileButton' onClick={handleEditSubmit}>Submit</button>
-                    </div>
-                ) : (
-                    <p style={{ color: "black", fontFamily: "Montserrat", fontSize: "15px" }}>{bioText}</p>
-                )}
-            </div>
-
-        </div>
-    )
+function Bookmarks({ bookmarks }) {
+  return (
+    <div>
+      {bookmarks
+        ? bookmarks.map((bookmark) => (
+            <div key={bookmark.id}>{bookmark.content}</div>
+          ))
+        : "No bookmarks"}
+    </div>
+  );
 }
 
+function Stock({ stocks }) {
+  const [stockList, setStockList] = useState(stocks);
 
-function RightHalf(props){
-    const [profileNavValue, setProfileNavValue] = useState("Post")
+  const removeStock = (stockToRemove) => {
+    setStockList(stockList.filter((stock) => stock !== stockToRemove));
+  };
 
-    function handlePrivacyToggle(){
-        props.setIsRestricted(!props.isRestricted);
-    }
+  return (
+    <div>
+      <GraphCard />
 
-    return(
-        <div className='profileRightHalf'>
-            {/* buttons */}
+      <div className="tagsContainer">
+        {stockList.map((stock, index) => (
+          <div
+            key={index}
+            className="tag"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <button className="tagTextButton">{stock}</button>
+            <button
+              className="removeTagButton"
+              onClick={() => removeStock(stock)}
+            >
+              x
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Crypto({ cryptos }) {
+  const [cryptoList, setCryptoList] = useState(cryptos);
+
+  const removeCrypto = (cryptoToRemove) => {
+    setCryptoList(cryptoList.filter((crypto) => crypto !== cryptoToRemove));
+  };
+
+  return (
+    <div>
+      <GraphCard />
+
+      <div className="tagsContainer">
+        {cryptoList.map((crypto, index) => (
+          <div
+            key={index}
+            className="tag"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <button className="tagTextButton">{crypto}</button>
+            <button
+              className="removeTagButton"
+              onClick={() => removeCrypto(crypto)}
+            >
+              x
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function GraphCard(props) {
+  return (
+    <div className="stockCardGraphBody">
+      <div className="graphBody">
+        <LineChart
+          xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+          series={[
             {
-                props.isCurrentUser && <div>
-                    Do you want to keep your profile restricted? <label class="switch">
-                        <input type="checkbox" checked={props.isRestricted} onChange={handlePrivacyToggle}/>
-                        <span class="slider round"></span>
-                        </label>
-                </div>
-            }
-
-            {props.isCurrentUser && <div style={{display: "flex", alignItems: "center", justifyContent: "flex-start", margin:  "2%", height: "20vh", width: "50vh"}}>
-                <button className='profileNavButton' onClick={() => setProfileNavValue("Post")}>Posts</button>
-                <button className='profileNavButton'  onClick={() => setProfileNavValue("Bookmarks")}>Bookmarks</button>
-                <button className='profileNavButton' onClick={() => setProfileNavValue("Stocks")}>Stocks</button>
-                <button className='profileNavButton' onClick={() => setProfileNavValue("Crypto")}>CryptoCurrency</button>
-            </div>}
-
-            {!props.isCurrentUser && !props.isRestricted && <div style={{display: "flex", alignItems: "center", justifyContent: "flex-start", margin:  "2%", height: "20vh", width: "50vh"}}>
-                <button className='profileNavButton' onClick={() => setProfileNavValue("Post")}>Posts</button>
-                <button className='profileNavButton'  onClick={() => setProfileNavValue("Bookmarks")}>Bookmarks</button>
-                <button className='profileNavButton' onClick={() => setProfileNavValue("Stocks")}>Stocks</button>
-                <button className='profileNavButton' onClick={() => setProfileNavValue("Crypto")}>CryptoCurrency</button>
-            </div>}
-            
-            {props.isCurrentUser && (
-                <div>
-                    {profileNavValue === "Post" && <div><Posts/></div>}
-                    {profileNavValue === "Bookmarks" && <div><Bookmarks/></div>}
-                    {profileNavValue === "Stocks" && <div><Stock/></div>}
-                    {profileNavValue === "Crypto" && <div><Crypto/></div>}
-                </div>
-            )}
-
-
-            {!props.isCurrentUser && !props.isRestricted && (
-                <div>
-                    {profileNavValue === "Post" && <div>Post</div>}
-                    {profileNavValue === "Bookmarks" && <div>Bookmark</div>}
-                    {profileNavValue === "Stocks" && <div>Stocks</div>}
-                    {profileNavValue === "Crypto" && <div>Crypto</div>}
-                </div>
-            )}
-
-            {!props.isCurrentUser && props.isRestricted && <div>
-                This user has chosen to hide their contributions from everyone
-            </div>}
-        </div>
-    )
+              data: [2, 5.5, 2, 8.5, 1.5, 5],
+            },
+          ]}
+          width={500}
+          height={300}
+        />
+      </div>
+    </div>
+  );
 }
 
-function Posts(){
-    // array of own posts to be shown by this
-    
-    return(
-        <div>This is posts</div>
-    )
-}
-
-function Bookmarks(){
-    //array of bookmarked posts
-
-    return(
-        <div>this is bookmarked posts </div>
-    )
-}
-
-function Stock(){
-    //total stock investments
-    const [stocks, setStocks] = useState(["AAPL", "Samsung"]);
-    const stock = stocks;
-
-    const removeStock = (stockToRemove) => {
-        setStocks(stocks.filter((stock) => stock !== stockToRemove));
-      };
-
-    return(
-        <div>
-            <GraphCard/>
-
-            <div className="tagsContainer">
-              {stocks.map((stock, index) => (
-                <div
-                  key={index}
-                  className="tag"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <button className="tagTextButton">{stock}</button>
-                  <button
-                    className="removeTagButton"
-                    onClick={() => removeStock(stock)}
-                  >
-                    x
-                  </button>
-                </div>
-              ))}
-            </div>
-        </div>
-    )
-}
-
-function Crypto() {
-    // total crypto investments
-    const [cryptos, setCryptos] = useState(["Bitcoin", "Ethereum"]);
-    const crypto = cryptos;
-
-    const removeCrypto = (cryptoToRemove) => {
-        setCryptos(cryptos.filter((crypto) => crypto !== cryptoToRemove));
-    };
-
-    return (
-        <div>
-            <GraphCard />
-
-            <div className="tagsContainer">
-                {cryptos.map((crypto, index) => (
-                    <div
-                        key={index}
-                        className="tag"
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                        }}
-                    >
-                        <button className="tagTextButton">{crypto}</button>
-                        <button
-                            className="removeTagButton"
-                            onClick={() => removeCrypto(crypto)}
-                        >
-                            x
-                        </button>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function GraphCard(props){
-    return(
-        <div className='stockCardGraphBody'>
-            <div className='graphBody'>
-                <LineChart 
-                xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
-                series={[
-                    {
-                    data: [2, 5.5, 2, 8.5, 1.5, 5],
-                    },
-                ]}
-                width={500}
-                height={300}
-                />
-            </div>
-        </div>
-    )
-}
-
-export default ProfilePage
+export default ProfilePage;

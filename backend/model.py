@@ -16,7 +16,14 @@ class Data(BaseModel):
 class User(BaseModel):
     username: str  # will be unique
     # email: str
+    # Full name and bio are optional
+    full_name: Optional[str] = None
+    bio: Optional[str] = None
     password: str
+    profile_pic: Optional[str] = None
+    # following: List[str] = []
+    # contributor score
+    user_score: int = 0
 
 
 class LoginRequest(BaseModel):

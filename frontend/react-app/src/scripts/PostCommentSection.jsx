@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function PostCommentSection(props) {
+  console.log("PostCommentSection props", props);
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
 
@@ -79,7 +80,7 @@ function PostCommentsBody({ comments, current_user, getComments }) {
     <div>
       {comments.map((comment) => (
         <Comment
-          key={comment.id}
+          key={comment.comment_id}
           post_id={comment.post_id}
           data={comment}
           current_user={current_user}

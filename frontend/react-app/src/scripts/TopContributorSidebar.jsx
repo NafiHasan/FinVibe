@@ -1,49 +1,64 @@
-import '../styles/TopContributorSidebar.css'
-import "@fontsource/montserrat"
+import "../styles/TopContributorSidebar.css";
+import "@fontsource/montserrat";
 import { FaSearchPlus } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import usericon from '../images/usericon.png'
+import usericon from "../images/usericon.png";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-function TopContributorSidebar(){
-    return(
-        <div className="sidebarMainBody">
-            <SidebarHeader/>
-            <SidebarBody/>
-        </div>
-    )
+function TopContributorSidebar() {
+  const [contributors, setContributors] = useState([]);
+
+  useEffect(() => {
+    async function fetchContributors() {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/top_contributors"
+        );
+        setContributors(response.data);
+      } catch (error) {
+        console.error("Error fetching top contributors:", error);
+      }
+    }
+
+    fetchContributors();
+  }, []);
+
+  return (
+    <div className="sidebarMainBody">
+      <SidebarHeader />
+      <SidebarBody contributors={contributors} />
+    </div>
+  );
 }
 
-function SidebarHeader(){
-    return(
-        <div className='sidebarHeader'>
-            Top Contributor
-        </div>
-    )
+function SidebarHeader() {
+  return <div className="sidebarHeader">Top Contributors</div>;
 }
 
-function SidebarBody(){
-    return(
-        <div className='sidebarBody'>
-            <ProfilePlus/>
-            <ProfilePlus/>
-            <ProfilePlus/>
-            <ProfilePlus/>
-            <ProfilePlus/>
-            <ProfilePlus/>
-            <ProfilePlus/>
-            <ProfilePlus/>
-        </div>
-    )
+function SidebarBody({ contributors }) {
+  return (
+    <div className="sidebarBody">
+      {contributors.map((contributor, index) => (
+        <ProfilePlus key={index} contributor={contributor} />
+      ))}
+    </div>
+  );
 }
 
-function ProfilePlus(){
-    return(
-        <div className='profilePlus'>
-            <img src={usericon} className='userIconBody'/>
-
-            <button className='sidebarUserButton'>David Outunga</button>
-        </div>
-    )
+function ProfilePlus({ contributor }) {
+  console.log("contributor", contributor);
+  return (
+    <div className="profilePlus">
+      <img
+        src={contributor.image || usericon}
+        className="userIconBody"
+        alt="user icon"
+      />
+      <button className="sidebarUserButton">{contributor.username}</button>
+      <div className="userScore">{contributor.user_score}</div>
+    </div>
+  );
 }
 
-export default TopContributorSidebar
+export default TopContributorSidebar;
