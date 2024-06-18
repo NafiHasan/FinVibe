@@ -1,7 +1,6 @@
 .postMainBody {
   width: 85vh;
   height: fit-content;
-  margin-bottom: 2vh;
   display: flex;
   flex-direction: column;
   margin-left: 2%;
@@ -11,6 +10,7 @@
   transition: box-shadow;
   transition-duration: 0.5s;
   transition-timing-function: linear;
+  margin-bottom: 4%;
 }
 
 .postMainBody:hover {

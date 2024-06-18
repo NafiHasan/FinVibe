@@ -17,33 +17,72 @@
 }
 
 .right {
-    background-color: white;
+    background-color: #283350;
     flex:1;
+    height: fit-content;
+
+    margin-top: 6%;
+
+    border: 1px solid black;
+
+    box-shadow: .75vh .75vh .75vh .75vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+
+    border-radius: 10px;
 }
+
+.right:hover{
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+}
+
 
 .postTextBox{
     width: 90%;
-    background-color: white;
+    background-color: #283350;
     height: 100vh;
     align-self: center;
     justify-self: center;
-    border: none;
+    border: 1px solid black;
+    font-family: "Montserrat";    
+    border-radius: 10px;
+    color: white;
+    margin-left: 2%;
+
+    box-shadow: .75vh .75vh .75vh .75vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+    border-radius: 10px;
+    margin-bottom: 5vh;
+}
+
+.postTextBox:hover{
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
 }
 
 .postTextBox:focus{
     outline: none;
+    border: 1px solid black;
     height: 100vh;
+    box-shadow: 1vh 1vh 1vh 1vh #242124;
+    
 }
 
 .makePostButton{
-    background-color: #283350;
-    color: white;
+    background-color: white;
+    color: #283350;
     border: none;
     border-radius: 400vh;
-
-    width: 20vh;
-    height: 10vh;
+    font-family: "Montserrat"; 
+    width: 10vh;
+    height: 8vh;
     margin-top: 10vh;
+    margin-bottom: 5vh;
+    margin-left: 80%;
 
     box-shadow: 1vh 1vh 1vh 1vh #242124;
 
@@ -54,19 +93,20 @@
 
 .makePostButton:hover{
     box-shadow: 2vh 2vh 2vh 2vh #242124;
+    
 }
 
 .addTagButton{
-    background-color: #283350;
-    color: white;
+    background-color: white;
+    color: #283350;
     border: none;
     border-radius: 400vh;
-    margin-left: 5%;
-    
+    margin-left: 27%;
+    font-family: "Montserrat"; 
 
     width: 10vh;
-    height: 5vh;
-    margin-top: 10vh;
+    height: 8vh;
+    margin-top: 5vh;
 
     box-shadow: .25vh .25vh .25vh .25vh #242124;
 
@@ -78,7 +118,13 @@
 .addTagButton:hover{
     box-shadow: .5vh .5vh .5vh .5vh #242124;
 }
-
+.tagInputBox{
+    width: 50%;
+    height: 5vh;
+    margin-top: 5vh;
+    margin-left: 2%;
+    border-radius: 10px;
+}
 .tagInputBox:focus{
     border: grey;
 }
@@ -120,7 +166,7 @@
 .tagTextButton{
     background-color: #f0f0f0;
     border-radius: 100px;
-
+    font-family: "Montserrat"; 
     padding: 5px 10px;
     margin-right: 5px;
 
@@ -139,8 +185,8 @@
 }
 
   .removeTagButton {
-    background-color: #283350;
-    color: white;
+    background-color: white;
+    color: #283350;
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -162,15 +208,15 @@
   }
 
   .addImageButton{
-    background-color: #283350;
-    color: white;
+    background-color: white;
+    color: #283350;
     border: none;
     border-radius: 400vh;
-    margin-left: 50%;
-    
+    margin-left: 80%;
+    font-family: "Montserrat"; 
 
     width: 10vh;
-    height: 5vh;
+    height: 8vh;
     margin-top: 10vh;
 
     box-shadow: .25vh .25vh .25vh .25vh #242124;

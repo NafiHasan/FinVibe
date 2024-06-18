@@ -159,7 +159,7 @@ function MakePostBody({ username, navigate }) {
 
         <div>
           <div>
-            <div>
+            <div style ={{display: "flex", flexDirection: "row", alignItems: "center"}}>
               <input
                 type="text"
                 placeholder="Enter Tag Name"
@@ -168,7 +168,7 @@ function MakePostBody({ username, navigate }) {
                 onChange={(e) => setTagName(e.target.value)}
               />
               <button className="addTagButton" onClick={addTag}>
-                Add
+                Add Tag
               </button>
             </div>
             <div className="tagsContainer">
@@ -192,6 +192,8 @@ function MakePostBody({ username, navigate }) {
                 </div>
               ))}
             </div>
+
+            
           </div>
         </div>
 
