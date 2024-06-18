@@ -19,6 +19,9 @@ function ReplyBody(){
     const [isDownvotePressed, setIsDownvotePressed] = useState(false)
     const [score, setScore] = useState(0)
 
+    const [showOptions, setShowOptions] = useState(false);
+    const [thisUserReply,setThisUserReply] = useState(true)
+
     function doUpvote(){
         if(isUpvotePressed){
           setIsUpvotePressed(false)
@@ -54,10 +57,14 @@ function ReplyBody(){
           setScore(score-1)
         }
     }
+    function handleDeleteReply(){
+
+    }
 
     return(
+        <div style={{display: "flex", flexDirection: "row"}}>
         <div className='replyBody'>
-            <ProfilePlus/>
+            <ProfilePlus showOptions = {showOptions} setShowOptions = {setShowOptions} thisUserReply = {thisUserReply} setThisUserReply = {setThisUserReply}/>
             
             <div className='replyButtonBody'>
                 <div className='replyText'>
@@ -65,13 +72,11 @@ function ReplyBody(){
                 </div>
             </div>
 
-            <div>
-                    <text style={{marginLeft: "1%", marginRight: "1%"}}>{score}</text>
-                    
+            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <text style={{marginLeft: "1%", marginRight: "1%", border: "1px solid #242124"}}>{score}</text>
 
-                    
-
-                    <button className="postCommentButton" onClick={doUpvote}>
+                    <div style ={{display: "flex", margin: "1%"}}>
+                    <button className="replyCommentButton" onClick={doUpvote}>
                         <IconContext.Provider
                         value={{
                             color: "white",
@@ -84,7 +89,7 @@ function ReplyBody(){
                         </IconContext.Provider>
                     </button>
 
-                    <button className="postCommentButton" onClick={doDownvote}>
+                    <button className="replyCommentButton" onClick={doDownvote}>
                         <IconContext.Provider
                         value={{
                             color: "white",
@@ -95,22 +100,43 @@ function ReplyBody(){
                         <BiSolidDownvote />
                         </IconContext.Provider>
                     </button>
+                    </div>
             </div>
         </div>
+        <div style= {{display: "flex", flexDirection: "column",  flex: "1"}}>
+        { showOptions && (
+                thisUserReply ? (
+                    <div style={{backgroundColor: "white", height: "5vh", marginTop: "2vh"}}>
+                        <div className="postOptionItem">
+                            Edit Reply
+                        </div>
+                        <div className="postOptionItem" onClick={handleDeleteReply}>
+                            Delete Reply
+                        </div>
+                    </div>
+                ) : (
+                    <div style={{backgroundColor: "white", height: "5vh", marginTop: "2vh"}}>
+                        <div className="postOptionItem">
+                            Hide Reply
+                        </div>
+                        <div className="postOptionItem">
+                            Follow User
+                        </div>
+                    </div>
+                )
+            )}
+            </div>
+            </div>
     )
 }
 
-function ProfilePlus(){
-    const [showOptions, setShowOptions] = useState(false);
-    const [thisUserReply,setThisUserReply] = useState(true)
+function ProfilePlus(props){
+    
 
     function doesReplyBelongToCurrentUser(){
-        setShowOptions(!showOptions)
+        props.setShowOptions(!props.showOptions)
     }
 
-    function handleDeleteReply(){
-
-    }
     return(
         <div className='profilePlusreply'>
             <img src={usericon} className='userIconBodyreply'/>
@@ -135,28 +161,6 @@ function ProfilePlus(){
                     </IconContext.Provider>
                     </button>
                 </div>
-
-                            { showOptions && (
-                thisUserReply ? (
-                    <div style={{backgroundColor: "red", height: "5vh", marginTop: "2vh"}}>
-                        <div className="postOptionItem">
-                            Edit Reply
-                        </div>
-                        <div className="postOptionItem" onClick={handleDeleteReply}>
-                            Delete Reply
-                        </div>
-                    </div>
-                ) : (
-                    <div style={{backgroundColor: "red", height: "5vh", marginTop: "2vh"}}>
-                        <div className="postOptionItem">
-                            Hide Reply
-                        </div>
-                        <div className="postOptionItem">
-                            Follow User
-                        </div>
-                    </div>
-                )
-            )}
         </div>
     )
 }

@@ -10,7 +10,8 @@ import axios from "axios";
 import { TfiWrite } from "react-icons/tfi";
 import { IconContext } from "react-icons";
 import { CiFilter } from "react-icons/ci";
-
+import Comment from './Comment'
+import Reply from './Reply'
 
 function CommunityPage() {
   const location = useLocation();
@@ -44,6 +45,9 @@ function CommunityPage() {
         isFilterButtonPressed = {isFilterButtonPressed}
         setFilterButtonPressed = {setFilterButtonPressed}
       />
+
+      {/* <Comment/> */}
+      {/* <Reply/> */}
     </div>
   );
 }
@@ -79,7 +83,7 @@ function MainColumn({ username, posts, fetchPosts, isFilterButtonPressed, setFil
           </div> */}
       </div>
 
-      <div style={{display: "flex", flexDirection: "row"}}>
+      <div style={{display: "flex", flexDirection: "column"}}>
           {posts.map((post, index) => (
             <Post
               key={index}

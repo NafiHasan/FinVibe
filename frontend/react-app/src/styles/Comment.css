@@ -1,14 +1,19 @@
 .commentMainBody{
-    background-color:aliceblue;
+    background-color:white;
+    margin: 2%;
 }
 
 .commentBody{
     display: flex;
     flex-direction: column;
+    height: fit-content;
+    border: 1px solid #242124;
+    border-radius: 3px;
+    width: 50%;
 }
 
 .sidebarUserButtonComment{
-    background-color: aliceblue;
+    background-color: white;
     border: none;
     border-radius: 100px;
     color: black;
@@ -18,12 +23,12 @@
 }
 
 .profilePlusComment{
-    background-color: aliceblue;
+    background-color: white;
     
-    flex: 1;
+    flex: 2;
     display: flex;
     align-items: center;
-    
+    /* border: 1px solid #242124; */
     font-family: "Montserrat";
     justify-content: flex-start;
     padding: 2%;
@@ -38,11 +43,16 @@
 
 .commentText{
     font-family: "Montserrat";
-    background-color: aliceblue;
+    background-color: white;
+    
+    padding: 2%;
 }
 
 .commentInputBox{
     display: flex;
+    width: 100%;
+    justify-content: space-between;
+    
 }
 
 .replyButton{
@@ -87,4 +97,58 @@
     margin-left: 0%;
   }
 
+  .commentReplyButton{
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: 5vh;
+    width: 15%;
+    font-family: "Montserrat";
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+  }
+
+  .commentReplyButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+  }
+  .commentOptionItem{
+    background-color: white;
+      
+      flex: 1;
+      display: flex;
+      
+      border-radius: 200px;
+      border-width: 1px;
+      
+      font-family: "Montserrat";
+      justify-content: center;
+      padding: 2%;
+  
+      width: 12vh;
+
+      font-size: 5px;
+  
+      box-shadow: .1vh .1vh .1vh .1vh #242124;
+  
+      transition: background-color;
+      transition-duration: .5s;
+      transition-timing-function: linear;
+  
+      margin-bottom: 1vh;
+  
+      font-size: 2vh;
+  }
+  
+  .commentOptionItem:hover{
+    background-color: #283350;
+    color: white;
+  }
+  
   

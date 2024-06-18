@@ -1,5 +1,5 @@
 .replyMainBody{
-    background-color:aliceblue;
+    background-color:white;
     margin-left: 10%;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -8,6 +8,8 @@
 .replyBody{
     display: flex;
     flex-direction: column;
+    border: 1px solid #242124;
+    flex: 2;
 }
 
 .replyButtonBody{
@@ -16,7 +18,7 @@
 }
 
 .sidebarUserButtonreply{
-    background-color: aliceblue;
+    background-color: white;
     border: none;
     border-radius: 100px;
     color: black;
@@ -26,7 +28,7 @@
 }
 
 .profilePlusreply{
-    background-color: aliceblue;
+    background-color: white;
     
     flex: 1;
     display: flex;
@@ -46,7 +48,7 @@
 
 .replyText{
     font-family: "Montserrat";
-    background-color: aliceblue;
+    background-color: white;
 }
 .replyInputBox{
     display: flex;
@@ -63,3 +65,25 @@
     border: none;
     margin-left: 0%;
   }
+
+  .replyCommentButton{
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 400vh;
+    margin-left: 5%;
+    
+
+    width: 10vh;
+    height: 5vh;
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.replyCommentButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+}
