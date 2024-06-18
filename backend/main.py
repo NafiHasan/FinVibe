@@ -1,5 +1,11 @@
-from fastapi import FastAPI, HTTPException, Form, File, UploadFile
+from fastapi import FastAPI, HTTPException, Form, File, UploadFile, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from fastapi_cache.decorator import cache
+import redis
+
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from crypto_data import *
 from stock_data import *
@@ -11,6 +17,12 @@ from database import *
 
 app = FastAPI()
 
+
+# Configure Redis for caching
+@app.on_event("startup")
+async def startup():
+    redis_client = redis.Redis(host="localhost", port=6379, db=0)
+    FastAPICache.init(RedisBackend(redis_client), prefix="fastapi-cache")
 
 # To connect frontend with backend
 origins = ['https://localhost:3000', 'http://localhost:3000']
@@ -304,6 +316,7 @@ async def update_user(
 
 # Get top 10 contributors by user_score
 @app.get("/top_contributors", response_model=List[dict])
+@cache(expire=60*60)  # Cache for 1 hour
 async def get_top_contributors():
     top_contributors = await get_top_users()
     print(top_contributors)
@@ -313,9 +326,11 @@ async def get_top_contributors():
 
 # get historical data for a given coin
 @app.get("/historical_data/{coin_id}")
-async def get_historical_data(coin_id: str):
-    data = get_data(coin_id, 'usd', 7)
+@cache(expire=60*60)  # Cache for 1 hour
+async def get_historical_data(coin_id: str, days: int = Query(30, ge=1, le=365)):
     print("data for ", coin_id)
+    data = get_data(coin_id, 'usd', days)
+    
     return data.to_dict(orient='records')
 
 # Get historical data for a given stock
@@ -326,12 +341,13 @@ async def get_historical_data(coin_id: str):
 #     return data.to_dict(orient='records')
 
 @app.get("/historical_stock_data/{ticker}")
-async def get_historical_stock_data(ticker: str):
-    df = get_stock_data_for_graph(ticker, 11)
+@cache(expire=60*60)  # Cache for 1 hour
+async def get_historical_stock_data(ticker: str, days: int = Query(30, ge=1, le=365)):
+    df = get_stock_data_for_graph(ticker, days)
     print("data for ", ticker)
     historical_json = df.reset_index().to_dict(orient='records')
 
-    # only keep the date and close price
+    # only keep the date and close pric
     historical_json = [{ "timestamp": data["timestamp"], "price": data["current_price"] } for data in historical_json]
     print(historical_json)
     return historical_json
@@ -339,8 +355,9 @@ async def get_historical_stock_data(ticker: str):
 
 # Get list of all cryptocurrencies
 @app.get("/cryptocurrencies") 
+@cache(expire=60*60)  # Cache for 1 hour
 async def get_cryptocurrencies():
-    print("called")
+    # print("called")
     coins = cg.get_coins_markets(vs_currency = 'usd', per_page = 50, page = 1)
     # Sort the coins by market cap in descending order
     coins = sorted(coins, key=lambda x: x['market_cap'], reverse=True)
@@ -351,6 +368,7 @@ async def get_cryptocurrencies():
 
 # Get list of all stocks
 @app.get("/stocks")
+@cache(expire=60*60)  # Cache for 1 hour
 async def get_stocks():
     stocks = ["AAPL", "GOOGL", "AMZN", "TSLA", "MSFT", "META", "JPM", "BAC", "WFC", "C", "GS", "V", "MA", "PYPL", "ADBE", "CRM", "ORCL", "IBM", "INTC", "AMD", "NVDA", "QCOM", "TSM", "MU", "NFLX", "DIS", "CMCSA", "EA", "TTWO", "T", "VZ", "TMUS", "S", "TM", "F", "GM", "HMC", "NSANY"]
 

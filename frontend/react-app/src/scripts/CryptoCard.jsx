@@ -97,7 +97,7 @@ function CryptoCardButtons(props) {
   } = props;
 
   const handleExpand = () => {
-    navigate("/expandedcrypto", { state: { username } });
+    navigate("/expandedcrypto", { state: { username, coin } });
   };
 
   return (
@@ -130,7 +130,7 @@ function GraphCard({ coin }) {
     // Fetch the data from the backend for the selected coin
 
     axios
-      .get(`http://localhost:8000/historical_data/${coin}`)
+      .get(`http://localhost:8000/historical_data/${coin}?days=7`)
       .then((response) => {
         const data = response.data;
         console.log("crypto", data);

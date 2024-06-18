@@ -1,72 +1,119 @@
-.expandedStockMainBody{
-    background-color: aliceblue;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-.expandedStockBody{
-    display: flex;
+.expandedStockMainBody {
+  background-color: aliceblue;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.leftBody{
-    background-color: aliceblue;
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 5%;
+/* .expandedStockBody {
+  display: flex;
+  width: 90%;
+  margin-top: 20px;
+} */
+
+.expandedStockBody {
+  display: flex;
 }
 
-.rightBody{
-    background-color: aliceblue;
-    flex: 2;
-    margin-top: 2%;
-    height: fit-content;
+.leftHalf {
+  flex: 1;
+  padding: 20px;
 }
 
-.expGBody{
-    display: flex;
-    flex-direction: column;
-    margin: 2%;
-    height: 55vh;
+.rightBody {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.expGraph1{
-    background-color: white;
-    flex: 10;
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.expGraphButtons{
-    background-color: #283350;
-    flex:2;
-    display: flex;
+.controls label {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.expGButton{
-    background-color: #283350;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    margin: 2%;
-    height: 5vh;
-    width: 20%;
-    font-family: "Montserrat";
-
-    box-shadow: .25vh .25vh .25vh .25vh #242124;
-
-    transition: box-shadow;
-    transition-duration: .5s;
-    transition-timing-function: linear;
+.controls select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: #fff;
+  transition: border-color 0.3s;
 }
 
-.expGButton:hover{
-    box-shadow: .5vh .5vh .5vh .5vh #242124;
+.controls select:focus {
+  border-color: #8884d8;
+  outline: none;
 }
 
-.egraphBody{
-    background-color: white;
-    flex: 1;
+.leftBody {
+  background-color: aliceblue;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5%;
+}
+
+/* .rightBody {
+  background-color: aliceblue;
+  flex: 1;
+  margin-top: 2%;
+  height: fit-content;
+} */
+
+.expGBody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70vh;
+  margin: 2%;
+}
+
+.expGraph1 {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.expGraphButtons {
+  background-color: #283350;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.expGButton {
+  background-color: #283350;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  margin: 2%;
+  height: 5vh;
+  width: 20%;
+  font-family: "Montserrat";
+  box-shadow: 0.25vh 0.25vh 0.25vh 0.25vh #242124;
+  transition: box-shadow 0.5s linear;
+}
+
+.expGButton:hover {
+  box-shadow: 0.5vh 0.5vh 0.5vh 0.5vh #242124;
+}
+
+.egraphBody {
+  background-color: white;
+  width: 100%;
+  height: 100%;
 }

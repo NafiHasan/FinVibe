@@ -86,6 +86,7 @@ function StockCardRight(props) {
 
 function StockCardButtons(props) {
   const navigate = useNavigate();
+  //   console.log("props", props);
   const {
     username,
     displayText,
@@ -96,7 +97,7 @@ function StockCardButtons(props) {
   } = props;
 
   const handleExpand = () => {
-    navigate("/expandedstock", { state: { username } });
+    navigate("/expandedstock", { state: { username, ticker } });
   };
 
   return (
@@ -125,11 +126,11 @@ function GraphCard({ ticker }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/historical_stock_data/${ticker}`)
+      .get(`http://localhost:8000/historical_stock_data/${ticker}?days=7`)
       .then((response) => {
         // only keep the date and current price
 
-        console.log("stock", response.data);
+        // console.log("stock", response.data);
 
         setGraphData(response.data);
       })

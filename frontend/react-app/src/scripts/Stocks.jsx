@@ -35,9 +35,9 @@ function StocksLeftHalf(props) {
   );
 }
 
-function StocksRightHalf() {
+function StocksRightHalf(props) {
   const [stocks, setStocks] = useState([]);
-
+  const username = props.username;
   useEffect(() => {
     // Fetch list of stocks
     axios
@@ -61,6 +61,7 @@ function StocksRightHalf() {
           minPrice={stock.min_price}
           maxPrice={stock.max_price}
           average={stock.average}
+          username={username}
         />
       ))}
     </div>

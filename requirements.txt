@@ -8,3 +8,6 @@ matplotlib
 numpy
 datetime
 yfinance
+fastapi-cache2
+fastapi_cache2
+redis
