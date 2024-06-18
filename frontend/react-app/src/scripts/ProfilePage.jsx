@@ -97,6 +97,8 @@ function LeftHalf(props) {
   const [image, setImage] = useState(props.image);
   const [fullname, setFullname] = useState(props.fullname);
   const [bio, setBio] = useState(props.bio);
+  
+  
 
   // console.log("left half", fullname, bio);
 
@@ -190,6 +192,7 @@ function LeftHalf(props) {
               type="text"
               placeholder="Enter Your Full Name"
               value={fullname}
+              className="profileInputBox"
               onChange={(e) => setFullname(e.target.value)}
             />
           </div>
@@ -211,12 +214,15 @@ function LeftHalf(props) {
             <textarea
               placeholder="Enter your bio"
               value={bio}
+              className="bioEditArea"
               onChange={(e) => setBio(e.target.value)}
             />
 
-            <button className="editProfileButton" onClick={handleEditSubmit}>
-              Submit
-            </button>
+            <div style={{display: "flex", flexDirection: "row"}}>
+              <button className="editProfileButton" onClick={handleEditSubmit}>
+                Submit
+              </button>
+            </div>
           </div>
         ) : (
           <p
@@ -230,7 +236,7 @@ function LeftHalf(props) {
           </p>
         )}
 
-        <p className="profileScore">Contributor Score: {props.score}</p>
+        {props.isCurrentUser && !props.isEditing && <p className="profileScore">Contributor Score: {props.score}</p>}
       </div>
     </div>
   );

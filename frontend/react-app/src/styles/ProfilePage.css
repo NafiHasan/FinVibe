@@ -11,6 +11,19 @@
     flex-direction: column;
     justify-content: space-around;
     padding: 2%;
+    
+    margin: 2%;
+    
+
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.profileLeftHalf:hover{
+  box-shadow: .75vh .75vh .75vh .75vh #242124;
 }
 
 .profileRightHalf{
@@ -21,6 +34,16 @@
     flex-direction: column;
     margin: 2%;
     padding: 2%;
+
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.profileRightHalf:hover{
+  box-shadow: .75vh .75vh .75vh .75vh #242124;
 }
 
 .profilePic{
@@ -128,9 +151,12 @@
     background-color: #283350;
     border-radius: 100vh;
     border: none;
-    width: 30%;
+    font-family: "Montserrat";    
+    padding: 2%;
+    width: fit-content;
     height: 5vh;
     color: white;
+    margin: 3%;
 
     box-shadow: .25vh .25vh .25vh .25vh #242124;
 
@@ -141,4 +167,64 @@
 
 .profileNavButton:hover{
     box-shadow: .5vh .5vh .5vh .5vh #242124;
+}
+
+input{
+  font-family: "Montserrat";    
+}
+
+.profileInputBox{
+  border-radius: 200px;
+  border-width: 1px;
+  border-color: black;
+  height: 5vh;
+  width: 100%;
+  margin-bottom: 5%;
+}
+
+.profileInputBox::placeholder{
+  font-family: "Montserrat";
+}
+
+.profileInputBox:focus{
+  outline: none;
+}
+
+.bioEditArea{
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: black;
+  height: 50vh;
+  width: 300px;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  font-family: "Montserrat";
+}
+
+.profileInputBox{
+  font-family: "Montserrat";
+}
+
+.profileInputBox{
+  outline:none;
+}
+
+.submit{
+  background-color: #283350;
+    border-radius: 100vh;
+    border: none;
+    width: 30%;
+    height: 5vh;
+    color: white;
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+    align-self: flex-end;
+}
+
+.submit:hover{
+  box-shadow: .5vh .5vh .5vh .5vh #242124;
 }
