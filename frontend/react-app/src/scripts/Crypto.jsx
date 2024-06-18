@@ -3,6 +3,8 @@ import NavigationBar from "./NavigationBar";
 import CryptoCard from "./CryptoCard";
 import { useLocation } from "react-router-dom";
 import TrendingTab from "./TrendingTab";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Crypto() {
   const location = useLocation();
@@ -34,13 +36,34 @@ function CryptoLeftHalf(props) {
   );
 }
 
-function CryptoRightHalf(props) {
+function CryptoRightHalf() {
+  const [cryptos, setCryptos] = useState([]);
+
+  useEffect(() => {
+    // Fetch list of cryptocurrencies
+    axios
+      .get("http://localhost:8000/cryptocurrencies")
+      .then((response) => {
+        setCryptos(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cryptocurrencies:", error);
+      });
+  }, []);
+
   return (
     <div className="cryptoRightColumn">
-      <CryptoCard {...props} />
-      {/* <CryptoCard {...props}/>
-            <CryptoCard {...props}/>
-            <CryptoCard {...props}/> */}
+      {cryptos.map((crypto) => (
+        <CryptoCard
+          key={crypto.id}
+          coin={crypto.id}
+          name={crypto.name}
+          image={crypto.image}
+          price={crypto.current_price}
+          minPrice={crypto.low_24h}
+          maxPrice={crypto.high_24h}
+        />
+      ))}
     </div>
   );
 }

@@ -18,7 +18,7 @@
 }
 .cryptoRightColumn {
   display: flex;
-  flex: 8;
+  flex: 5;
   background-color: aliceblue;
   flex-wrap: wrap;
 }

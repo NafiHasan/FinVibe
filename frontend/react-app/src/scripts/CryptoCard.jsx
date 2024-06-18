@@ -42,23 +42,34 @@ function CryptoCardBody(props) {
 }
 
 function CryptoCardLeft(props) {
+  const imageUrl = props.image; // Image URL
+  const altText = `${props.name} Logo`; // Alt text for accessibility
+
   return (
     <div className="cryptoCardLeft">
-      <text className="cryptoNameCard">Bitcoin</text>
+      <img src={imageUrl} alt={altText} className="cryptoLogo" />
+      <text className="cryptoNameCard">{props.name}</text>
     </div>
   );
 }
 
 function CryptoCardRight(props) {
+  const { price, maxPrice, minPrice } = props;
+
   return (
     <div className="cryptoCardRight">
-      <text className="cryptoPriceText">Today's price:</text>
-
-      <text className="cryptoPriceValue">60000 USD</text>
-
-      <text className="cryptoPriceText">Average price this week:</text>
-
-      <text className="cryptoPriceValue">55000 USD</text>
+      <div>
+        <text className="cryptoPriceValue">Current Price:</text>
+        <text className="cryptoPriceValue">${price}</text>
+      </div>
+      <div>
+        <text className="cryptoPriceValue">Highest Price (24h):</text>
+        <text className="cryptoPriceValue">${maxPrice}</text>
+      </div>
+      <div>
+        <text className="cryptoPriceValue">Lowest Price (24h):</text>
+        <text className="cryptoPriceValue">${minPrice}</text>
+      </div>
     </div>
   );
 }
