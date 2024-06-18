@@ -2,7 +2,6 @@ import "../styles/CryptoCard.css";
 import "@fontsource/montserrat";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { LineChart } from "@mui/x-charts/LineChart";
 import {
   LineChart,
   Line,
@@ -19,14 +18,25 @@ import { format } from "date-fns";
 
 function CryptoCard(props) {
   const [displayText, setDisplayText] = useState(true);
+  const [coin, setCoin] = useState("bitcoin"); // Default coin is bitcoin
+
+  const handleSeeGraph = () => {
+    setDisplayText(false); // Switch to graph view
+  };
 
   return (
     <div className="cryptoCardMainBody">
-      {displayText ? <CryptoCardBody {...props} /> : <GraphCard {...props} />}
+      {displayText ? (
+        <CryptoCardBody {...props} />
+      ) : (
+        <GraphCard {...props} coin={coin} />
+      )}
       <CryptoCardButtons
         {...props}
         displayText={displayText}
         setDisplayText={setDisplayText}
+        handleSeeGraph={handleSeeGraph}
+        setCoin={setCoin} // Pass setCoin function to update coin state
       />
     </div>
   );
@@ -76,47 +86,54 @@ function CryptoCardRight(props) {
 
 function CryptoCardButtons(props) {
   const navigate = useNavigate();
+  //   console.log("prop of ", props);
+  const {
+    username,
+    displayText,
+    setDisplayText,
+    handleSeeGraph,
+    setCoin,
+    coin,
+  } = props;
 
-  console.log(props.username + " at cryptocard\n");
+  const handleExpand = () => {
+    navigate("/expandedcrypto", { state: { username } });
+  };
 
   return (
     <div className="cryptoCardButtons">
       {/* Pass a function reference to onClick */}
-      <button
-        className="cryptoButton"
-        onClick={() => props.setDisplayText(true)}
-      >
+      <button className="cryptoButton" onClick={() => setDisplayText(true)}>
         See Text
       </button>
       <button
         className="cryptoButton"
-        onClick={() => props.setDisplayText(false)}
+        onClick={() => {
+          //   console.log("clicked", coin);
+          handleSeeGraph();
+          setCoin(coin); // Set coin to "bitcoin" when See Graph is clicked
+        }}
       >
         See Graph
       </button>
-      <button
-        className="cryptoButton"
-        onClick={() =>
-          navigate("/expandedcrypto", { state: { username: props.username } })
-        }
-      >
+      <button className="cryptoButton" onClick={() => handleExpand()}>
         Expand
       </button>
     </div>
   );
 }
 
-function GraphCard(props) {
+function GraphCard({ coin }) {
   const [graphData, setGraphData] = useState([]);
-
-  const coin = "bitcoin";
+  //   console.log("coin2", coin);
   useEffect(() => {
-    // Fetch the data from the backend
+    // Fetch the data from the backend for the selected coin
+
     axios
-      .get(`http://localhost:8000/historical_data/bitcoin`)
+      .get(`http://localhost:8000/historical_data/${coin}`)
       .then((response) => {
         const data = response.data;
-        console.log(data);
+        console.log("crypto", data);
         setGraphData(data);
       })
       .catch((error) => {
@@ -128,9 +145,7 @@ function GraphCard(props) {
   const xAxisData = graphData.map((entry) =>
     new Date(entry.timestamp).toLocaleDateString()
   );
-  console.log("x axis", xAxisData);
   const seriesData = graphData.map((entry) => entry.price);
-  console.log("series data", seriesData);
 
   return (
     <div className="cryptoCardGraphBody">
@@ -154,9 +169,8 @@ function GraphCard(props) {
               label={{
                 value: "Price (USD)",
                 angle: -90,
-                // make the position to the leftmost
                 position: "insideLeft",
-                offset: -30,
+                offset: -20,
               }}
             />
             <Tooltip
@@ -164,13 +178,8 @@ function GraphCard(props) {
               labelFormatter={(label) => format(new Date(label), "MM/dd/yyyy")}
             />
             <Legend verticalAlign="top" />
-            <Line
-              type="monotone"
-              dataKey="price"
-              stroke="#8884d8"
-              dot={false}
-            />
-            <Line type="monotone" dataKey="price" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="price" stroke="#8884d8" dot={true} />
+            {/* Add additional lines as needed */}
           </LineChart>
         </ResponsiveContainer>
       </div>

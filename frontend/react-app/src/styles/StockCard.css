@@ -1,82 +1,81 @@
-.stockCardMainBody{
-    background-color: #283350;
-    width: 45%;
-    height: 35vh;
-    display: flex;
-    margin: 2%;
-    flex-direction: column;
+.stockCardMainBody {
+  background-color: #283350;
+  width: 90%;
+  height: 45vh;
+  display: flex;
+  margin: 2%;
+  flex-direction: column;
 
-    box-shadow: 2vh 2vh 2vh 2vh grey;
+  box-shadow: 2vh 2vh 2vh 2vh grey;
 
-    transition: box-shadow;
-    transition-duration: .5s;
-    transition-timing-function: linear;
+  transition: box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
 }
 
-.stockCardMainBody:hover{
-    box-shadow: 3vh 3vh 3vh 3vh grey;
+.stockCardMainBody:hover {
+  box-shadow: 3vh 3vh 3vh 3vh grey;
 }
 
-.stockCardBody{
-    display: flex;
-    flex: 4;
+.stockCardBody {
+  display: flex;
+  flex: 4;
 }
 
-.stockCardLeft{
-    display: flex;
-    flex: 3;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 30px;
-    color: white;
-    /* background-image: url("../images/stockcard1.jpg"); */
+.stockCardLeft {
+  display: flex;
+  flex: 3;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 30px;
+  color: white;
+  /* background-image: url("../images/stockcard1.jpg"); */
 }
 
-.stockCardRight{
-    display: flex;
-    flex: 3;
-    background-color: #283350;
-    flex-direction: column;
+.stockCardRight {
+  display: flex;
+  flex: 3;
+  background-color: #283350;
+  flex-direction: column;
 }
 
-.stockCardButtons{
-    display: flex;
-    flex: 1;
-    background-color: #283350;
-    justify-content: space-around;
+.stockCardButtons {
+  display: flex;
+  flex: 1;
+  background-color: #283350;
+  justify-content: space-around;
 }
 
-.stockNameCard{
-    font-family: "Montserrat";
+.stockNameCard {
+  font-family: "Montserrat";
 }
 
-.stockPriceText{
-    font-family: "Montserrat";
-    font-size: 20px;
-    color: white;
-    margin: 2%;
+.stockPriceText {
+  font-family: "Montserrat";
+  font-size: 20px;
+  color: white;
+  margin: 2%;
 }
 
-.stockPriceValue{
-    font-family: "Montserrat";
-    font-size: 15px;
-    color: white;
-    margin: 2%;
+.stockPriceValue {
+  font-family: "Montserrat";
+  font-size: 15px;
+  color: white;
+  margin: 2%;
 }
 
-.stockButton{
-    border-radius: 100px;
-    width: 30%;
+.stockButton {
+  border-radius: 100px;
+  width: 30%;
 }
 
-.stockCardGraphBody{
-    background-color: white;
-    display: flex;
-    flex: 4;
+.stockCardGraphBody {
+  background-color: white;
+  display: flex;
+  flex: 4;
 }
 
-.graphBody{
-    background-color: #283350;
-    flex: 1;
+.graphBody {
+  background-color: #283350;
+  flex: 1;
 }
-

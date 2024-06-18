@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from werkzeug.security import generate_password_hash, check_password_hash
 from crypto_data import *
+from stock_data import *
 
 from typing import List
 
@@ -313,17 +314,64 @@ async def get_top_contributors():
 # get historical data for a given coin
 @app.get("/historical_data/{coin_id}")
 async def get_historical_data(coin_id: str):
-    data = get_data(coin_id, 'usd', 2)
-    print("data for ", coin_id, data)
+    data = get_data(coin_id, 'usd', 7)
+    print("data for ", coin_id)
     return data.to_dict(orient='records')
+
+# Get historical data for a given stock
+# @app.get("/historical_stock_data/{ticker}")
+# async def get_historical_stock_data(ticker: str):
+#     data = get_stock_data(ticker, 7)
+#     print("data for ", ticker)
+#     return data.to_dict(orient='records')
+
+@app.get("/historical_stock_data/{ticker}")
+async def get_historical_stock_data(ticker: str):
+    df = get_stock_data_for_graph(ticker, 11)
+    print("data for ", ticker)
+    historical_json = df.reset_index().to_dict(orient='records')
+
+    # only keep the date and close price
+    historical_json = [{ "timestamp": data["timestamp"], "price": data["current_price"] } for data in historical_json]
+    print(historical_json)
+    return historical_json
 
 
 # Get list of all cryptocurrencies
-@app.get("/cryptocurrencies")
+@app.get("/cryptocurrencies") 
 async def get_cryptocurrencies():
-    coins = cg.get_coins_markets(vs_currency = 'usd')
+    print("called")
+    coins = cg.get_coins_markets(vs_currency = 'usd', per_page = 50, page = 1)
     # Sort the coins by market cap in descending order
     coins = sorted(coins, key=lambda x: x['market_cap'], reverse=True)
-    coins = coins[:100]
+    coins = coins[:30]
     # Print each coin info in separated lines
     return coins
+
+
+# Get list of all stocks
+@app.get("/stocks")
+async def get_stocks():
+    stocks = ["AAPL", "GOOGL", "AMZN", "TSLA", "MSFT", "META", "JPM", "BAC", "WFC", "C", "GS", "V", "MA", "PYPL", "ADBE", "CRM", "ORCL", "IBM", "INTC", "AMD", "NVDA", "QCOM", "TSM", "MU", "NFLX", "DIS", "CMCSA", "EA", "TTWO", "T", "VZ", "TMUS", "S", "TM", "F", "GM", "HMC", "NSANY"]
+
+
+    historical_data = []
+    summary_data = []
+
+    for stock in stocks:
+        df, summary_df = get_stock_data(stock, 7)
+        historical_data.append(df)
+        summary_data.append(summary_df)
+
+    # Merge all the summary data into a single dataframe
+    merged_stocks_df = pd.concat(summary_data)
+
+    # Convert the dataframe to a dictionary for returning it as JSON
+    stocks_json = merged_stocks_df.reset_index().to_dict(orient='records')
+
+    # print(stocks_json)
+    
+    return stocks_json
+
+
+

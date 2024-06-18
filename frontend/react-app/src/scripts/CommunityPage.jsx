@@ -10,15 +10,15 @@ import axios from "axios";
 import { TfiWrite } from "react-icons/tfi";
 import { IconContext } from "react-icons";
 import { CiFilter } from "react-icons/ci";
-import Comment from './Comment'
-import Reply from './Reply'
+import Comment from "./Comment";
+import Reply from "./Reply";
 
 function CommunityPage() {
   const location = useLocation();
   const [posts, setPosts] = useState([]);
   const username = location.state.username;
   const navigate = useNavigate();
-  const [isFilterButtonPressed, setFilterButtonPressed] = useState(false)
+  const [isFilterButtonPressed, setFilterButtonPressed] = useState(false);
 
   // Fetch posts from backend
   const fetchPosts = async () => {
@@ -42,8 +42,8 @@ function CommunityPage() {
         username={username}
         posts={posts}
         fetchPosts={fetchPosts}
-        isFilterButtonPressed = {isFilterButtonPressed}
-        setFilterButtonPressed = {setFilterButtonPressed}
+        isFilterButtonPressed={isFilterButtonPressed}
+        setFilterButtonPressed={setFilterButtonPressed}
       />
 
       {/* <Comment/> */}
@@ -52,11 +52,23 @@ function CommunityPage() {
   );
 }
 
-function CommunityBody({ username, posts, fetchPosts, isFilterButtonPressed, setFilterButtonPressed }) {
+function CommunityBody({
+  username,
+  posts,
+  fetchPosts,
+  isFilterButtonPressed,
+  setFilterButtonPressed,
+}) {
   return (
     <div className="communityBody">
       <LeftColumn />
-      <MainColumn username={username} posts={posts} fetchPosts={fetchPosts} isFilterButtonPressed = {isFilterButtonPressed} setFilterButtonPressed = {setFilterButtonPressed}/>
+      <MainColumn
+        username={username}
+        posts={posts}
+        fetchPosts={fetchPosts}
+        isFilterButtonPressed={isFilterButtonPressed}
+        setFilterButtonPressed={setFilterButtonPressed}
+      />
       <RightColumn username={username} />
     </div>
   );
@@ -70,39 +82,59 @@ function LeftColumn() {
   );
 }
 
-function MainColumn({ username, posts, fetchPosts, isFilterButtonPressed, setFilterButtonPressed }) {
+function MainColumn({
+  username,
+  posts,
+  fetchPosts,
+  isFilterButtonPressed,
+  setFilterButtonPressed,
+}) {
   return (
     <div className="communityMainColumn">
-      <div style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", width: "82%"}}>
-          <button className="filterButton" onClick={() => setFilterButtonPressed(!isFilterButtonPressed)}> <CiFilter /> Filter</button>
-
-          {/* <div style={{display: "flex", flexDirection: "column"}}>
-              <button>Newest First</button>
-              <button>Highest Score First</button>
-              <button>Recommended</button>
-          </div> */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          width: "82%",
+        }}
+      >
+        <button
+          className="filterButton"
+          onClick={() => setFilterButtonPressed(!isFilterButtonPressed)}
+        >
+          {" "}
+          <CiFilter /> Filter
+        </button>
       </div>
 
-      <div style={{display: "flex", flexDirection: "column"}}>
-          {posts.map((post, index) => (
-            <Post
-              key={index}
-              {...post}
-              fetchPosts={fetchPosts}
-              current_user={username}
-            />
-          ))}
-
-          {/* debugging */}
-          {(username = "abcd") && <div><Post username = {username}/><Post username = {username}/><Post username = {username}/> </div>
-            }
-
-          {isFilterButtonPressed && <div style={{display: "flex", flexDirection: "column"}}>
-              <button className="filterItem">Newest First</button>
-              <button className="filterItem">Highest Score First</button>
-              <button className="filterItem">Recommended</button>
-          </div>}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {posts.map((post, index) => (
+          <Post
+            key={index}
+            {...post}
+            fetchPosts={fetchPosts}
+            current_user={username}
+          />
+        ))}
       </div>
+
+      {/* Debugging */}
+      {username === "abcd" && (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Post username={username} />
+          <Post username={username} />
+          <Post username={username} />
+        </div>
+      )}
+
+      {isFilterButtonPressed && (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <button className="filterItem">Newest First</button>
+          <button className="filterItem">Highest Score First</button>
+          <button className="filterItem">Recommended</button>
+        </div>
+      )}
     </div>
   );
 }

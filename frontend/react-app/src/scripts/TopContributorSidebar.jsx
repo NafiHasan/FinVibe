@@ -33,7 +33,9 @@ function TopContributorSidebar() {
 }
 
 function SidebarHeader() {
-  return <div className="sidebarHeader">Top Contributors</div>;
+  return (
+    <div className="sidebarHeader">Top Contributors Contribution score</div>
+  );
 }
 
 function SidebarBody({ contributors }) {
@@ -50,13 +52,17 @@ function ProfilePlus({ contributor }) {
   console.log("contributor", contributor);
   return (
     <div className="profilePlus">
-      <img
-        src={contributor.image || usericon}
-        className="userIconBody"
-        alt="user icon"
-      />
-      <button className="sidebarUserButton">{contributor.username}</button>
-      <div className="userScore">{contributor.user_score}</div>
+      <div className="userDetails">
+        <img
+          src={contributor.image || usericon}
+          className="userIconBody"
+          alt="user icon"
+        />
+        <button className="sidebarUserButton">{contributor.username}</button>
+      </div>
+      <div className="contributionScore">
+        <div className="userScore">{contributor.user_score || 0}</div>
+      </div>
     </div>
   );
 }
