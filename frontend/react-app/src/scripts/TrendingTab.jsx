@@ -23,22 +23,23 @@ function TrendingTabHeader(){
 function TrendingTabBody(){
     return(
         <div className='trendingTabBody'>
-            <TrendingItem/>
-            <TrendingItem/>
-            <TrendingItem/>
-            <TrendingItem/>
-            <TrendingItem/>
-            <TrendingItem/>
-            <TrendingItem/>
-            <TrendingItem/>
+            <TrendingItem item = {"Bitcoin"}/>
+            <TrendingItem item = {"Costco Wholesale"}/>
+            <TrendingItem item = {"Ethereum"}/>
+            <TrendingItem item = {"Microstrategy"}/>
+            <TrendingItem item = {"McKesson Corporation"}/>
+            <TrendingItem item = {"ZKSync"}/>
+            <TrendingItem item = {"MercadoLibre"}/>
+            <TrendingItem item = {"Brett"}/>
+            <TrendingItem item = {"Synopsys "}/>
         </div>
     )
 }
 
-function TrendingItem(){
+function TrendingItem(props){
     return(
         <div className='trendingItem'>
-            <button className='trendingTabUserButton'>David Outunga</button>
+            <button className='trendingTabUserButton'>{props.item}</button>
         </div>
     )
 }
