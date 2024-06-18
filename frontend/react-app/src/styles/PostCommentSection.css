@@ -1,4 +1,36 @@
 .postCommentSectionMainBody{
-    background-color: aliceblue;
-    margin-top: 3%;
+    background-color: white;
+    margin-top: 5vh;
+}
+
+.commentBox{
+    font-family: "Montserrat";
+    border-color: grey;
+    width: 70%;
+    height: 50%;
+}
+
+.commentBox:focus{
+    outline: none;
+}
+
+.addCommentButton{
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    margin-left: 2%;
+    height: 5vh;
+    width: 20%;
+    font-family: "Montserrat";
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.addCommentButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
 }

@@ -10,6 +10,11 @@ import { useNavigate } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { BiUpvote } from "react-icons/bi";
+import { BiDownvote } from "react-icons/bi";
+import { FaRegComment } from "react-icons/fa";
+import { FaRegBookmark } from "react-icons/fa";
+
 
 function Post(props) {
   const navigate = useNavigate();
@@ -50,9 +55,7 @@ function Post(props) {
 
       {showOptions &&
         (thisUserPost ? (
-          <div
-            style={{ backgroundColor: "red", height: "5vh", marginTop: "2vh" }}
-          >
+          <div className="postOptionsBody">
             <div className="postOptionItem">Edit Post</div>
             <div className="postOptionItem" onClick={handleDeletePost}>
               Delete Post
@@ -60,7 +63,7 @@ function Post(props) {
           </div>
         ) : (
           <div
-            style={{ backgroundColor: "red", height: "5vh", marginTop: "2vh" }}
+            className="postOptionsBody"
           >
             <div className="postOptionItem">Mute Post</div>
             <div className="postOptionItem">Follow User</div>
@@ -138,12 +141,17 @@ function PostImage(props) {
     }
   };
 
+  const lt = "<"
+  const gt = ">"
+
   return (
-    <div>
+    <div style={{display: "flex", flexDirection: "column"}}>
       {/* <img src={props.image || stockimage} className="postImage" alt="Post" /> */}
       <img src={images[imgIndex].src} className="postImage" alt="Post" />
-      <button onClick={handleLeftClick}>Left</button>
-      <button onClick={handleRightClick}>Right</button>
+      <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+        <button className = "imageButton" onClick={handleLeftClick}> {lt}</button>
+        <button className = "imageButton" onClick={handleRightClick}>{gt}</button>
+      </div>
     </div>
   );
 }
@@ -275,31 +283,55 @@ function PostFooter(props) {
 
   return (
     <div className="postFooter">
-      <text>{score}</text>
+      <text className="score">{score}</text>
 
-      <button className="postCommentButton" onClick={doUpvote}>
+      {isUpvotePressed && <button style = {{border: "none"}} onClick={doUpvote}>
         <IconContext.Provider
           value={{
-            color: "white",
+            color : "#283350",
             className: "global-class-name",
-            size: "3vh",
+            size: "4vh",
           }}
         >
-          <BiSolidUpvote />
+          <BiSolidUpvote/>
         </IconContext.Provider>
-      </button>
+      </button>}
 
-      <button className="postCommentButton" onClick={doDownvote}>
+      {!isUpvotePressed && <button style = {{border: "none"}} onClick={doUpvote}>
         <IconContext.Provider
           value={{
-            color: "white",
+            color : "#283350",
             className: "global-class-name",
-            size: "3vh",
+            size: "4vh",
           }}
         >
-          <BiSolidDownvote />
+          <BiUpvote/>
         </IconContext.Provider>
-      </button>
+      </button>}
+
+      {isDownvotePressed && <button style = {{border: "none"}} onClick={doDownvote}>
+        <IconContext.Provider
+          value={{
+            color : "#283350",
+            className: "global-class-name",
+            size: "4vh",
+          }}
+        >
+          <BiSolidDownvote/>
+        </IconContext.Provider>
+      </button>}
+
+      {!isDownvotePressed && <button style = {{border: "none"}} onClick={doDownvote}>
+        <IconContext.Provider
+          value={{
+            color : "#283350",
+            className: "global-class-name",
+            size: "4vh",
+          }}
+        >
+          <BiDownvote/>
+        </IconContext.Provider>
+      </button>}
 
       <button
         className="postCommentButton"
@@ -324,24 +356,24 @@ function PostFooter(props) {
       >
         <IconContext.Provider
           value={{
-            color: "white",
+            color: "#283350",
             className: "global-class-name",
-            size: "3vh",
+            size: "4vh",
           }}
         >
-          <FaComment />
+          <FaRegComment />
         </IconContext.Provider>
       </button>
 
       <button className="postCommentButton" onClick={doBookMark}>
         <IconContext.Provider
           value={{
-            color: "white",
+            color: "#283350",
             className: "global-class-name",
-            size: "3vh",
+            size: "4vh",
           }}
         >
-          <FaBookmark />
+          <FaRegBookmark />
         </IconContext.Provider>
       </button>
     </div>

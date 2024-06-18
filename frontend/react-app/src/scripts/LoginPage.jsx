@@ -122,7 +122,9 @@ function LoginCard() {
           </text>
           <input
             type="text"
-            className="inputBox"
+            className="loginInputBox"
+            placeholder="Enter Your Username"
+            fontFamily= "Montserrat"
             onChange={(e) => setUsername(e.target.value)}
           ></input>
         </div>
@@ -147,6 +149,8 @@ function LoginCard() {
           <input
             type="password"
             className="loginInputBox"
+            placeholder="Enter Your Password"
+            fontFamily= "Montserrat"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>

@@ -54,17 +54,19 @@ function PostCommentSection(props) {
 
   return (
     <div className="postCommentSectionMainBody">
-      <div>
-        <input
+      <div style={{display:"flex", flexDirection: "row"}}>
+        <textarea
+          className="commentBox"
           type="text"
           value={newComment}
           onChange={handleCommentChange}
           placeholder="Add a comment..."
         />
-        <button onClick={handleAddComment}>Add Comment</button>
+        <button className = "addCommentButton" onClick={handleAddComment}>Add Comment</button>
       </div>
+      <text style={{fontFamily: "Montserrat", marginTop: "5vh"}}>Comments</text>
       <div>
-        Comments
+        
         <PostCommentsBody
           comments={comments}
           current_user={props.current_user}

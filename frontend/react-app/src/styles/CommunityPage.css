@@ -36,17 +36,82 @@
     border: none;
     border-radius: 400vh;
 
-    width: 20vh;
+    width: 10vh;
     height: 10vh;
     margin-top: 10vh;
 
-    box-shadow: 1vh 1vh 1vh 1vh #242124;
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
 
     transition: box-shadow;
     transition-duration: .5s;
     transition-timing-function: linear;
 }
 
-.makePostButton:hover{
-    box-shadow: 2vh 2vh 2vh 2vh #242124;
+/* .makePostButton:hover{
+    box-shadow: .75vh .75vh .75vh .75vh #242124;
+} */
+
+.mpbutton{
+    background-color: #283350;
+
+    border-radius: 400px;
+
+    width: 10vh;
+    height: 10vh;
+
+    margin-top: 5vh;
+
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+
+    border: none;
+}
+
+.mpbutton:hover{
+    box-shadow: .75vh .75vh .75vh .75vh #242124;
+}
+
+.filterButton{
+    /* border: none; */
+    font-family: "Montserrat";
+    background-color: white;
+    color: black;
+    border-radius: 200px;
+    border-width: .5px;
+    margin-bottom: 2%;
+    height: 5vh;
+
+    transition: background-color;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+
+}
+
+.filterButton:hover{
+    background-color: #283350;
+    color: white;
+}
+
+.filterItem{
+    margin-left: 10%;
+    background-color: white;
+    border-radius: 200px;
+    margin-bottom: 5%;
+    border-width: 1px;
+    width: fit-content;
+    font-size: 12px;
+
+    transition: background-color;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+
+    font-family: "Montserrat";
+}
+
+.filterItem:hover{
+    background-color: #283350;
+    color: white;
 }
