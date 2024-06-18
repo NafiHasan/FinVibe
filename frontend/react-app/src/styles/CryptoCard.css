@@ -1,82 +1,81 @@
-.cryptoCardMainBody{
-    background-color: #283350;
-    width: 45%;
-    height: 35vh;
-    display: flex;
-    margin: 2%;
-    flex-direction: column;
+.cryptoCardMainBody {
+  background-color: #283350;
+  width: 90%;
+  height: 45vh;
+  display: flex;
+  margin: 2%;
+  flex-direction: column;
 
-    box-shadow: 2vh 2vh 2vh 2vh grey;
+  box-shadow: 2vh 2vh 2vh 2vh grey;
 
-    transition: box-shadow;
-    transition-duration: .5s;
-    transition-timing-function: linear;
+  transition: box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
 }
 
-.cryptoCardMainBody:hover{
-    box-shadow: 3vh 3vh 3vh 3vh grey;
+.cryptoCardMainBody:hover {
+  box-shadow: 3vh 3vh 3vh 3vh grey;
 }
 
-.cryptoCardBody{
-    display: flex;
-    flex: 4;
+.cryptoCardBody {
+  display: flex;
+  flex: 4;
 }
 
-.cryptoCardLeft{
-    display: flex;
-    flex: 3;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 30px;
-    color: white;
-    /* background-image: url("../images/stockcard1.jpg"); */
+.cryptoCardLeft {
+  display: flex;
+  flex: 3;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 30px;
+  color: white;
+  /* background-image: url("../images/stockcard1.jpg"); */
 }
 
-.cryptoCardRight{
-    display: flex;
-    flex: 3;
-    background-color: #283350;
-    flex-direction: column;
+.cryptoCardRight {
+  display: flex;
+  flex: 3;
+  background-color: #283350;
+  flex-direction: column;
 }
 
-.cryptoCardButtons{
-    display: flex;
-    flex: 1;
-    background-color: #283350;
-    justify-content: space-around;
+.cryptoCardButtons {
+  display: flex;
+  flex: 1;
+  background-color: #283350;
+  justify-content: space-around;
 }
 
-.cryptoNameCard{
-    font-family: "Montserrat";
+.cryptoNameCard {
+  font-family: "Montserrat";
 }
 
-.cryptoPriceText{
-    font-family: "Montserrat";
-    font-size: 20px;
-    color: white;
-    margin: 2%;
+.cryptoPriceText {
+  font-family: "Montserrat";
+  font-size: 20px;
+  color: white;
+  margin: 2%;
 }
 
-.cryptoPriceValue{
-    font-family: "Montserrat";
-    font-size: 15px;
-    color: white;
-    margin: 2%;
+.cryptoPriceValue {
+  font-family: "Montserrat";
+  font-size: 15px;
+  color: white;
+  margin: 2%;
 }
 
-.cryptoButton{
-    border-radius: 100px;
-    width: 30%;
+.cryptoButton {
+  border-radius: 50px;
+  width: 30%;
 }
 
-.cryptoCardGraphBody{
-    background-color: aqua;
-    display: flex;
-    flex: 4;
+.cryptoCardGraphBody {
+  background-color: aqua;
+  display: flex;
+  flex: 10;
 }
 
-.graphBody{
-    background-color: #283350;
-    flex: 1;
+.graphBody {
+  background-color: #283350;
+  flex: 6;
 }
-

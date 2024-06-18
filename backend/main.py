@@ -316,3 +316,14 @@ async def get_historical_data(coin_id: str):
     data = get_data(coin_id, 'usd', 2)
     print("data for ", coin_id, data)
     return data.to_dict(orient='records')
+
+
+# Get list of all cryptocurrencies
+@app.get("/cryptocurrencies")
+async def get_cryptocurrencies():
+    coins = cg.get_coins_markets(vs_currency = 'usd')
+    # Sort the coins by market cap in descending order
+    coins = sorted(coins, key=lambda x: x['market_cap'], reverse=True)
+    coins = coins[:100]
+    # Print each coin info in separated lines
+    return coins
