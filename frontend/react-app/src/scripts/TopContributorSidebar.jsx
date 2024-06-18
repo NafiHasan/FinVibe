@@ -52,16 +52,15 @@ function ProfilePlus({ contributor }) {
   console.log("contributor", contributor);
   return (
     <div className="profilePlus">
-      <div className="userDetails">
+
         <img
           src={contributor.image || usericon}
           className="userIconBody"
           alt="user icon"
         />
         <button className="sidebarUserButton">{contributor.username}</button>
-      </div>
       <div className="contributionScore">
-        <div className="userScore">{contributor.user_score || 0}</div>
+        <text>{contributor.user_score || 0}</text>
       </div>
     </div>
   );

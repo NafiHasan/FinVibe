@@ -67,6 +67,8 @@
 .sidebarUserButton{
     background-color: white;
     border: none;
+    margin-left: 2%;
+    margin-right: 2%;
     border-radius: 100px;
     color: black;
     font-family: "Montserrat";
