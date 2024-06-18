@@ -18,7 +18,7 @@ function Comment(props) {
 function CommentBody(props) {
   // console.log("comment body props", props);
   const [showOptions, setShowOptions] = useState(true);
-   const [thisUserComment, setThisUserComment] = useState(true);
+  const [thisUserComment, setThisUserComment] = useState(true);
 
   //only this
 
@@ -28,7 +28,6 @@ function CommentBody(props) {
   const username = props.current_user;
   const upvote_count = props.data.upvote_count || 0;
   const downvote_count = props.data.downvote_count || 0;
-
 
   // console.log("username ", username);
   // const { comment_id, upvoted_by, downvoted_by, upvote_count, downvote_count } =
@@ -93,16 +92,22 @@ function CommentBody(props) {
   };
 
   return (
-    <div style={{display: "flex", flexDirection: "row"}}>
-    <div className="commentBody">
-      <ProfilePlus {...props} showOptions = {showOptions} setShowOptions={setShowOptions} thisUserComment = {thisUserComment} setThisUserComment = {setThisUserComment}/>
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <div className="commentBody">
+        <ProfilePlus
+          {...props}
+          showOptions={showOptions}
+          setShowOptions={setShowOptions}
+          thisUserComment={thisUserComment}
+          setThisUserComment={setThisUserComment}
+        />
 
-      {/* <hr></hr> */}
+        {/* <hr></hr> */}
 
-      <div className="commentText">{props.data.content}</div>
-      {/* <div className="commentText">this is a comment</div>  */}
+        <div className="commentText">{props.data.content}</div>
+        {/* <div className="commentText">this is a comment</div>  */}
 
-      <div className="commentInputBox">
+        {/* <div className="commentInputBox">
         <input
           type="text"
           placeholder="Reply"
@@ -110,64 +115,92 @@ function CommentBody(props) {
         ></input>
 
         <button className="commentReplyButton">Reply</button>
-      </div>
+      </div> */}
 
-      <div style={{margin: "1%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-        <div style={{ marginLeft: "1%", marginRight: "1%", flex: "1" }}><text style={{border: "1px solid #242124", borderRadius: "100px", width: "2vh"}}>{score}</text></div>
-        {/* <button className="replyButton">Reply</button> */}
-
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", backgroundColor: "white", flex: "1"}}>
-          <button className="commentReplyButton" onClick={doUpvote}>
-            <IconContext.Provider
-              value={{
-                color: "white",
-                className: "global-class-name",
-                size: "3vh",
-                marginLeft: "3vh",
+        <div
+          style={{
+            margin: "1%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ marginLeft: "1%", marginRight: "1%", flex: "1" }}>
+            <text
+              style={{
+                border: "1px solid #242124",
+                borderRadius: "100px",
+                width: "2vh",
               }}
             >
-              <BiSolidUpvote />
-            </IconContext.Provider>
-          </button>
+              {score}
+            </text>
+          </div>
+          {/* <button className="replyButton">Reply</button> */}
 
-          <button className="commentReplyButton" onClick={doDownvote}>
-            <IconContext.Provider
-              value={{
-                color: "white",
-                className: "global-class-name",
-                size: "3vh",
-              }}
-            >
-              <BiSolidDownvote />
-            </IconContext.Provider>
-          </button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              backgroundColor: "white",
+              flex: "1",
+            }}
+          >
+            <button className="commentReplyButton" onClick={doUpvote}>
+              <IconContext.Provider
+                value={{
+                  color: "white",
+                  className: "global-class-name",
+                  size: "3vh",
+                  marginLeft: "3vh",
+                }}
+              >
+                <BiSolidUpvote />
+              </IconContext.Provider>
+            </button>
+
+            <button className="commentReplyButton" onClick={doDownvote}>
+              <IconContext.Provider
+                value={{
+                  color: "white",
+                  className: "global-class-name",
+                  size: "3vh",
+                }}
+              >
+                <BiSolidDownvote />
+              </IconContext.Provider>
+            </button>
+          </div>
         </div>
       </div>
+      {showOptions &&
+        (thisUserComment ? (
+          <div
+            style={{
+              backgroundColor: "white",
+              height: "5vh",
+              marginTop: "2vh",
+            }}
+          >
+            <div className="commentOptionItem">Edit Comment</div>
+            <div className="commentOptionItem" onClick={handleDeleteComment}>
+              Delete Comment
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{ backgroundColor: "red", height: "5vh", marginTop: "2vh" }}
+          >
+            <div className="commentOptionItem">Hide Comment</div>
+            <div className="commentOptionItem">Follow User</div>
+          </div>
+        ))}
     </div>
-    {showOptions &&
-  (thisUserComment ? (
-    <div
-      style={{ backgroundColor: "white", height: "5vh", marginTop: "2vh" }}
-    >
-      <div className="commentOptionItem">Edit Comment</div>
-      <div className="commentOptionItem" onClick={handleDeleteComment}>
-        Delete Comment
-      </div>
-    </div>
-  ) : (
-    <div
-      style={{ backgroundColor: "red", height: "5vh", marginTop: "2vh" }}
-    >
-      <div className="commentOptionItem">Hide Comment</div>
-      <div className="commentOptionItem">Follow User</div>
-    </div>
-  ))}
-  </div>
   );
 }
 
 function ProfilePlus(props) {
-
   function doesCommentBelongToCurrentUser() {
     props.setShowOptions(!props.showOptions);
   }
@@ -186,32 +219,32 @@ function ProfilePlus(props) {
   const thisUserComment = props.current_user === props.data.username;
 
   return (
-    <div style={{display: "flex", flexDirection: "row"}}>
-    <div className="profilePlusComment">
-      <img src={usericon} className="userIconBodyComment" />
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <div className="profilePlusComment">
+        <img src={usericon} className="userIconBodyComment" />
 
-      <button className="sidebarUserButtonComment">
-        {props.data.username} 
-      </button>
-
-      <div className="commentOptions">
-        <button
-          className="commentOptionsButton"
-          onClick={doesCommentBelongToCurrentUser}
-        >
-          <IconContext.Provider
-            value={{
-              color: "black",
-              className: "global-class-name",
-              size: "4vh",
-            }}
-          >
-            <HiOutlineDotsCircleHorizontal />
-          </IconContext.Provider>
+        <button className="sidebarUserButtonComment">
+          {props.data.username}
         </button>
+
+        <div className="commentOptions">
+          <button
+            className="commentOptionsButton"
+            onClick={doesCommentBelongToCurrentUser}
+          >
+            <IconContext.Provider
+              value={{
+                color: "black",
+                className: "global-class-name",
+                size: "4vh",
+              }}
+            >
+              <HiOutlineDotsCircleHorizontal />
+            </IconContext.Provider>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   );
 }
 

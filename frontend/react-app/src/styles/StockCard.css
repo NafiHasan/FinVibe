@@ -33,6 +33,8 @@
 }
 
 .stockCardRight {
+  font-size: 30px;
+  margin-top: 10vh;
   display: flex;
   flex: 3;
   background-color: #283350;
@@ -67,6 +69,7 @@
 .stockButton {
   border-radius: 100px;
   width: 30%;
+  height: 5vh;
 }
 
 .stockCardGraphBody {

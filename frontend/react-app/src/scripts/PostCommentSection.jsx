@@ -18,7 +18,6 @@ function PostCommentSection(props) {
 
   async function handleAddComment() {
     if (!newComment.trim()) return;
-    // console.log("new comment", newComment);
     try {
       const response = await axios.post(
         `http://localhost:8000/comments/${props.post_id}`,
@@ -33,28 +32,28 @@ function PostCommentSection(props) {
           downvoted_by: [],
         }
       );
-      setComments([...comments, response.data]);
-      setNewComment("");
+      // After successfully adding a comment, fetch the updated comments
+      await getComments(); // Ensure getComments completes before setting state
+      setNewComment(""); // Clear the input field
     } catch (error) {
       console.error("Error adding comment:", error);
     }
   }
 
-  function getComments() {
-    axios
-      .get(`http://localhost:8000/comments/${props.post_id}`)
-      .then((response) => {
-        // console.log("comments", response.data);
-        setComments(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching comments:", error);
-      });
+  async function getComments() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/comments/${props.post_id}`
+      );
+      setComments(response.data);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
   }
 
   return (
     <div className="postCommentSectionMainBody">
-      <div style={{display:"flex", flexDirection: "row"}}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <textarea
           className="commentBox"
           type="text"
@@ -62,15 +61,18 @@ function PostCommentSection(props) {
           onChange={handleCommentChange}
           placeholder="Add a comment..."
         />
-        <button className = "addCommentButton" onClick={handleAddComment}>Add Comment</button>
+        <button className="addCommentButton" onClick={handleAddComment}>
+          Add Comment
+        </button>
       </div>
-      <text style={{fontFamily: "Montserrat", marginTop: "5vh"}}>Comments</text>
+      <text style={{ fontFamily: "Montserrat", marginTop: "5vh" }}>
+        Comments
+      </text>
       <div>
-        
         <PostCommentsBody
           comments={comments}
           current_user={props.current_user}
-          getComments={getComments}
+          getComments={getComments} // Pass the function down to update comments
         />
       </div>
     </div>

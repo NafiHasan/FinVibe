@@ -55,13 +55,24 @@ function MainBar(props) {
 }
 
 function SearchBar(props) {
-  const navigate = useNavigate()
-  const [keyword, setKeyword] = useState("")
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
 
   return (
     <div className="searchBarBody">
-      <input className="searchBarInput" placeholder="Enter a Keyword" onChange={(e) => setKeyword(e.target.value)}></input>
-      <button className="searchButton" onClick={() => navigate("/search", { state: { username: props.username, keyword : keyword } })}>
+      <input
+        className="searchBarInput"
+        placeholder="Enter a Keyword"
+        onChange={(e) => setKeyword(e.target.value)}
+      ></input>
+      <button
+        className="searchButton"
+        onClick={() =>
+          navigate("/search", {
+            state: { username: props.username, keyword: keyword },
+          })
+        }
+      >
         <IconContext.Provider
           value={{ color: "white", className: "global-class-name" }}
         >
@@ -86,7 +97,7 @@ function ProfilePlus(props) {
 
   return (
     <div className="profilePlusBody">
-      <div style={{display: "flex", flexDirection: "row"}}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <img src={usericon} className="userIconBody" alt="User Icon" />
 
         <button className="userButton" onClick={handleProfileClick}>
@@ -94,8 +105,13 @@ function ProfilePlus(props) {
         </button>
       </div>
 
-      <div style={{display: "flex", flexDirection: "row"}}>
-        <button className="logoutButton" onClick={ () => navigate("/notification", { state: { username: props.username } })}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <button
+          className="logoutButton"
+          onClick={() =>
+            navigate("/notifications", { state: { username: props.username } })
+          }
+        >
           <IconContext.Provider
             value={{ color: "white", className: "global-class-name", size: 25 }}
           >

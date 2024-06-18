@@ -73,7 +73,7 @@ async def login_user(user: LoginRequest):
 # To handle post
 @app.post("/create_post")
 async def create_post(post: UserPost):
-    # print("Received post data:", post.model_dump())
+    print("Received post data:", post.model_dump())
     post_data = post.model_dump()
     result = await save_post(post_data)
     return {"message": "Post created successfully"}
@@ -82,7 +82,10 @@ async def create_post(post: UserPost):
 # To get all posts
 @app.get("/posts", response_model=List[UserPost])
 async def get_posts():
+    # Get and sort the posts in descending order of post_id
     posts = await get_all_posts()
+    posts = sorted(posts, key=lambda x: x['post_id'], reverse=True)
+    
     return posts
 
 # To delete post

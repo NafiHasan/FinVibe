@@ -9,6 +9,7 @@ function MakePost() {
   const location = useLocation();
   const navigate = useNavigate();
   const username = location.state.username;
+  console.log("username in makepost", username);
 
   return (
     <div>
@@ -23,7 +24,7 @@ function MakePostBody({ username, navigate }) {
   const [image, setImage] = useState("");
 
   const [selectedImages, setSelectedImages] = useState([]);
-
+  console.log("username", username);
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
@@ -46,12 +47,13 @@ function MakePostBody({ username, navigate }) {
   function addTagI() {}
 
   async function createPost() {
+    // console.log("image", selectedImages);
     const post = {
       post_id: 0,
-      username,
+      username: username,
       content,
       tags: tags,
-      image: image || null,
+      image: image,
       comment_count: 0,
       upvote_count: 0,
       downvote_count: 0,
@@ -159,7 +161,13 @@ function MakePostBody({ username, navigate }) {
 
         <div>
           <div>
-            <div style ={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
               <input
                 type="text"
                 placeholder="Enter Tag Name"
@@ -192,8 +200,6 @@ function MakePostBody({ username, navigate }) {
                 </div>
               ))}
             </div>
-
-            
           </div>
         </div>
 

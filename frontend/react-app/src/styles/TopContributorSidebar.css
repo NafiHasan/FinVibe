@@ -1,84 +1,97 @@
-.sidebarMainBody{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    background-color: white;
+.sidebarMainBody {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  background-color: white;
 
-    box-shadow: .1vh .1vh .1vh .1vh #242124;
+  box-shadow: 0.1vh 0.1vh 0.1vh 0.1vh #242124;
 
-    transition: box-shadow;
-    transition-duration: .5s;
-    transition-timing-function: linear;
+  transition: box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
 
-    
-    margin-left: 5%;
+  margin-left: 5%;
 }
 
 /* .sidebarMainBody:hover{
     box-shadow: .75vh .75vh .75vh .75vh #242124;
 } */
 
-.sidebarHeader{
-    background-color: #283350;
-    font-family: "Montserrat";
-    color: white;
-    height: 4vh;
-    align-items: center;
-    justify-content: space-around;
-    display: flex;
+.sidebarHeader {
+  background-color: #283350;
+  font-family: "Montserrat";
+  color: white;
+  height: 4vh;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
 }
 
-.sidebarBody{
-    background-color: white;
+.sidebarBody {
+  background-color: white;
 }
 
-.profilePlus{
-    background-color: white;
-    
-    flex: 1;
-    display: flex;
-    align-items: center;
-    
-    font-family: "Montserrat";
-    justify-content: flex-start;
-    padding: 5%;
-    padding-left: 10%;
+.profilePlus {
+  background-color: white;
 
-    box-shadow: .1vh 0vh .1vh .1vh #242124; 
+  flex: 1;
+  display: flex;
+  align-items: center;
 
-    transition: background-color .5s linear, box-shadow .2s linear;;
+  font-family: "Montserrat";
+  justify-content: flex-start;
+  padding: 5%;
+  padding-left: 10%;
 
-    margin-top: .1vh;
-    margin-bottom: .2vh;
+  box-shadow: 0.1vh 0vh 0.1vh 0.1vh #242124;
+
+  transition: background-color 0.5s linear, box-shadow 0.2s linear;
+
+  margin-top: 0.1vh;
+  margin-bottom: 0.2vh;
 }
 
-.profilePlus:hover{
-    box-shadow: .25vh .25vh .25vh .25vh #242124;
-    background-color: #283350;
-    transition: background-color .1s linear;
+.profilePlus:hover {
+  box-shadow: 0.25vh 0.25vh 0.25vh 0.25vh #242124;
+  background-color: #283350;
+  transition: background-color 0.1s linear;
 }
 
-.profilePlus:hover .sidebarUserButton{
-    
-    
-    color: white;
+.profilePlus:hover .sidebarUserButton {
+  color: white;
 }
 
-.sidebarUserButton{
-    background-color: white;
-    border: none;
-    margin-left: 2%;
-    margin-right: 2%;
-    border-radius: 100px;
-    color: black;
-    font-family: "Montserrat";
-    font-size: 2vh;
-    margin-left: 3vh;
-    background: none;
+.sidebarUserButton {
+  background-color: white;
+  border: none;
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 100px;
+  color: black;
+  font-family: "Montserrat";
+  font-size: 2vh;
+  margin-left: 3vh;
+  background: none;
 }
 
-.sidebarUserButton:hover{
-    font-weight: bold;
-    background-color: #283350;
-    color: white;
+.sidebarUserButton:hover {
+  font-weight: bold;
+  background-color: #283350;
+  color: white;
+}
+
+.contributionScore {
+  background-color: #ffffff;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-family: "Montserrat";
+  padding: 5%;
+  padding-left: 10%;
+  margin-top: 0.1vh;
+  margin-bottom: 0.2vh;
+}
+
+.contributionScore:hover {
+  background-color: #283350;
 }

@@ -22,8 +22,8 @@ function ExpandedCrypto() {
   const location = useLocation();
   const [username] = useState(location.state.username);
 
-  // State for the first ticker
-  const [coin1] = useState("bitcoin");
+  // State for the first coin
+  const [coin1] = useState(location.state.coin);
   const [graphData1, setGraphData1] = useState([]);
 
   // State for the second ticker

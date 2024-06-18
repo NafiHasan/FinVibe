@@ -13,8 +13,8 @@ function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
-  const [xAxisData, setXAxisData] = useState([1, 2, 3, 5, 8, 10])
-  const [yAxisData, setYAxisData] = useState([4, 5.5, 2, 8.5, 1.5, 10])
+  const [xAxisData, setXAxisData] = useState([1, 2, 3, 5, 8, 10]);
+  const [yAxisData, setYAxisData] = useState([4, 5.5, 2, 8.5, 1.5, 10]);
 
   let username = location.state.username;
 
@@ -50,7 +50,10 @@ function ProfilePage() {
         setIsEditing={setIsEditing}
         userInfo={userInfo}
         setUserInfo={setUserInfo}
-        xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}
+        xAxisData={xAxisData}
+        yAxisData={yAxisData}
+        setXAxisData={setXAxisData}
+        setYAxisData={setYAxisData}
       />
     </div>
   );
@@ -85,7 +88,10 @@ function ProfileBody(props) {
         bookmarks={bookmarks}
         stocks={stocks}
         cryptos={cryptos}
-        xAxisData = {props.xAxisData} yAxisData = {props.yAxisData} setXAxisData = {props.setXAxisData} setYAxisData = {props.setYAxisData}
+        xAxisData={props.xAxisData}
+        yAxisData={props.yAxisData}
+        setXAxisData={props.setXAxisData}
+        setYAxisData={props.setYAxisData}
       />
     </div>
   );
@@ -97,8 +103,6 @@ function LeftHalf(props) {
   const [image, setImage] = useState(props.image);
   const [fullname, setFullname] = useState(props.fullname);
   const [bio, setBio] = useState(props.bio);
-  
-  
 
   // console.log("left half", fullname, bio);
 
@@ -218,7 +222,7 @@ function LeftHalf(props) {
               onChange={(e) => setBio(e.target.value)}
             />
 
-            <div style={{display: "flex", flexDirection: "row"}}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               <button className="editProfileButton" onClick={handleEditSubmit}>
                 Submit
               </button>
@@ -236,7 +240,9 @@ function LeftHalf(props) {
           </p>
         )}
 
-        {props.isCurrentUser && !props.isEditing && <p className="profileScore">Contributor Score: {props.score}</p>}
+        {props.isCurrentUser && !props.isEditing && (
+          <p className="profileScore">Contributor Score: {props.score}</p>
+        )}
       </div>
     </div>
   );
@@ -249,14 +255,16 @@ function RightHalf(props) {
     props.setIsRestricted(!props.isRestricted);
   }
 
-  function handleStockClick(){
-    //set x and y array vals using setstate
-    setProfileNavValue("Stocks")
+  function handlePostClick() {
+    setProfileNavValue("Post");
   }
 
-  function handleCryptoClick(){
-    
-    setProfileNavValue("Crypto")
+  function handleStockClick() {
+    setProfileNavValue("Stocks");
+  }
+
+  function handleCryptoClick() {
+    setProfileNavValue("Crypto");
   }
 
   return (
@@ -287,25 +295,44 @@ function RightHalf(props) {
       >
         <button
           className="profileNavButton"
-          onClick={() => setProfileNavValue("Post")}
+          onClick={handlePostClick}
+          style={{
+            backgroundColor: profileNavValue === "Post" ? "#283350" : "#ffffff",
+            color: profileNavValue === "Post" ? "#ffffff" : "#283350",
+          }}
         >
           Posts
         </button>
         <button
           className="profileNavButton"
           onClick={() => setProfileNavValue("Bookmarks")}
+          style={{
+            backgroundColor:
+              profileNavValue === "Bookmarks" ? "#283350" : "#ffffff",
+            color: profileNavValue === "Bookmarks" ? "#ffffff" : "#283350",
+          }}
         >
           Bookmarks
         </button>
         <button
           className="profileNavButton"
           onClick={handleStockClick}
+          style={{
+            backgroundColor:
+              profileNavValue === "Stocks" ? "#283350" : "#ffffff",
+            color: profileNavValue === "Stocks" ? "#ffffff" : "#283350",
+          }}
         >
           Stocks
         </button>
         <button
           className="profileNavButton"
           onClick={handleCryptoClick}
+          style={{
+            backgroundColor:
+              profileNavValue === "Crypto" ? "#283350" : "#ffffff",
+            color: profileNavValue === "Crypto" ? "#ffffff" : "#283350",
+          }}
         >
           CryptoCurrency
         </button>
@@ -317,8 +344,24 @@ function RightHalf(props) {
           {profileNavValue === "Bookmarks" && (
             <Bookmarks bookmarks={props.bookmarks} />
           )}
-          {profileNavValue === "Stocks" && <Stock stocks={props.stocks} xAxisData = {props.xAxisData} yAxisData = {props.yAxisData} setXAxisData = {props.setXAxisData} setYAxisData = {props.setYAxisData}/>}
-          {profileNavValue === "Crypto" && <Crypto cryptos={props.cryptos} xAxisData = {props.xAxisData} yAxisData = {props.yAxisData} setXAxisData = {props.setXAxisData} setYAxisData = {props.setYAxisData} />}
+          {profileNavValue === "Stocks" && (
+            <Stock
+              stocks={props.stocks}
+              xAxisData={props.xAxisData}
+              yAxisData={props.yAxisData}
+              setXAxisData={props.setXAxisData}
+              setYAxisData={props.setYAxisData}
+            />
+          )}
+          {profileNavValue === "Crypto" && (
+            <Crypto
+              cryptos={props.cryptos}
+              xAxisData={props.xAxisData}
+              yAxisData={props.yAxisData}
+              setXAxisData={props.setXAxisData}
+              setYAxisData={props.setYAxisData}
+            />
+          )}
         </div>
       )}
 
@@ -364,7 +407,7 @@ function Bookmarks({ bookmarks }) {
   );
 }
 
-function Stock({ stocks , xAxisData, setXAxisData, yAxisData, setYAxisData}) {
+function Stock({ stocks, xAxisData, setXAxisData, yAxisData, setYAxisData }) {
   const [stockList, setStockList] = useState(stocks);
 
   const removeStock = (stockToRemove) => {
@@ -373,7 +416,12 @@ function Stock({ stocks , xAxisData, setXAxisData, yAxisData, setYAxisData}) {
 
   return (
     <div>
-      <GraphCard xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>
+      <GraphCard
+        xAxisData={xAxisData}
+        yAxisData={yAxisData}
+        setXAxisData={setXAxisData}
+        setYAxisData={setYAxisData}
+      />
 
       <div className="tagsContainer">
         {stockList.map((stock, index) => (
@@ -409,7 +457,12 @@ function Crypto({ cryptos, xAxisData, setXAxisData, yAxisData, setYAxisData }) {
 
   return (
     <div>
-      <GraphCard xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>
+      <GraphCard
+        xAxisData={xAxisData}
+        yAxisData={yAxisData}
+        setXAxisData={setXAxisData}
+        setYAxisData={setYAxisData}
+      />
 
       <div className="tagsContainer">
         {cryptoList.map((crypto, index) => (

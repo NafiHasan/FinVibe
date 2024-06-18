@@ -158,6 +158,7 @@ function GraphCard({ ticker }) {
               tickFormatter={(timestamp) =>
                 format(new Date(timestamp), "MM/dd/yyyy")
               }
+              stroke="#FFFFFF"
             >
               <Label value="Date" offset={-10} position="insideBottom" />
             </XAxis>
@@ -168,14 +169,16 @@ function GraphCard({ ticker }) {
                 angle: -90,
                 position: "insideLeft",
                 offset: -20,
+                stroke: "#FFFFFF",
               }}
+              stroke="#FFFFFF"
             />
             <Tooltip
               formatter={(value) => `$${value.toFixed(2)}`}
               labelFormatter={(label) => format(new Date(label), "MM/dd/yyyy")}
             />
             <Legend verticalAlign="top" />
-            <Line type="monotone" dataKey="price" stroke="#8884d8" dot={true} />
+            <Line type="monotone" dataKey="price" stroke="#FFFFFF" dot={true} />
           </LineChart>
         </ResponsiveContainer>
       </div>

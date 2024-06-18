@@ -143,6 +143,7 @@ function RightColumn({ username }) {
   const navigate = useNavigate();
 
   const makePost = () => {
+    console.log("make post", username);
     navigate("/makepost", { state: { username } });
   };
 
