@@ -32,6 +32,8 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/makepost" element={<MakePost />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/notifications" element={<NotificationPage />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </BrowserRouter>
   );
