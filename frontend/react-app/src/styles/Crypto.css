@@ -1,25 +1,25 @@
-.cryptoMainBody{
-    background-color: aliceblue;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+.cryptoMainBody {
+  background-color: aliceblue;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.cryptoBody{
-    display: flex;
-    margin-top: 2%;
+.cryptoBody {
+  display: flex;
+  margin-top: 2%;
 }
 
-.cryptoLeftColumn{
-    display: flex;
-    flex: 2;
-    background-color: aliceblue;
+.cryptoLeftColumn {
+  display: flex;
+  flex: 2;
+  background-color: aliceblue;
 }
 
-.cryptoRightColumn{
-    display: flex;
-    flex: 4;
-    background-color: aliceblue;
-    flex-wrap: wrap;
+.cryptoRightColumn {
+  display: flex;
+  flex: 8;
+  background-color: aliceblue;
+  flex-wrap: wrap;
 }

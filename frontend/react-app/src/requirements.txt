@@ -7,3 +7,8 @@ materialui
     npm install @mui/x-charts
     npm install @mui/styled-engine-sc styled-components
 
+recharts
+    npm install recharts
+
+date-fns
+    npm install date-fns

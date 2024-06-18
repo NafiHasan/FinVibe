@@ -2,3 +2,8 @@ fastapi
 uvicorn
 motor
 Werkzeug
+pycoingecko
+pandas
+matplotlib
+numpy
+datetime

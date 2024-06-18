@@ -1,94 +1,168 @@
-import '../styles/CryptoCard.css'
-import "@fontsource/montserrat"
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { LineChart } from '@mui/x-charts/LineChart';
+import "../styles/CryptoCard.css";
+import "@fontsource/montserrat";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+// import { LineChart } from "@mui/x-charts/LineChart";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Label,
+} from "recharts";
+import axios from "axios";
+import { format } from "date-fns";
 
-function CryptoCard(props){
-    const [displayText, setDisplayText] = useState(true)
-    const [xAxisData, setXAxisData] = useState([1, 2, 3, 5, 8, 10])
-    const [yAxisData, setYAxisData] = useState([4, 5.5, 2, 8.5, 1.5, 10])
+function CryptoCard(props) {
+  const [displayText, setDisplayText] = useState(true);
 
-    return(
-        <div className='cryptoCardMainBody'>
-            {displayText ? <CryptoCardBody {...props}/> : <GraphCard {...props} xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>}
-            <CryptoCardButtons {...props} displayText = {displayText} setDisplayText = {setDisplayText} xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>
-        </div>
-    )
-}  
-
-function CryptoCardBody(props){
-    return(
-        <div className='cryptoCardBody'>
-            <CryptoCardLeft {...props}/>
-            <CryptoCardRight {...props}/>
-        </div>
-    )
+  return (
+    <div className="cryptoCardMainBody">
+      {displayText ? <CryptoCardBody {...props} /> : <GraphCard {...props} />}
+      <CryptoCardButtons
+        {...props}
+        displayText={displayText}
+        setDisplayText={setDisplayText}
+      />
+    </div>
+  );
 }
 
-function CryptoCardLeft(props){
-    return(
-        <div className='cryptoCardLeft'>
-            <text className='cryptoNameCard'>Bitcoin</text>
-        </div>
-    )
+function CryptoCardBody(props) {
+  return (
+    <div className="cryptoCardBody">
+      <CryptoCardLeft {...props} />
+      <CryptoCardRight {...props} />
+    </div>
+  );
 }
 
-function CryptoCardRight(props){
-    return(
-        <div className='cryptoCardRight'>
-            <text className='cryptoPriceText'>Today's price:</text>
+function CryptoCardLeft(props) {
+  return (
+    <div className="cryptoCardLeft">
+      <text className="cryptoNameCard">Bitcoin</text>
+    </div>
+  );
+}
 
-            <text className='cryptoPriceValue'>60000 USD</text>
+function CryptoCardRight(props) {
+  return (
+    <div className="cryptoCardRight">
+      <text className="cryptoPriceText">Today's price:</text>
 
-            <text className='cryptoPriceText'>Average price this week:</text>
+      <text className="cryptoPriceValue">60000 USD</text>
 
-            <text className='cryptoPriceValue'>55000 USD</text>
-        </div>
-    )
+      <text className="cryptoPriceText">Average price this week:</text>
+
+      <text className="cryptoPriceValue">55000 USD</text>
+    </div>
+  );
 }
 
 function CryptoCardButtons(props) {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    console.log(props.username + " at cryptocard\n")
+  console.log(props.username + " at cryptocard\n");
 
-    function showGraph(){
-        //fetch data and keep in xaxisdata and y axis data from props and store using setstate function
-        props.setDisplayText(false)
-    }
-
-
-
-    return (
-      <div className='cryptoCardButtons'>
-        {/* Pass a function reference to onClick */}
-        <button className='cryptoButton' onClick={() => props.setDisplayText(true)}>See Text</button>
-        <button className='cryptoButton' onClick={showGraph}>See Graph</button>
-        <button className='cryptoButton' onClick={() => navigate("/expandedcrypto", {state: {username: props.username}})}>Expand</button>
-      </div>
-    );
-  }
- 
-function GraphCard(props){
-    
-
-    return(
-        <div className='cryptoCardGraphBody'>
-            <div className='graphBody'>
-                <LineChart 
-                xAxis={[{ data: props.xAxisData }]}
-                series={[
-                    {
-                    data: props.yAxisData,
-                    },
-                ]}
-                width={400}
-                height={150}
-                />
-            </div>
-        </div>
-    )
+  return (
+    <div className="cryptoCardButtons">
+      {/* Pass a function reference to onClick */}
+      <button
+        className="cryptoButton"
+        onClick={() => props.setDisplayText(true)}
+      >
+        See Text
+      </button>
+      <button
+        className="cryptoButton"
+        onClick={() => props.setDisplayText(false)}
+      >
+        See Graph
+      </button>
+      <button
+        className="cryptoButton"
+        onClick={() =>
+          navigate("/expandedcrypto", { state: { username: props.username } })
+        }
+      >
+        Expand
+      </button>
+    </div>
+  );
 }
 
-export default CryptoCard
+function GraphCard(props) {
+  const [graphData, setGraphData] = useState([]);
+
+  const coin = "bitcoin";
+  useEffect(() => {
+    // Fetch the data from the backend
+    axios
+      .get(`http://localhost:8000/historical_data/bitcoin`)
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        setGraphData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [coin]);
+
+  // Prepare data for the LineChart
+  const xAxisData = graphData.map((entry) =>
+    new Date(entry.timestamp).toLocaleDateString()
+  );
+  console.log("x axis", xAxisData);
+  const seriesData = graphData.map((entry) => entry.price);
+  console.log("series data", seriesData);
+
+  return (
+    <div className="cryptoCardGraphBody">
+      <div className="graphBody">
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart
+            data={graphData}
+            margin={{ top: 10, right: 30, left: 20, bottom: 30 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
+            <XAxis
+              dataKey="timestamp"
+              tickFormatter={(timestamp) =>
+                format(new Date(timestamp), "MM/dd/yyyy")
+              }
+            >
+              <Label value="Date" offset={-10} position="insideBottom" />
+            </XAxis>
+            <YAxis
+              tickFormatter={(price) => `$${price.toFixed(2)}`}
+              label={{
+                value: "Price (USD)",
+                angle: -90,
+                position: "insideLeft",
+              }}
+            />
+            <Tooltip
+              formatter={(value) => `$${value.toFixed(2)}`}
+              labelFormatter={(label) => format(new Date(label), "MM/dd/yyyy")}
+            />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="price"
+              stroke="#8884d8"
+              dot={false}
+            />
+            <Line type="monotone" dataKey="price" stroke="#82ca9d" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+
+export default CryptoCard;

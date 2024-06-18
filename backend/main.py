@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from crypto_data import *
 
 from typing import List
 
@@ -307,3 +307,12 @@ async def get_top_contributors():
     top_contributors = await get_top_users()
     print(top_contributors)
     return top_contributors
+
+
+
+# get historical data for a given coin
+@app.get("/historical_data/{coin_id}")
+async def get_historical_data(coin_id: str):
+    data = get_data(coin_id, 'usd', 2)
+    print("data for ", coin_id, data)
+    return data.to_dict(orient='records')
