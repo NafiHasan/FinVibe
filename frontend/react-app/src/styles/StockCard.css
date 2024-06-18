@@ -70,7 +70,7 @@
 }
 
 .stockCardGraphBody{
-    background-color: aqua;
+    background-color: white;
     display: flex;
     flex: 4;
 }

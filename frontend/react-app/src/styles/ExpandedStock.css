@@ -34,8 +34,8 @@
     height: 55vh;
 }
 
-.expGraph{
-    background-color: #283350;
+.expGraph1{
+    background-color: white;
     flex: 10;
 }
 
@@ -46,6 +46,27 @@
 }
 
 .expGButton{
-    border-radius: 100px;
-    width: 30%;
+    background-color: #283350;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    margin: 2%;
+    height: 5vh;
+    width: 20%;
+    font-family: "Montserrat";
+
+    box-shadow: .25vh .25vh .25vh .25vh #242124;
+
+    transition: box-shadow;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+}
+
+.expGButton:hover{
+    box-shadow: .5vh .5vh .5vh .5vh #242124;
+}
+
+.egraphBody{
+    background-color: white;
+    flex: 1;
 }

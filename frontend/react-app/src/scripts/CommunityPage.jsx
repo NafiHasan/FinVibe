@@ -11,6 +11,7 @@ import { TfiWrite } from "react-icons/tfi";
 import { IconContext } from "react-icons";
 import { CiFilter } from "react-icons/ci";
 
+
 function CommunityPage() {
   const location = useLocation();
   const [posts, setPosts] = useState([]);

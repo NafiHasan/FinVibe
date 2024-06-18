@@ -13,6 +13,9 @@ function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
+  const [xAxisData, setXAxisData] = useState([1, 2, 3, 5, 8, 10])
+  const [yAxisData, setYAxisData] = useState([4, 5.5, 2, 8.5, 1.5, 10])
+
   let username = location.state.username;
 
   useEffect(() => {
@@ -47,6 +50,7 @@ function ProfilePage() {
         setIsEditing={setIsEditing}
         userInfo={userInfo}
         setUserInfo={setUserInfo}
+        xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}
       />
     </div>
   );
@@ -81,6 +85,7 @@ function ProfileBody(props) {
         bookmarks={bookmarks}
         stocks={stocks}
         cryptos={cryptos}
+        xAxisData = {props.xAxisData} yAxisData = {props.yAxisData} setXAxisData = {props.setXAxisData} setYAxisData = {props.setYAxisData}
       />
     </div>
   );
@@ -238,6 +243,16 @@ function RightHalf(props) {
     props.setIsRestricted(!props.isRestricted);
   }
 
+  function handleStockClick(){
+    //set x and y array vals using setstate
+    setProfileNavValue("Stocks")
+  }
+
+  function handleCryptoClick(){
+    
+    setProfileNavValue("Crypto")
+  }
+
   return (
     <div className="profileRightHalf">
       {props.isCurrentUser && (
@@ -278,13 +293,13 @@ function RightHalf(props) {
         </button>
         <button
           className="profileNavButton"
-          onClick={() => setProfileNavValue("Stocks")}
+          onClick={handleStockClick}
         >
           Stocks
         </button>
         <button
           className="profileNavButton"
-          onClick={() => setProfileNavValue("Crypto")}
+          onClick={handleCryptoClick}
         >
           CryptoCurrency
         </button>
@@ -296,8 +311,8 @@ function RightHalf(props) {
           {profileNavValue === "Bookmarks" && (
             <Bookmarks bookmarks={props.bookmarks} />
           )}
-          {profileNavValue === "Stocks" && <Stock stocks={props.stocks} />}
-          {profileNavValue === "Crypto" && <Crypto cryptos={props.cryptos} />}
+          {profileNavValue === "Stocks" && <Stock stocks={props.stocks} xAxisData = {props.xAxisData} yAxisData = {props.yAxisData} setXAxisData = {props.setXAxisData} setYAxisData = {props.setYAxisData}/>}
+          {profileNavValue === "Crypto" && <Crypto cryptos={props.cryptos} xAxisData = {props.xAxisData} yAxisData = {props.yAxisData} setXAxisData = {props.setXAxisData} setYAxisData = {props.setYAxisData} />}
         </div>
       )}
 
@@ -343,7 +358,7 @@ function Bookmarks({ bookmarks }) {
   );
 }
 
-function Stock({ stocks }) {
+function Stock({ stocks , xAxisData, setXAxisData, yAxisData, setYAxisData}) {
   const [stockList, setStockList] = useState(stocks);
 
   const removeStock = (stockToRemove) => {
@@ -352,7 +367,7 @@ function Stock({ stocks }) {
 
   return (
     <div>
-      <GraphCard />
+      <GraphCard xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>
 
       <div className="tagsContainer">
         {stockList.map((stock, index) => (
@@ -379,7 +394,7 @@ function Stock({ stocks }) {
   );
 }
 
-function Crypto({ cryptos }) {
+function Crypto({ cryptos, xAxisData, setXAxisData, yAxisData, setYAxisData }) {
   const [cryptoList, setCryptoList] = useState(cryptos);
 
   const removeCrypto = (cryptoToRemove) => {
@@ -388,7 +403,7 @@ function Crypto({ cryptos }) {
 
   return (
     <div>
-      <GraphCard />
+      <GraphCard xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>
 
       <div className="tagsContainer">
         {cryptoList.map((crypto, index) => (
@@ -420,10 +435,10 @@ function GraphCard(props) {
     <div className="stockCardGraphBody">
       <div className="graphBody">
         <LineChart
-          xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+          xAxis={[{ data: props.xAxisData }]}
           series={[
             {
-              data: [2, 5.5, 2, 8.5, 1.5, 5],
+              data: props.yAxisData,
             },
           ]}
           width={500}

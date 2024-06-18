@@ -6,11 +6,13 @@ import { LineChart } from '@mui/x-charts/LineChart';
 
 function CryptoCard(props){
     const [displayText, setDisplayText] = useState(true)
+    const [xAxisData, setXAxisData] = useState([1, 2, 3, 5, 8, 10])
+    const [yAxisData, setYAxisData] = useState([4, 5.5, 2, 8.5, 1.5, 10])
 
     return(
         <div className='cryptoCardMainBody'>
-            {displayText ? <CryptoCardBody {...props}/> : <GraphCard {...props}/>}
-            <CryptoCardButtons {...props} displayText = {displayText} setDisplayText = {setDisplayText}/>
+            {displayText ? <CryptoCardBody {...props}/> : <GraphCard {...props} xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>}
+            <CryptoCardButtons {...props} displayText = {displayText} setDisplayText = {setDisplayText} xAxisData = {xAxisData} yAxisData = {yAxisData} setXAxisData = {setXAxisData} setYAxisData = {setYAxisData}/>
         </div>
     )
 }  
@@ -51,25 +53,34 @@ function CryptoCardButtons(props) {
 
     console.log(props.username + " at cryptocard\n")
 
+    function showGraph(){
+        //fetch data and keep in xaxisdata and y axis data from props and store using setstate function
+        props.setDisplayText(false)
+    }
+
+
+
     return (
       <div className='cryptoCardButtons'>
         {/* Pass a function reference to onClick */}
         <button className='cryptoButton' onClick={() => props.setDisplayText(true)}>See Text</button>
-        <button className='cryptoButton' onClick={() => props.setDisplayText(false)}>See Graph</button>
+        <button className='cryptoButton' onClick={showGraph}>See Graph</button>
         <button className='cryptoButton' onClick={() => navigate("/expandedcrypto", {state: {username: props.username}})}>Expand</button>
       </div>
     );
   }
  
-function GraphCard(){
+function GraphCard(props){
+    
+
     return(
         <div className='cryptoCardGraphBody'>
             <div className='graphBody'>
                 <LineChart 
-                xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+                xAxis={[{ data: props.xAxisData }]}
                 series={[
                     {
-                    data: [2, 5.5, 2, 8.5, 1.5, 5],
+                    data: props.yAxisData,
                     },
                 ]}
                 width={400}
