@@ -103,7 +103,7 @@ function ProfilePlus(props) {
           </IconContext.Provider>
         </button>
 
-        <button className="logoutButton" onClick={handleLogout}>
+        <button className="logoutButton" onClick={() => navigate("/chat")}>
           <IconContext.Provider
             value={{ color: "white", className: "global-class-name", size: 25 }}
           >
