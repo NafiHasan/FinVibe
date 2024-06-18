@@ -124,10 +124,10 @@ function GraphCard(props) {
   return (
     <div className="cryptoCardGraphBody">
       <div className="graphBody">
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={375}>
           <LineChart
             data={graphData}
-            margin={{ top: 10, right: 30, left: 20, bottom: 30 }}
+            margin={{ top: 30, right: 30, left: 50, bottom: 10 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
             <XAxis
@@ -143,14 +143,16 @@ function GraphCard(props) {
               label={{
                 value: "Price (USD)",
                 angle: -90,
+                // make the position to the leftmost
                 position: "insideLeft",
+                offset: -30,
               }}
             />
             <Tooltip
               formatter={(value) => `$${value.toFixed(2)}`}
               labelFormatter={(label) => format(new Date(label), "MM/dd/yyyy")}
             />
-            <Legend />
+            <Legend verticalAlign="top" />
             <Line
               type="monotone"
               dataKey="price"
