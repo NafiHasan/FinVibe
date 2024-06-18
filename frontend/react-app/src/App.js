@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePage from './scripts/ProfilePage';
 import MakePost from './scripts/MakePost'
 import SearchPage from './scripts/SearchPage';
+import NotificationPage from './scripts/NotificationPage'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/makepost" element={<MakePost/>}/>
         <Route path="/search" element={<SearchPage/>}/>
+        <Route path="/notification" element={<NotificationPage/>}/>
       </Routes>
     </BrowserRouter>
   );

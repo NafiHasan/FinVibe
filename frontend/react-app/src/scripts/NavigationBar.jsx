@@ -95,7 +95,7 @@ function ProfilePlus(props) {
       </div>
 
       <div style={{display: "flex", flexDirection: "row"}}>
-        <button className="logoutButton" onClick={handleLogout}>
+        <button className="logoutButton" onClick={ () => navigate("/notification", { state: { username: props.username } })}>
           <IconContext.Provider
             value={{ color: "white", className: "global-class-name", size: 25 }}
           >
